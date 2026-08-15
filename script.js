@@ -1,0 +1,1 @@
+document.querySelector('.menu')?.addEventListener('click',()=>alert('Mobile navigation: use the section links below as this demo expands.'));
