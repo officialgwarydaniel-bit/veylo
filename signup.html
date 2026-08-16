@@ -14,12 +14,21 @@
 <h1>Create your Veylo account</h1>
 <p>Your account will be saved securely in Veylo.</p>
 
-<form id="signup-form">
-<label>Full name<input id="full-name" required type="text" autocomplete="name"></label>
-<label>Email<input id="email" required type="email" autocomplete="email"></label>
-<label>Password<input id="password" required type="password" minlength="8" autocomplete="new-password"></label>
-<button id="submit-button" class="btn" type="submit">Create account →</button>
-<div id="message" aria-live="polite"></div>
+<form id="signupForm" novalidate>
+<label>Full name
+<input id="fullName" required type="text" autocomplete="name">
+</label>
+
+<label>Email
+<input id="emailAddress" required type="email" autocomplete="email">
+</label>
+
+<label>Password
+<input id="passwordValue" required type="password" minlength="8" autocomplete="new-password">
+</label>
+
+<button id="signupButton" class="btn" type="submit">Create account →</button>
+<p id="signupMessage" style="margin-top:12px;min-height:20px;color:#666" aria-live="polite"></p>
 </form>
 
 <p>Already have an account? <a href="login.html">Log in</a></p>
@@ -27,52 +36,88 @@
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="supabase-config.js"></script>
 <script>
-const client = window.supabase.createClient(
-  window.SUPABASE_URL,
-  window.SUPABASE_PUBLISHABLE_KEY
-);
+(function () {
+  const form = document.getElementById("signupForm");
+  const button = document.getElementById("signupButton");
+  const message = document.getElementById("signupMessage");
 
-const form = document.getElementById("signup-form");
-const message = document.getElementById("message");
-const button = document.getElementById("submit-button");
-
-form.addEventListener("submit", async function (event) {
-  event.preventDefault();
-
-  const fullName = document.getElementById("full-name").value.trim();
-  const email = document.getElementById("email").value.trim();
-  const password = document.getElementById("password").value;
-
-  button.disabled = true;
-  button.textContent = "Creating account…";
-  message.textContent = "";
-
-  try {
-    const { data, error } = await client.auth.signUp({
-      email,
-      password,
-      options: { data: { full_name: fullName } }
-    });
-
-    if (error) throw error;
-    if (!data.user) throw new Error("Veylo could not create the account. Please try again.");
-
-    message.textContent = data.session
-      ? "Account created. Redirecting…"
-      : "Account created. Check your email to confirm your account.";
-
-    setTimeout(() => {
-      window.location.href = "login.html";
-    }, 1500);
-  } catch (error) {
-    console.error(error);
-    message.textContent = error.message || "Something went wrong. Please try again.";
-    button.disabled = false;
-    button.textContent = "Create account →";
+  function show(text) {
+    message.textContent = text;
   }
-});
+
+  form.addEventListener("submit", async function (event) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    button.disabled = true;
+    button.textContent = "Creating account…";
+    show("");
+
+    try {
+      if (!window.supabase) {
+        throw new Error("Veylo could not load the Supabase connection. Please refresh the page and try again.");
+      }
+
+      const response = await fetch("supabase-config.js", { cache: "no-store" });
+      if (!response.ok) {
+        throw new Error("Veylo could not load its Supabase configuration.");
+      }
+
+      const configText = await response.text();
+      const urlMatch = configText.match(/SUPABASE_URL\s*=\s*["']([^"']+)["']/);
+      const keyMatch = configText.match(/SUPABASE_PUBLISHABLE_KEY\s*=\s*["']([^"']+)["']/);
+
+      if (!urlMatch || !keyMatch) {
+        throw new Error("Veylo's Supabase configuration is incomplete.");
+      }
+
+      const supabaseClient = window.supabase.createClient(
+        urlMatch[1],
+        keyMatch[1]
+      );
+
+      const fullName = document.getElementById("fullName").value.trim();
+      const email = document.getElementById("emailAddress").value.trim();
+      const password = document.getElementById("passwordValue").value;
+
+      if (!fullName || !email || password.length < 8) {
+        throw new Error("Please enter your name, a valid email, and a password of at least 8 characters.");
+      }
+
+      const result = await supabaseClient.auth.signUp({
+        email: email,
+        password: password,
+        options: {
+          data: { full_name: fullName }
+        }
+      });
+
+      if (result.error) throw result.error;
+      if (!result.data || !result.data.user) {
+        throw new Error("Supabase did not return a new user.");
+      }
+
+      show(
+        result.data.session
+          ? "Account created successfully. Redirecting…"
+          : "Account created. Check your email to confirm your account."
+      );
+
+      setTimeout(function () {
+        window.location.href = "login.html";
+      }, 1500);
+
+    } catch (error) {
+      console.error("Veylo signup error:", error);
+      show("Signup error: " + (error.message || "Unknown error"));
+      button.disabled = false;
+      button.textContent = "Create account →";
+    }
+
+    return false;
+  });
+})();
 </script>
 </body>
 </html>
