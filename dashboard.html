@@ -1,77 +1,855 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Veylo Dashboard</title>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<style>
-*{box-sizing:border-box}body{margin:0;background:#0b0f12;color:#f5f7f8;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding-bottom:90px}
-.wrap{max-width:900px;margin:auto;padding:18px}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
-.brand{font-size:28px;font-weight:800}.brand i{color:#35d7ae;font-style:normal}.avatar{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:#151b21;color:#35d7ae;font-weight:800}
-.card{background:linear-gradient(135deg,#27b994,#55d8bf);color:#06211b;border-radius:32px;padding:24px;min-height:245px;box-shadow:0 15px 45px #19bd921f}
-.cardtop{display:flex;justify-content:space-between}.muted{opacity:.65;font-size:13px;font-weight:800;letter-spacing:1px}.balance{font-size:43px;font-weight:850;letter-spacing:-2px;margin:38px 0}.hide{border:0;border-radius:20px;padding:10px 14px;background:#ffffff20}
-.bottom{border-top:1px solid #06211b30;padding-top:15px;display:flex;justify-content:space-between;font-size:13px;font-weight:800}
-h2{font-size:20px;margin:25px 2px 12px}.actions{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-.action,.wide button{background:#13181e;color:#eee;border:1px solid #242c33;border-radius:22px;min-height:120px;font-weight:700}
-.action .ico{display:grid;place-items:center;width:45px;height:45px;border-radius:50%;background:#0d1217;margin:0 auto 10px;font-size:24px;color:#35d7ae}.orange .ico{color:#ffad2d}.orange{color:#ffad2d}
-.wide{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}.wide button{min-height:65px;font-size:16px}
-.activity{border:1px solid #242c33;border-radius:22px;background:#12171d;overflow:hidden}.head{padding:16px;border-bottom:1px solid #242c33;font-weight:800}.empty{text-align:center;padding:30px;color:#788591}
-.logout{width:100%;height:48px;margin-top:20px;border-radius:15px;background:transparent;color:#8b97a3;border:1px solid #29323a}
-.nav{position:fixed;bottom:0;left:0;right:0;background:#0c1014ee;border-top:1px solid #20272d;padding:9px 15px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.nav button{border:0;background:transparent;color:#7d8995;padding:10px;border-radius:18px;font-weight:700}.nav .active{background:#0d2b25;color:#35d7ae}
-@media(max-width:600px){.actions{gap:8px}.action{min-height:112px;font-size:13px}.balance{font-size:39px}}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+
+  <meta name="theme-color" content="#0b0d0f">
+
+  <title>Veylo — Dashboard</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    :root {
+      --bg: #0b0d0f;
+      --surface: #14171a;
+      --surface2: #191c20;
+      --line: #292d31;
+      --text: #f4f4f2;
+      --muted: #9a9da0;
+
+      /* Button / interactive colours */
+      --accent: #35d1ad;
+      --accent2: #ffae32;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "SF Pro Display",
+        "Segoe UI",
+        sans-serif;
+    }
+
+    body {
+      padding-bottom: 94px;
+    }
+
+    button {
+      font: inherit;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .wrap {
+      width: min(100%, 900px);
+      margin: auto;
+      padding: 18px 16px 110px;
+    }
+
+    /* HEADER */
+
+    .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 5px 0 22px;
+    }
+
+    .brand {
+      font-size: 28px;
+      font-weight: 850;
+      letter-spacing: -1.2px;
+    }
+
+    .avatar {
+      width: 42px;
+      height: 42px;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: var(--surface);
+      font-weight: 800;
+    }
+
+    /* BALANCE CARD */
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      padding: 24px;
+      min-height: 245px;
+    }
+
+    .cardtop {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+    }
+
+    .eyebrow {
+      font-size: 12px;
+      letter-spacing: 1.4px;
+      font-weight: 800;
+      color: var(--muted);
+    }
+
+    #welcome {
+      margin-top: 6px;
+      font-weight: 650;
+    }
+
+    .balance {
+      font-size: 43px;
+      font-weight: 850;
+      letter-spacing: -2px;
+      margin: 38px 0;
+    }
+
+    .balancehide {
+      border: 1px solid var(--line);
+      background: var(--surface2);
+      color: var(--text);
+      border-radius: 18px;
+      padding: 9px 13px;
+    }
+
+    .cardbottom {
+      border-top: 1px solid var(--line);
+      padding-top: 15px;
+
+      display: flex;
+      justify-content: space-between;
+
+      color: var(--muted);
+
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+
+    /* SECTION TITLES */
+
+    h2 {
+      font-size: 20px;
+      margin: 26px 2px 12px;
+    }
+
+    /* QUICK ACTIONS */
+
+    .actions {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .action {
+      min-height: 116px;
+
+      border: 1px solid var(--line);
+      border-radius: 22px;
+
+      background: var(--surface);
+      color: var(--text);
+
+      font-weight: 700;
+    }
+
+    .action:active,
+    .wide button:active {
+      transform: scale(.98);
+    }
+
+    .ico {
+      width: 44px;
+      height: 44px;
+
+      margin: 0 auto 10px;
+
+      border-radius: 50%;
+
+      display: grid;
+      place-items: center;
+
+      background: var(--surface2);
+
+      color: var(--accent);
+
+      font-size: 23px;
+    }
+
+    .orange .ico {
+      color: var(--accent2);
+    }
+
+    /* HISTORY / ANALYTICS */
+
+    .wide {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+
+      gap: 10px;
+
+      margin-top: 10px;
+    }
+
+    .wide button {
+      min-height: 64px;
+
+      border: 1px solid var(--line);
+      border-radius: 20px;
+
+      background: var(--surface);
+      color: var(--text);
+
+      font-weight: 750;
+    }
+
+    /* ACTIVITY */
+
+    .activity {
+      border: 1px solid var(--line);
+      border-radius: 22px;
+
+      background: var(--surface);
+
+      overflow: hidden;
+    }
+
+    .head {
+      padding: 16px;
+
+      border-bottom: 1px solid var(--line);
+
+      font-weight: 800;
+    }
+
+    .empty {
+      text-align: center;
+
+      padding: 30px 18px;
+
+      color: var(--muted);
+    }
+
+    /* LOGOUT */
+
+    .logout {
+      width: 100%;
+      height: 48px;
+
+      margin-top: 20px;
+
+      border: 1px solid var(--line);
+      border-radius: 15px;
+
+      background: transparent;
+
+      color: var(--muted);
+    }
+
+    /* BOTTOM NAVIGATION */
+
+    .nav {
+      position: fixed;
+
+      z-index: 10;
+
+      left: 0;
+      right: 0;
+      bottom: 0;
+
+      background: rgba(11, 13, 15, .97);
+
+      border-top: 1px solid var(--line);
+
+      padding:
+        9px
+        15px
+        calc(9px + env(safe-area-inset-bottom));
+
+      display: grid;
+
+      grid-template-columns: repeat(3, 1fr);
+
+      gap: 8px;
+    }
+
+    .nav button {
+      border: 0;
+
+      background: transparent;
+
+      color: var(--muted);
+
+      padding: 10px;
+
+      border-radius: 17px;
+
+      font-weight: 700;
+    }
+
+    .nav .active {
+      background: var(--text);
+      color: var(--bg);
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 600px) {
+
+      .actions {
+        gap: 8px;
+      }
+
+      .action {
+        min-height: 110px;
+        font-size: 13px;
+      }
+
+      .balance {
+        font-size: 39px;
+      }
+    }
+
+    @media (max-width: 390px) {
+
+      .action {
+        min-height: 103px;
+      }
+
+      .ico {
+        width: 40px;
+        height: 40px;
+      }
+    }
+  </style>
 </head>
+
+
 <body>
+
 <div class="wrap">
-<header class="top"><div class="brand">veylo<i>.</i></div><div class="avatar" id="avatar">V</div></header>
 
-<section class="card">
-<div class="cardtop"><div><div class="muted">AVAILABLE BALANCE</div><div id="welcome" style="font-weight:700;margin-top:5px">Welcome back</div></div><button class="hide" id="toggle">◉ Hide</button></div>
-<div class="balance" id="balance">$0.00</div>
-<div class="bottom"><span>VEYLO WALLET</span><span>SECURE ACCOUNT</span></div>
-</section>
+  <!-- HEADER -->
 
-<h2>Quick actions</h2>
-<div class="actions">
-<button class="action" data-action="Transfer"><div class="ico">⇄</div>Transfer</button>
-<button class="action" data-action="Add money"><div class="ico">＋</div>Add money</button>
-<button class="action orange" data-action="Withdraw"><div class="ico">↓</div>Withdraw</button>
-<button class="action" data-action="Scan"><div class="ico">⌗</div>Scan</button>
-<button class="action" data-action="Receive"><div class="ico">▦</div>Receive</button>
-<button class="action" data-action="Request"><div class="ico">♧</div>Request</button>
-<button class="action" data-action="Stocks"><div class="ico">◔</div>Stocks</button>
-<button class="action" data-action="Scheduled"><div class="ico">◷</div>Scheduled</button>
+  <header class="top">
+
+    <div class="brand">
+      veylo
+    </div>
+
+    <div class="avatar" id="avatar">
+      V
+    </div>
+
+  </header>
+
+
+  <!-- BALANCE -->
+
+  <section class="card">
+
+    <div class="cardtop">
+
+      <div>
+
+        <div class="eyebrow">
+          AVAILABLE BALANCE
+        </div>
+
+        <div id="welcome">
+          Welcome back
+        </div>
+
+      </div>
+
+      <button
+        class="balancehide"
+        id="toggle"
+        type="button"
+      >
+        Hide
+      </button>
+
+    </div>
+
+
+    <div
+      class="balance"
+      id="balance"
+    >
+      $0.00
+    </div>
+
+
+    <div class="cardbottom">
+
+      <span>
+        VEYLO WALLET
+      </span>
+
+      <span>
+        SECURE ACCOUNT
+      </span>
+
+    </div>
+
+  </section>
+
+
+  <!-- QUICK ACTIONS -->
+
+  <h2>
+    Quick actions
+  </h2>
+
+
+  <div class="actions">
+
+    <button
+      class="action"
+      data-action="Transfer"
+    >
+      <div class="ico">
+        ⇄
+      </div>
+
+      Transfer
+    </button>
+
+
+    <button
+      class="action"
+      data-action="Add money"
+    >
+      <div class="ico">
+        ＋
+      </div>
+
+      Add money
+    </button>
+
+
+    <button
+      class="action orange"
+      data-action="Withdraw"
+    >
+      <div class="ico">
+        ↓
+      </div>
+
+      Withdraw
+    </button>
+
+
+    <button
+      class="action"
+      data-action="Scan"
+    >
+      <div class="ico">
+        ⌗
+      </div>
+
+      Scan
+    </button>
+
+
+    <button
+      class="action"
+      data-action="Receive"
+    >
+      <div class="ico">
+        ▦
+      </div>
+
+      Receive
+    </button>
+
+
+    <button
+      class="action"
+      data-action="Request"
+    >
+      <div class="ico">
+        ♧
+      </div>
+
+      Request
+    </button>
+
+
+    <button
+      class="action"
+      data-action="Stocks"
+    >
+      <div class="ico">
+        ◔
+      </div>
+
+      Stocks
+    </button>
+
+
+    <button
+      class="action"
+      data-action="Scheduled"
+    >
+      <div class="ico">
+        ◷
+      </div>
+
+      Scheduled
+    </button>
+
+  </div>
+
+
+  <!-- SECONDARY ACTIONS -->
+
+  <div class="wide">
+
+    <button data-action="History">
+      ◴ &nbsp; History
+    </button>
+
+    <button data-action="Analytics">
+      ▥ &nbsp; Analytics
+    </button>
+
+  </div>
+
+
+  <!-- LIVE ACTIVITY -->
+
+  <h2>
+    Live activity
+  </h2>
+
+
+  <section class="activity">
+
+    <div class="head">
+      LIVE ACTIVITY
+    </div>
+
+    <div class="empty">
+      Your recent transactions will appear here.
+    </div>
+
+  </section>
+
+
+  <!-- TRANSACTION HISTORY -->
+
+  <h2>
+    Recent activity
+  </h2>
+
+
+  <section class="activity">
+
+    <div class="head">
+      Transaction History
+    </div>
+
+    <div class="empty">
+      No transactions yet.
+    </div>
+
+  </section>
+
+
+  <!-- LOGOUT -->
+
+  <button
+    class="logout"
+    id="logout"
+  >
+    Log out
+  </button>
+
 </div>
 
-<div class="wide"><button data-action="History">◴ &nbsp; History</button><button data-action="Analytics">▥ &nbsp; Analytics</button></div>
 
-<h2>Live activity</h2><section class="activity"><div class="head">🟢 &nbsp; LIVE ACTIVITY</div><div class="empty">Your recent transactions will appear here.</div></section>
+<!-- BOTTOM NAV -->
 
-<h2>Recent activity</h2><section class="activity"><div class="head">Transaction History</div><div class="empty">No transactions yet.</div></section>
-<button class="logout" id="logout">Log out</button>
-</div>
+<nav class="nav">
 
-<nav class="nav"><button class="active">⌂<br>Home</button><button data-action="History">◴<br>History</button><button data-action="Analytics">▥<br>Analytics</button></nav>
+  <button class="active">
+    ⌂
+    <br>
+    Home
+  </button>
+
+  <button data-action="History">
+    ◴
+    <br>
+    History
+  </button>
+
+  <button data-action="Analytics">
+    ▥
+    <br>
+    Analytics
+  </button>
+
+</nav>
+
 
 <script>
-(async()=>{
-try{
-const txt=await fetch("supabase-config.js",{cache:"no-store"}).then(r=>r.text());
-const url=(txt.match(/SUPABASE_URL\s*=\s*["']([^"']+)["']/)||[])[1];
-const key=(txt.match(/SUPABASE_PUBLISHABLE_KEY\s*=\s*["']([^"']+)["']/)||[])[1];
-const sb=window.supabase.createClient(url,key);
-const {data:{user}}=await sb.auth.getUser();
-if(!user){location.href="login.html";return}
-const name=user.user_metadata?.full_name||user.email?.split("@")[0]||"there";
-document.getElementById("welcome").textContent="Welcome back, "+name;
-document.getElementById("avatar").textContent=name[0].toUpperCase();
-try{const r=await sb.from("profiles").select("balance").eq("id",user.id).maybeSingle();if(r.data?.balance!=null)document.getElementById("balance").textContent="$"+Number(r.data.balance).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2})}catch(e){}
-document.querySelectorAll("[data-action]").forEach(b=>b.onclick=()=>alert(b.dataset.action+" will be added in the next Veylo build step."));
-document.getElementById("logout").onclick=async()=>{await sb.auth.signOut();location.href="login.html"};
-let shown=true;document.getElementById("toggle").onclick=()=>{const x=document.getElementById("balance");shown=!shown;if(shown){x.textContent=x.dataset.real||"$0.00";}else{x.dataset.real=x.textContent;x.textContent="••••••"}};
-}catch(e){console.error(e)}
+
+(async () => {
+
+  try {
+
+    /*
+      Load the existing Supabase configuration.
+      You do NOT need to put your Supabase keys in this file.
+    */
+
+    const txt =
+      await fetch(
+        "supabase-config.js",
+        { cache: "no-store" }
+      ).then(
+        response => response.text()
+      );
+
+
+    const url =
+      (
+        txt.match(
+          /SUPABASE_URL\s*=\s*["']([^"']+)["']/
+        ) || []
+      )[1];
+
+
+    const key =
+      (
+        txt.match(
+          /SUPABASE_PUBLISHABLE_KEY\s*=\s*["']([^"']+)["']/
+        ) || []
+      )[1];
+
+
+    if (!url || !key) {
+      console.error(
+        "Veylo Supabase configuration not found."
+      );
+
+      return;
+    }
+
+
+    const sb =
+      window.supabase.createClient(
+        url,
+        key
+      );
+
+
+    /*
+      Check logged-in user.
+    */
+
+    const {
+      data: { user }
+    } =
+      await sb.auth.getUser();
+
+
+    if (!user) {
+
+      location.href =
+        "login.html";
+
+      return;
+
+    }
+
+
+    /*
+      User name.
+    */
+
+    const name =
+      user.user_metadata?.full_name ||
+      user.email?.split("@")[0] ||
+      "there";
+
+
+    document.getElementById(
+      "welcome"
+    ).textContent =
+      "Welcome back, " + name;
+
+
+    document.getElementById(
+      "avatar"
+    ).textContent =
+      name[0].toUpperCase();
+
+
+    /*
+      Get user's balance.
+      If the profile doesn't exist yet,
+      the dashboard safely remains $0.00.
+    */
+
+    try {
+
+      const result =
+        await sb
+          .from("profiles")
+          .select("balance")
+          .eq("id", user.id)
+          .maybeSingle();
+
+
+      if (
+        result.data &&
+        result.data.balance !== null &&
+        result.data.balance !== undefined
+      ) {
+
+        document.getElementById(
+          "balance"
+        ).textContent =
+          "$" +
+          Number(
+            result.data.balance
+          ).toLocaleString(
+            "en-US",
+            {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2
+            }
+          );
+
+      }
+
+    } catch (error) {
+
+      console.log(
+        "Balance not available yet."
+      );
+
+    }
+
+
+    /*
+      Temporary buttons.
+      We will connect these to real pages
+      one by one next.
+    */
+
+    document
+      .querySelectorAll(
+        "[data-action]"
+      )
+      .forEach(button => {
+
+        button.onclick = () => {
+
+          alert(
+            button.dataset.action +
+            " will be added in the next Veylo build step."
+          );
+
+        };
+
+      });
+
+
+    /*
+      Logout.
+    */
+
+    document.getElementById(
+      "logout"
+    ).onclick =
+      async () => {
+
+        await sb.auth.signOut();
+
+        location.href =
+          "login.html";
+
+      };
+
+
+    /*
+      Hide / show balance.
+    */
+
+    let shown = true;
+
+
+    document.getElementById(
+      "toggle"
+    ).onclick = () => {
+
+      const balance =
+        document.getElementById(
+          "balance"
+        );
+
+
+      shown = !shown;
+
+
+      if (shown) {
+
+        balance.textContent =
+          balance.dataset.real ||
+          "$0.00";
+
+        document.getElementById(
+          "toggle"
+        ).textContent =
+          "Hide";
+
+      } else {
+
+        balance.dataset.real =
+          balance.textContent;
+
+        balance.textContent =
+          "••••••";
+
+        document.getElementById(
+          "toggle"
+        ).textContent =
+          "Show";
+
+      }
+
+    };
+
+  } catch (error) {
+
+    console.error(
+      "Veylo dashboard error:",
+      error
+    );
+
+  }
+
 })();
+
 </script>
-</body></html>
+
+</body>
+</html>
