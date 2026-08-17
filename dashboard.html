@@ -3,7 +3,6 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-
   <meta name="theme-color" content="#0b0d0f">
 
   <title>Veylo — Dashboard</title>
@@ -19,7 +18,7 @@
       --text: #f4f4f2;
       --muted: #9a9da0;
 
-      /* Button / interactive colours */
+      /* Interactive colours only */
       --accent: #35d1ad;
       --accent2: #ffae32;
     }
@@ -48,6 +47,7 @@
     button {
       font: inherit;
       -webkit-tap-highlight-color: transparent;
+      cursor: pointer;
     }
 
     .wrap {
@@ -615,8 +615,8 @@
   try {
 
     /*
-      Load the existing Supabase configuration.
-      You do NOT need to put your Supabase keys in this file.
+      Load your existing Supabase configuration.
+      Do NOT put the Supabase keys directly in this file.
     */
 
     const txt =
@@ -645,6 +645,7 @@
 
 
     if (!url || !key) {
+
       console.error(
         "Veylo Supabase configuration not found."
       );
@@ -704,8 +705,6 @@
 
     /*
       Get user's balance.
-      If the profile doesn't exist yet,
-      the dashboard safely remains $0.00.
     */
 
     try {
@@ -750,9 +749,7 @@
 
 
     /*
-      Temporary buttons.
-      We will connect these to real pages
-      one by one next.
+      CONNECT DASHBOARD BUTTONS
     */
 
     document
@@ -763,8 +760,32 @@
 
         button.onclick = () => {
 
+          const action =
+            button.dataset.action;
+
+
+          /*
+            ADD MONEY
+          */
+
+          if (
+            action === "Add money"
+          ) {
+
+            location.href =
+              "add-money.html";
+
+            return;
+          }
+
+
+          /*
+            Other features will be
+            connected one at a time.
+          */
+
           alert(
-            button.dataset.action +
+            action +
             " will be added in the next Veylo build step."
           );
 
