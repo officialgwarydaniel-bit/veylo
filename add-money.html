@@ -1,0 +1,519 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0b0d0f">
+
+  <title>Veylo — Add Money</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    :root {
+      --bg: #0b0d0f;
+      --surface: #14171a;
+      --surface2: #191c20;
+      --line: #292d31;
+      --text: #f4f4f2;
+      --muted: #9a9da0;
+      --accent: #35d1ad;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .wrap {
+      width: min(100%, 600px);
+      margin: auto;
+      padding: 20px 16px;
+    }
+
+    .back {
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      font-size: 16px;
+      padding: 8px 0;
+    }
+
+    .brand {
+      font-size: 28px;
+      font-weight: 850;
+      margin: 20px 0 35px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      padding: 24px;
+    }
+
+    .eyebrow {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 1.3px;
+    }
+
+    h1 {
+      font-size: 30px;
+      margin: 8px 0;
+    }
+
+    .description {
+      color: var(--muted);
+      line-height: 1.5;
+      margin-bottom: 30px;
+    }
+
+    label {
+      display: block;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 9px;
+    }
+
+    .amount-wrap {
+      display: flex;
+      align-items: center;
+      background: var(--surface2);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 0 17px;
+    }
+
+    .currency {
+      font-size: 25px;
+      font-weight: 800;
+    }
+
+    input {
+      width: 100%;
+      border: 0;
+      outline: 0;
+      background: transparent;
+      color: var(--text);
+      font-size: 30px;
+      font-weight: 800;
+      padding: 18px 10px;
+    }
+
+    .quick {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin: 14px 0 24px;
+    }
+
+    .quick button {
+      border: 1px solid var(--line);
+      background: var(--surface2);
+      color: var(--text);
+      border-radius: 14px;
+      padding: 11px 5px;
+      font-weight: 700;
+    }
+
+    .confirm {
+      width: 100%;
+      height: 54px;
+      border: 0;
+      border-radius: 17px;
+      background: var(--accent);
+      color: #06231d;
+      font-weight: 850;
+      font-size: 16px;
+    }
+
+    .confirm:disabled {
+      opacity: .55;
+    }
+
+    #message {
+      min-height: 24px;
+      margin-top: 15px;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    .notice {
+      margin-top: 20px;
+      padding: 15px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="wrap">
+
+  <button class="back" onclick="location.href='dashboard.html'">
+    ← Back
+  </button>
+
+  <div class="brand">
+    veylo
+  </div>
+
+  <section class="card">
+
+    <div class="eyebrow">
+      DEMO WALLET
+    </div>
+
+    <h1>
+      Add money
+    </h1>
+
+    <p class="description">
+      Add test funds to your Veylo wallet. This does not charge a bank
+      card or move real money.
+    </p>
+
+    <form id="addMoneyForm">
+
+      <label for="amount">
+        Amount
+      </label>
+
+      <div class="amount-wrap">
+
+        <span class="currency">
+          $
+        </span>
+
+        <input
+          id="amount"
+          type="number"
+          inputmode="decimal"
+          min="1"
+          max="10000"
+          step="0.01"
+          placeholder="0.00"
+          required
+        >
+
+      </div>
+
+
+      <div class="quick">
+
+        <button type="button" data-amount="10">
+          $10
+        </button>
+
+        <button type="button" data-amount="25">
+          $25
+        </button>
+
+        <button type="button" data-amount="50">
+          $50
+        </button>
+
+        <button type="button" data-amount="100">
+          $100
+        </button>
+
+      </div>
+
+
+      <button
+        class="confirm"
+        id="confirmButton"
+        type="submit"
+      >
+        Add demo money
+      </button>
+
+      <div id="message"></div>
+
+    </form>
+
+
+    <div class="notice">
+      Demo mode only. No real payment is being processed.
+    </div>
+
+  </section>
+
+</div>
+
+
+<script>
+
+(async () => {
+
+  const message =
+    document.getElementById("message");
+
+  const button =
+    document.getElementById("confirmButton");
+
+
+  try {
+
+    /*
+      Load your existing Supabase configuration.
+    */
+
+    const config =
+      await fetch(
+        "supabase-config.js",
+        { cache: "no-store" }
+      ).then(
+        response => response.text()
+      );
+
+
+    const url =
+      (
+        config.match(
+          /SUPABASE_URL\s*=\s*["']([^"']+)["']/
+        ) || []
+      )[1];
+
+
+    const key =
+      (
+        config.match(
+          /SUPABASE_PUBLISHABLE_KEY\s*=\s*["']([^"']+)["']/
+        ) || []
+      )[1];
+
+
+    const supabase =
+      window.supabase.createClient(
+        url,
+        key
+      );
+
+
+    /*
+      Make sure the user is logged in.
+    */
+
+    const {
+      data: { user }
+    } =
+      await supabase.auth.getUser();
+
+
+    if (!user) {
+
+      location.href =
+        "login.html";
+
+      return;
+
+    }
+
+
+    /*
+      Quick amount buttons.
+    */
+
+    document
+      .querySelectorAll(
+        "[data-amount]"
+      )
+      .forEach(btn => {
+
+        btn.addEventListener(
+          "click",
+          () => {
+
+            document.getElementById(
+              "amount"
+            ).value =
+              btn.dataset.amount;
+
+          }
+        );
+
+      });
+
+
+    /*
+      Add demo money.
+    */
+
+    document
+      .getElementById(
+        "addMoneyForm"
+      )
+      .addEventListener(
+        "submit",
+        async event => {
+
+          event.preventDefault();
+
+
+          const amount =
+            Number(
+              document.getElementById(
+                "amount"
+              ).value
+            );
+
+
+          if (
+            !Number.isFinite(amount) ||
+            amount < 1 ||
+            amount > 10000
+          ) {
+
+            message.textContent =
+              "Enter an amount between $1 and $10,000.";
+
+            return;
+
+          }
+
+
+          button.disabled = true;
+
+          button.textContent =
+            "Adding money…";
+
+          message.textContent =
+            "";
+
+
+          try {
+
+            /*
+              Get current profile balance.
+            */
+
+            const profile =
+              await supabase
+                .from("profiles")
+                .select("balance")
+                .eq("id", user.id)
+                .maybeSingle();
+
+
+            if (profile.error) {
+              throw profile.error;
+            }
+
+
+            const currentBalance =
+              Number(
+                profile.data?.balance || 0
+              );
+
+
+            const newBalance =
+              currentBalance + amount;
+
+
+            /*
+              Update balance.
+            */
+
+            const updated =
+              await supabase
+                .from("profiles")
+                .update({
+                  balance: newBalance
+                })
+                .eq(
+                  "id",
+                  user.id
+                );
+
+
+            if (updated.error) {
+              throw updated.error;
+            }
+
+
+            /*
+              Record transaction.
+
+              This requires a transactions table.
+              If it hasn't been created yet, we
+              show the balance update error clearly
+              rather than pretending it worked.
+            */
+
+            const transaction =
+              await supabase
+                .from("transactions")
+                .insert({
+                  user_id: user.id,
+                  type: "deposit",
+                  amount: amount,
+                  description: "Demo money added"
+                });
+
+
+            if (transaction.error) {
+              throw transaction.error;
+            }
+
+
+            message.textContent =
+              "Success! Your demo balance was updated.";
+
+
+            setTimeout(
+              () => {
+                location.href =
+                  "dashboard.html";
+              },
+              1200
+            );
+
+
+          } catch (error) {
+
+            console.error(error);
+
+            message.textContent =
+              error.message ||
+              "Something went wrong.";
+
+            button.disabled = false;
+
+            button.textContent =
+              "Add demo money";
+
+          }
+
+        }
+      );
+
+
+  } catch (error) {
+
+    console.error(error);
+
+    message.textContent =
+      "Veylo could not connect to your account.";
+
+  }
+
+})();
+
+</script>
+
+</body>
+</html>
