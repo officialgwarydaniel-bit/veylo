@@ -1,0 +1,548 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta
+    name="viewport"
+    content="width=device-width,initial-scale=1,viewport-fit=cover"
+  >
+
+  <meta name="theme-color" content="#0b0d0f">
+
+  <title>Veylo — Receive</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+
+    :root {
+      --bg: #0b0d0f;
+      --surface: #14171a;
+      --surface2: #191c20;
+      --line: #292d31;
+      --text: #f4f4f2;
+      --muted: #9a9da0;
+
+      --accent: #35d1ad;
+      --accent2: #ffae32;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "SF Pro Display",
+        "Segoe UI",
+        sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+    }
+
+    button {
+      font: inherit;
+      -webkit-tap-highlight-color: transparent;
+      cursor: pointer;
+    }
+
+    .wrap {
+      width: min(100%, 600px);
+      margin: auto;
+      padding: 18px 16px 40px;
+    }
+
+    .back {
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      padding: 8px 0;
+      font-size: 16px;
+    }
+
+    .brand {
+      margin: 20px 0 34px;
+
+      font-size: 28px;
+      font-weight: 850;
+
+      letter-spacing: -1.2px;
+    }
+
+    .card {
+      background: var(--surface);
+
+      border: 1px solid var(--line);
+      border-radius: 28px;
+
+      padding: 24px;
+    }
+
+    .eyebrow {
+      color: var(--muted);
+
+      font-size: 12px;
+      font-weight: 800;
+
+      letter-spacing: 1.4px;
+    }
+
+    h1 {
+      margin: 8px 0;
+
+      font-size: 30px;
+      letter-spacing: -1px;
+    }
+
+    .description {
+      color: var(--muted);
+
+      line-height: 1.5;
+
+      margin: 0 0 28px;
+    }
+
+    .receive-box {
+      border: 1px solid var(--line);
+
+      background: var(--surface2);
+
+      border-radius: 20px;
+
+      padding: 20px;
+
+      margin-bottom: 20px;
+    }
+
+    .label {
+      color: var(--muted);
+
+      font-size: 12px;
+      font-weight: 800;
+
+      letter-spacing: 1px;
+
+      margin-bottom: 10px;
+    }
+
+    .email {
+      font-size: 20px;
+
+      font-weight: 800;
+
+      line-height: 1.4;
+
+      word-break: break-word;
+    }
+
+    .copy {
+      width: 100%;
+
+      height: 52px;
+
+      border: 0;
+
+      border-radius: 17px;
+
+      background: var(--accent);
+
+      color: #06231d;
+
+      font-weight: 850;
+
+      font-size: 16px;
+    }
+
+    .copy:active {
+      transform: scale(.98);
+    }
+
+    #message {
+      min-height: 24px;
+
+      margin-top: 14px;
+
+      text-align: center;
+
+      color: var(--muted);
+
+      line-height: 1.4;
+    }
+
+    .steps {
+      margin-top: 24px;
+
+      border: 1px solid var(--line);
+
+      border-radius: 20px;
+
+      overflow: hidden;
+
+      background: var(--surface);
+    }
+
+    .steps-title {
+      padding: 16px;
+
+      border-bottom: 1px solid var(--line);
+
+      font-weight: 800;
+    }
+
+    .step {
+      display: flex;
+
+      gap: 14px;
+
+      padding: 16px;
+
+      border-bottom: 1px solid var(--line);
+    }
+
+    .step:last-child {
+      border-bottom: 0;
+    }
+
+    .number {
+      width: 30px;
+      height: 30px;
+
+      flex: 0 0 30px;
+
+      border-radius: 50%;
+
+      background: var(--surface2);
+
+      display: grid;
+      place-items: center;
+
+      color: var(--accent);
+
+      font-weight: 850;
+    }
+
+    .step-text {
+      color: var(--muted);
+
+      line-height: 1.45;
+
+      font-size: 14px;
+    }
+
+    .step-text strong {
+      color: var(--text);
+    }
+
+  </style>
+</head>
+
+
+<body>
+
+<div class="wrap">
+
+  <button
+    class="back"
+    type="button"
+    onclick="location.href='dashboard.html'"
+  >
+    ← Back
+  </button>
+
+
+  <div class="brand">
+    veylo
+  </div>
+
+
+  <section class="card">
+
+    <div class="eyebrow">
+      VEYLO RECEIVE
+    </div>
+
+
+    <h1>
+      Receive money
+    </h1>
+
+
+    <p class="description">
+      Share your Veylo account email with another Veylo user so they can send you money.
+    </p>
+
+
+    <div class="receive-box">
+
+      <div class="label">
+        YOUR VEYLO EMAIL
+      </div>
+
+
+      <div
+        class="email"
+        id="email"
+      >
+        Loading…
+      </div>
+
+    </div>
+
+
+    <button
+      class="copy"
+      id="copyButton"
+      type="button"
+    >
+      Copy email
+    </button>
+
+
+    <div id="message"></div>
+
+
+    <div class="steps">
+
+      <div class="steps-title">
+        How to receive money
+      </div>
+
+
+      <div class="step">
+
+        <div class="number">
+          1
+        </div>
+
+        <div class="step-text">
+          Give your <strong>Veylo email</strong> to the person sending you money.
+        </div>
+
+      </div>
+
+
+      <div class="step">
+
+        <div class="number">
+          2
+        </div>
+
+        <div class="step-text">
+          They open <strong>Transfer</strong> and enter your email.
+        </div>
+
+      </div>
+
+
+      <div class="step">
+
+        <div class="number">
+          3
+        </div>
+
+        <div class="step-text">
+          Once the transfer succeeds, the money appears in your Veylo balance.
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</div>
+
+
+<script>
+
+(async () => {
+
+  const emailElement =
+    document.getElementById("email");
+
+  const copyButton =
+    document.getElementById("copyButton");
+
+  const message =
+    document.getElementById("message");
+
+
+  try {
+
+    /*
+      Load existing Supabase configuration.
+    */
+
+    const txt =
+      await fetch(
+        "supabase-config.js",
+        {
+          cache: "no-store"
+        }
+      ).then(
+        response => response.text()
+      );
+
+
+    const url =
+      (
+        txt.match(
+          /SUPABASE_URL\s*=\s*["']([^"']+)["']/
+        ) || []
+      )[1];
+
+
+    const key =
+      (
+        txt.match(
+          /SUPABASE_PUBLISHABLE_KEY\s*=\s*["']([^"']+)["']/
+        ) || []
+      )[1];
+
+
+    if (!url || !key) {
+
+      throw new Error(
+        "Supabase configuration not found."
+      );
+
+    }
+
+
+    const sb =
+      window.supabase.createClient(
+        url,
+        key
+      );
+
+
+    /*
+      Get the authenticated user.
+
+      Supabase's getUser() verifies the
+      currently logged-in user with Auth.
+    */
+
+    const {
+      data: { user },
+      error
+    } =
+      await sb.auth.getUser();
+
+
+    if (error) {
+      throw error;
+    }
+
+
+    if (!user) {
+
+      location.href =
+        "login.html";
+
+      return;
+
+    }
+
+
+    /*
+      Display the user's Veylo email.
+    */
+
+    emailElement.textContent =
+      user.email || "No email available";
+
+
+    /*
+      Copy email.
+    */
+
+    copyButton.onclick =
+      async () => {
+
+        if (!user.email) {
+
+          message.textContent =
+            "Your email could not be found.";
+
+          return;
+
+        }
+
+
+        try {
+
+          await navigator.clipboard.writeText(
+            user.email
+          );
+
+
+          message.textContent =
+            "Email copied.";
+
+          copyButton.textContent =
+            "Copied";
+
+
+          setTimeout(
+            () => {
+
+              copyButton.textContent =
+                "Copy email";
+
+              message.textContent =
+                "";
+
+            },
+            1800
+          );
+
+
+        } catch (error) {
+
+          /*
+            Fallback for browsers where
+            clipboard access is unavailable.
+          */
+
+          message.textContent =
+            "Press and hold the email above to copy it.";
+
+        }
+
+      };
+
+
+  } catch (error) {
+
+    console.error(
+      "Veylo receive error:",
+      error
+    );
+
+
+    emailElement.textContent =
+      "Unable to load email";
+
+
+    message.textContent =
+      error.message ||
+      "Veylo could not connect to your account.";
+
+  }
+
+})();
+
+</script>
+
+</body>
+</html>
