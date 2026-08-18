@@ -1,15 +1,25 @@
 <!doctype html>
 <html lang="en">
 <head>
+
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#0b0d0f">
+
+  <meta
+    name="viewport"
+    content="width=device-width,initial-scale=1,viewport-fit=cover"
+  >
+
+  <meta
+    name="theme-color"
+    content="#0b0d0f"
+  >
 
   <title>Veylo — Dashboard</title>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
+
     :root {
       --bg: #0b0d0f;
       --surface: #14171a;
@@ -31,6 +41,7 @@
       margin: 0;
       background: var(--bg);
       color: var(--text);
+
       font-family:
         -apple-system,
         BlinkMacSystemFont,
@@ -52,107 +63,179 @@
     .wrap {
       width: min(100%, 900px);
       margin: auto;
-      padding: 18px 16px 110px;
+
+      padding:
+        18px
+        16px
+        110px;
     }
+
+    /* TOP */
 
     .top {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin: 5px 0 22px;
+
+      margin:
+        5px 0
+        22px;
     }
 
     .brand {
       font-size: 28px;
       font-weight: 850;
+
       letter-spacing: -1.2px;
     }
 
     .avatar {
       width: 42px;
       height: 42px;
-      border: 1px solid var(--line);
+
+      border:
+        1px solid
+        var(--line);
+
       border-radius: 50%;
+
       display: grid;
       place-items: center;
-      background: var(--surface);
+
+      background:
+        var(--surface);
+
       font-weight: 800;
     }
 
+    /* BALANCE CARD */
+
     .card {
-      background: var(--surface);
-      border: 1px solid var(--line);
+      background:
+        var(--surface);
+
+      border:
+        1px solid
+        var(--line);
+
       border-radius: 28px;
+
       padding: 24px;
+
       min-height: 245px;
     }
 
     .cardtop {
       display: flex;
-      justify-content: space-between;
+
+      justify-content:
+        space-between;
+
       gap: 15px;
     }
 
     .eyebrow {
       font-size: 12px;
+
       letter-spacing: 1.4px;
+
       font-weight: 800;
-      color: var(--muted);
+
+      color:
+        var(--muted);
     }
 
     #welcome {
       margin-top: 6px;
+
       font-weight: 650;
     }
 
     .balance {
       font-size: 43px;
+
       font-weight: 850;
+
       letter-spacing: -2px;
-      margin: 38px 0;
+
+      margin:
+        38px 0;
     }
 
     .balancehide {
-      border: 1px solid var(--line);
-      background: var(--surface2);
-      color: var(--text);
+      border:
+        1px solid
+        var(--line);
+
+      background:
+        var(--surface2);
+
+      color:
+        var(--text);
+
       border-radius: 18px;
-      padding: 9px 13px;
+
+      padding:
+        9px 13px;
     }
 
     .cardbottom {
-      border-top: 1px solid var(--line);
+      border-top:
+        1px solid
+        var(--line);
+
       padding-top: 15px;
 
       display: flex;
-      justify-content: space-between;
 
-      color: var(--muted);
+      justify-content:
+        space-between;
+
+      color:
+        var(--muted);
 
       font-size: 12px;
+
       font-weight: 800;
+
       letter-spacing: 1px;
     }
 
+    /* HEADINGS */
+
     h2 {
       font-size: 20px;
-      margin: 26px 2px 12px;
+
+      margin:
+        26px 2px
+        12px;
     }
+
+    /* QUICK ACTIONS */
 
     .actions {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+
+      grid-template-columns:
+        repeat(4, 1fr);
+
       gap: 10px;
     }
 
     .action {
       min-height: 116px;
 
-      border: 1px solid var(--line);
+      border:
+        1px solid
+        var(--line);
+
       border-radius: 22px;
 
-      background: var(--surface);
-      color: var(--text);
+      background:
+        var(--surface);
+
+      color:
+        var(--text);
 
       font-weight: 700;
     }
@@ -166,27 +249,37 @@
       width: 44px;
       height: 44px;
 
-      margin: 0 auto 10px;
+      margin:
+        0 auto
+        10px;
 
       border-radius: 50%;
 
       display: grid;
+
       place-items: center;
 
-      background: var(--surface2);
+      background:
+        var(--surface2);
 
-      color: var(--accent);
+      color:
+        var(--accent);
 
       font-size: 23px;
     }
 
     .orange .ico {
-      color: var(--accent2);
+      color:
+        var(--accent2);
     }
+
+    /* WIDE BUTTONS */
 
     .wide {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+
+      grid-template-columns:
+        1fr 1fr;
 
       gap: 10px;
 
@@ -196,20 +289,32 @@
     .wide button {
       min-height: 64px;
 
-      border: 1px solid var(--line);
+      border:
+        1px solid
+        var(--line);
+
       border-radius: 20px;
 
-      background: var(--surface);
-      color: var(--text);
+      background:
+        var(--surface);
+
+      color:
+        var(--text);
 
       font-weight: 750;
     }
 
+    /* ACTIVITY */
+
     .activity {
-      border: 1px solid var(--line);
+      border:
+        1px solid
+        var(--line);
+
       border-radius: 22px;
 
-      background: var(--surface);
+      background:
+        var(--surface);
 
       overflow: hidden;
     }
@@ -217,7 +322,9 @@
     .head {
       padding: 16px;
 
-      border-bottom: 1px solid var(--line);
+      border-bottom:
+        1px solid
+        var(--line);
 
       font-weight: 800;
     }
@@ -225,21 +332,31 @@
     .empty {
       text-align: center;
 
-      padding: 30px 18px;
+      padding:
+        30px 18px;
 
-      color: var(--muted);
+      color:
+        var(--muted);
     }
+
+    /* TRANSACTIONS */
 
     .transaction {
       display: flex;
+
       align-items: center;
-      justify-content: space-between;
+
+      justify-content:
+        space-between;
 
       gap: 15px;
 
-      padding: 15px 16px;
+      padding:
+        15px 16px;
 
-      border-bottom: 1px solid var(--line);
+      border-bottom:
+        1px solid
+        var(--line);
     }
 
     .transaction:last-child {
@@ -248,8 +365,11 @@
 
     .transaction-left {
       display: flex;
+
       align-items: center;
+
       gap: 12px;
+
       min-width: 0;
     }
 
@@ -257,18 +377,23 @@
       width: 42px;
       height: 42px;
 
-      flex: 0 0 42px;
+      flex:
+        0 0 42px;
 
       border-radius: 50%;
 
-      background: var(--surface2);
+      background:
+        var(--surface2);
 
       display: grid;
+
       place-items: center;
 
-      color: var(--accent);
+      color:
+        var(--accent);
 
       font-size: 18px;
+
       font-weight: 800;
     }
 
@@ -276,14 +401,17 @@
       font-weight: 750;
 
       white-space: nowrap;
+
       overflow: hidden;
+
       text-overflow: ellipsis;
     }
 
     .transaction-date {
       margin-top: 4px;
 
-      color: var(--muted);
+      color:
+        var(--muted);
 
       font-size: 12px;
     }
@@ -295,26 +423,38 @@
     }
 
     .transaction-amount.positive {
-      color: var(--accent);
+      color:
+        var(--accent);
     }
 
     .transaction-amount.negative {
-      color: var(--accent2);
+      color:
+        var(--accent2);
     }
+
+    /* LOGOUT */
 
     .logout {
       width: 100%;
+
       height: 48px;
 
       margin-top: 20px;
 
-      border: 1px solid var(--line);
+      border:
+        1px solid
+        var(--line);
+
       border-radius: 15px;
 
-      background: transparent;
+      background:
+        transparent;
 
-      color: var(--muted);
+      color:
+        var(--muted);
     }
+
+    /* BOTTOM NAV */
 
     .nav {
       position: fixed;
@@ -325,18 +465,32 @@
       right: 0;
       bottom: 0;
 
-      background: rgba(11, 13, 15, .97);
+      background:
+        rgba(
+          11,
+          13,
+          15,
+          .97
+        );
 
-      border-top: 1px solid var(--line);
+      border-top:
+        1px solid
+        var(--line);
 
       padding:
         9px
         15px
-        calc(9px + env(safe-area-inset-bottom));
+        calc(
+          9px +
+          env(
+            safe-area-inset-bottom
+          )
+        );
 
       display: grid;
 
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns:
+        repeat(3, 1fr);
 
       gap: 8px;
     }
@@ -344,9 +498,11 @@
     .nav button {
       border: 0;
 
-      background: transparent;
+      background:
+        transparent;
 
-      color: var(--muted);
+      color:
+        var(--muted);
 
       padding: 10px;
 
@@ -356,9 +512,14 @@
     }
 
     .nav .active {
-      background: var(--text);
-      color: var(--bg);
+      background:
+        var(--text);
+
+      color:
+        var(--bg);
     }
+
+    /* MOBILE */
 
     @media (max-width: 600px) {
 
@@ -368,12 +529,14 @@
 
       .action {
         min-height: 110px;
+
         font-size: 13px;
       }
 
       .balance {
         font-size: 39px;
       }
+
     }
 
     @media (max-width: 390px) {
@@ -386,14 +549,21 @@
         width: 40px;
         height: 40px;
       }
+
     }
+
   </style>
+
 </head>
 
 
 <body>
 
+
 <div class="wrap">
+
+
+  <!-- TOP -->
 
   <header class="top">
 
@@ -401,12 +571,17 @@
       veylo
     </div>
 
-    <div class="avatar" id="avatar">
+    <div
+      class="avatar"
+      id="avatar"
+    >
       V
     </div>
 
   </header>
 
+
+  <!-- BALANCE -->
 
   <section class="card">
 
@@ -423,6 +598,7 @@
         </div>
 
       </div>
+
 
       <button
         class="balancehide"
@@ -458,6 +634,8 @@
   </section>
 
 
+  <!-- QUICK ACTIONS -->
+
   <h2>
     Quick actions
   </h2>
@@ -465,116 +643,171 @@
 
   <div class="actions">
 
+
+    <!-- TRANSFER -->
+
     <button
       class="action"
       data-action="Transfer"
+      type="button"
     >
+
       <div class="ico">
         ⇄
       </div>
 
       Transfer
+
     </button>
 
+
+    <!-- ADD MONEY -->
 
     <button
       class="action"
       data-action="Add money"
+      type="button"
     >
+
       <div class="ico">
         ＋
       </div>
 
       Add money
+
     </button>
 
+
+    <!-- WITHDRAW -->
 
     <button
       class="action orange"
       data-action="Withdraw"
+      type="button"
     >
+
       <div class="ico">
         ↓
       </div>
 
       Withdraw
+
     </button>
 
+
+    <!-- SCAN -->
 
     <button
       class="action"
       data-action="Scan"
+      type="button"
     >
+
       <div class="ico">
         ⌗
       </div>
 
       Scan
+
     </button>
 
+
+    <!-- RECEIVE -->
 
     <button
       class="action"
       data-action="Receive"
+      type="button"
     >
+
       <div class="ico">
         ▦
       </div>
 
       Receive
+
     </button>
 
+
+    <!-- REQUEST -->
 
     <button
       class="action"
       data-action="Request"
+      type="button"
     >
+
       <div class="ico">
         ♧
       </div>
 
       Request
+
     </button>
 
+
+    <!-- STOCKS -->
 
     <button
       class="action"
       data-action="Stocks"
+      type="button"
     >
+
       <div class="ico">
         ◔
       </div>
 
       Stocks
+
     </button>
 
+
+    <!-- SCHEDULED -->
 
     <button
       class="action"
       data-action="Scheduled"
+      type="button"
     >
+
       <div class="ico">
         ◷
       </div>
 
       Scheduled
+
     </button>
+
 
   </div>
 
+
+  <!-- HISTORY / ANALYTICS -->
 
   <div class="wide">
 
-    <button data-action="History">
+
+    <button
+      data-action="History"
+      type="button"
+    >
       ◴ &nbsp; History
     </button>
 
-    <button data-action="Analytics">
+
+    <button
+      data-action="Analytics"
+      type="button"
+    >
       ▥ &nbsp; Analytics
     </button>
 
+
   </div>
 
+
+  <!-- LIVE ACTIVITY -->
 
   <h2>
     Live activity
@@ -587,6 +820,7 @@
       LIVE ACTIVITY
     </div>
 
+
     <div id="liveActivity">
 
       <div class="empty">
@@ -597,6 +831,8 @@
 
   </section>
 
+
+  <!-- TRANSACTION HISTORY -->
 
   <h2>
     Recent activity
@@ -609,6 +845,7 @@
       Transaction History
     </div>
 
+
     <div id="transactionHistory">
 
       <div class="empty">
@@ -620,51 +857,90 @@
   </section>
 
 
+  <!-- LOGOUT -->
+
   <button
     class="logout"
     id="logout"
+    type="button"
   >
     Log out
   </button>
 
+
 </div>
 
 
+<!-- BOTTOM NAV -->
+
 <nav class="nav">
 
-  <button class="active">
+
+  <button
+    class="active"
+    type="button"
+  >
+
     ⌂
     <br>
+
     Home
+
   </button>
 
-  <button data-action="History">
+
+  <button
+    data-action="History"
+    type="button"
+  >
+
     ◴
     <br>
+
     History
+
   </button>
 
-  <button data-action="Analytics">
+
+  <button
+    data-action="Analytics"
+    type="button"
+  >
+
     ▥
     <br>
+
     Analytics
+
   </button>
+
 
 </nav>
 
 
+
 <script>
+
 
 (async () => {
 
+
   try {
+
+
+    /*
+      LOAD SUPABASE CONFIG
+    */
 
     const txt =
       await fetch(
         "supabase-config.js",
-        { cache: "no-store" }
+        {
+          cache: "no-store"
+        }
       ).then(
-        response => response.text()
+        response =>
+          response.text()
       );
 
 
@@ -695,6 +971,10 @@
     }
 
 
+    /*
+      CREATE SUPABASE CLIENT
+    */
+
     const sb =
       window.supabase.createClient(
         url,
@@ -702,13 +982,23 @@
       );
 
 
+    /*
+      CHECK LOGIN
+    */
+
     const {
-      data: { user }
+      data: {
+        user
+      },
+      error: userError
     } =
       await sb.auth.getUser();
 
 
-    if (!user) {
+    if (
+      userError ||
+      !user
+    ) {
 
       location.href =
         "login.html";
@@ -718,8 +1008,13 @@
     }
 
 
+    /*
+      USER NAME
+    */
+
     const name =
       user.user_metadata?.full_name ||
+      user.user_metadata?.name ||
       user.email?.split("@")[0] ||
       "there";
 
@@ -727,13 +1022,17 @@
     document.getElementById(
       "welcome"
     ).textContent =
-      "Welcome back, " + name;
+      "Welcome back, " +
+      name;
 
 
     document.getElementById(
       "avatar"
     ).textContent =
-      name[0].toUpperCase();
+      name
+        .charAt(0)
+        .toUpperCase();
+
 
 
     /*
@@ -742,14 +1041,33 @@
 
     async function loadBalance() {
 
+
       try {
+
 
         const result =
           await sb
             .from("profiles")
             .select("balance")
-            .eq("id", user.id)
+            .eq(
+              "id",
+              user.id
+            )
             .maybeSingle();
+
+
+        if (
+          result.error
+        ) {
+
+          console.error(
+            "Balance error:",
+            result.error
+          );
+
+          return;
+
+        }
 
 
         if (
@@ -757,6 +1075,7 @@
           result.data.balance !== null &&
           result.data.balance !== undefined
         ) {
+
 
           const formatted =
             "$" +
@@ -786,12 +1105,15 @@
 
         }
 
+
       } catch (error) {
+
 
         console.log(
           "Balance not available yet.",
           error
         );
+
 
       }
 
@@ -801,67 +1123,112 @@
     await loadBalance();
 
 
+
     /*
-      FORMAT DATE
+      DATE FORMAT
     */
 
-    function formatDate(dateString) {
+    function formatDate(
+      dateString
+    ) {
+
+
+      if (!dateString) {
+        return "Unknown date";
+      }
+
 
       const date =
-        new Date(dateString);
+        new Date(
+          dateString
+        );
+
+
+      if (
+        Number.isNaN(
+          date.getTime()
+        )
+      ) {
+
+        return "Unknown date";
+
+      }
+
 
       const now =
         new Date();
+
 
       const difference =
         now.getTime() -
         date.getTime();
 
+
       const minute =
         60 * 1000;
 
+
       const hour =
         60 * minute;
+
 
       const day =
         24 * hour;
 
 
-      if (difference < minute) {
+      if (
+        difference < minute
+      ) {
+
         return "Just now";
+
       }
 
 
-      if (difference < hour) {
+      if (
+        difference < hour
+      ) {
+
 
         const minutes =
           Math.floor(
-            difference / minute
+            difference /
+            minute
           );
 
-        return minutes +
+
+        return (
+          minutes +
           (
             minutes === 1
               ? " minute ago"
               : " minutes ago"
-          );
+          )
+        );
 
       }
 
 
-      if (difference < day) {
+      if (
+        difference < day
+      ) {
+
 
         const hours =
           Math.floor(
-            difference / hour
+            difference /
+            hour
           );
 
-        return hours +
+
+        return (
+          hours +
           (
             hours === 1
               ? " hour ago"
               : " hours ago"
-          );
+          )
+        );
 
       }
 
@@ -878,15 +1245,20 @@
     }
 
 
+
     /*
       TRANSACTION ICON
     */
 
-    function transactionIcon(type) {
+    function transactionIcon(
+      type
+    ) {
+
 
       const value =
-        String(type || "")
-          .toLowerCase();
+        String(
+          type || ""
+        ).toLowerCase();
 
 
       if (
@@ -932,11 +1304,15 @@
     }
 
 
+
     /*
       TRANSACTION NAME
     */
 
-    function transactionName(transaction) {
+    function transactionName(
+      transaction
+    ) {
+
 
       if (
         transaction.description
@@ -953,28 +1329,37 @@
         ).toLowerCase();
 
 
-      if (type === "deposit") {
+      if (
+        type === "deposit"
+      ) {
 
         return "Money added";
 
       }
 
 
-      if (type === "withdrawal") {
+      if (
+        type === "withdrawal" ||
+        type === "withdraw"
+      ) {
 
         return "Withdrawal";
 
       }
 
 
-      if (type === "transfer") {
+      if (
+        type === "transfer"
+      ) {
 
         return "Transfer";
 
       }
 
 
-      if (type === "receive") {
+      if (
+        type === "receive"
+      ) {
 
         return "Money received";
 
@@ -986,11 +1371,15 @@
     }
 
 
+
     /*
       TRANSACTION AMOUNT
     */
 
-    function transactionAmount(transaction) {
+    function transactionAmount(
+      transaction
+    ) {
+
 
       const amount =
         Number(
@@ -1011,7 +1400,9 @@
 
 
       const prefix =
-        negative ? "−" : "+";
+        negative
+          ? "−"
+          : "+";
 
 
       return {
@@ -1019,7 +1410,9 @@
         text:
           prefix +
           "$" +
-          Math.abs(amount).toLocaleString(
+          Math.abs(
+            amount
+          ).toLocaleString(
             "en-US",
             {
               minimumFractionDigits: 2,
@@ -1034,27 +1427,52 @@
     }
 
 
+
     /*
       ESCAPE DATABASE TEXT
     */
 
-    function escapeHTML(value) {
+    function escapeHTML(
+      value
+    ) {
 
-      return String(value ?? "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+
+      return String(
+        value ?? ""
+      )
+        .replace(
+          /&/g,
+          "&amp;"
+        )
+        .replace(
+          /</g,
+          "&lt;"
+        )
+        .replace(
+          />/g,
+          "&gt;"
+        )
+        .replace(
+          /"/g,
+          "&quot;"
+        )
+        .replace(
+          /'/g,
+          "&#039;"
+        );
 
     }
+
 
 
     /*
       TRANSACTION HTML
     */
 
-    function transactionHTML(transaction) {
+    function transactionHTML(
+      transaction
+    ) {
+
 
       const amount =
         transactionAmount(
@@ -1069,6 +1487,7 @@
 
 
       return `
+
         <div class="transaction">
 
           <div class="transaction-left">
@@ -1079,13 +1498,17 @@
               )}
             </div>
 
+
             <div>
 
               <div class="transaction-name">
                 ${escapeHTML(
-                  transactionName(transaction)
+                  transactionName(
+                    transaction
+                  )
                 )}
               </div>
+
 
               <div class="transaction-date">
                 ${formatDate(
@@ -1097,14 +1520,19 @@
 
           </div>
 
-          <div class="transaction-amount ${amountClass}">
+
+          <div
+            class="transaction-amount ${amountClass}"
+          >
             ${amount.text}
           </div>
 
         </div>
+
       `;
 
     }
+
 
 
     /*
@@ -1112,6 +1540,7 @@
     */
 
     async function loadTransactions() {
+
 
       const liveActivity =
         document.getElementById(
@@ -1126,6 +1555,7 @@
 
 
       try {
+
 
         const result =
           await sb
@@ -1146,7 +1576,9 @@
             .limit(20);
 
 
-        if (result.error) {
+        if (
+          result.error
+        ) {
 
           throw result.error;
 
@@ -1157,21 +1589,30 @@
           result.data || [];
 
 
+        /*
+          NO TRANSACTIONS
+        */
+
         if (
           transactions.length === 0
         ) {
 
+
           liveActivity.innerHTML = `
+
             <div class="empty">
               Your recent transactions will appear here.
             </div>
+
           `;
 
 
           history.innerHTML = `
+
             <div class="empty">
               No transactions yet.
             </div>
+
           `;
 
 
@@ -1180,23 +1621,39 @@
         }
 
 
+        /*
+          LIVE ACTIVITY
+        */
+
         const latest =
-          transactions.slice(0, 5);
+          transactions.slice(
+            0,
+            5
+          );
 
 
         liveActivity.innerHTML =
           latest
-            .map(transactionHTML)
+            .map(
+              transactionHTML
+            )
             .join("");
 
 
+        /*
+          HISTORY
+        */
+
         history.innerHTML =
           transactions
-            .map(transactionHTML)
+            .map(
+              transactionHTML
+            )
             .join("");
 
 
       } catch (error) {
+
 
         console.error(
           "Transaction loading error:",
@@ -1205,16 +1662,20 @@
 
 
         liveActivity.innerHTML = `
+
           <div class="empty">
             Unable to load activity.
           </div>
+
         `;
 
 
         history.innerHTML = `
+
           <div class="empty">
             Unable to load transaction history.
           </div>
+
         `;
 
       }
@@ -1222,21 +1683,25 @@
     }
 
 
-    /*
-      LOAD TRANSACTIONS
-    */
-
     await loadTransactions();
 
 
     /*
-      REFRESH EVERY 10 SECONDS
+      REFRESH BALANCE + TRANSACTIONS
+      EVERY 10 SECONDS
     */
 
     setInterval(
-      loadTransactions,
+      async () => {
+
+        await loadBalance();
+
+        await loadTransactions();
+
+      },
       10000
     );
+
 
 
     /*
@@ -1247,90 +1712,96 @@
       .querySelectorAll(
         "[data-action]"
       )
-      .forEach(button => {
-
-        button.onclick = () => {
-
-          const action =
-            button.dataset.action;
+      .forEach(
+        button => {
 
 
-          /*
-            TRANSFER
-          */
-
-          if (
-            action === "Transfer"
-          ) {
-
-            location.href =
-              "transfer.html";
-
-            return;
-
-          }
+          button.onclick =
+            () => {
 
 
-          /*
-            ADD MONEY
-          */
-
-          if (
-            action === "Add money"
-          ) {
-
-            location.href =
-              "add-money.html";
-
-            return;
-
-          }
+              const action =
+                button.dataset.action;
 
 
-          /*
-            RECEIVE
-          */
+              /*
+                TRANSFER
+              */
 
-          if (
-            action === "Receive"
-          ) {
+              if (
+                action === "Transfer"
+              ) {
 
-            location.href =
-              "receive.html";
+                location.href =
+                  "transfer.html";
 
-            return;
+                return;
 
-          }
-
-
-          /*
-            HISTORY
-          */
-
-          if (
-            action === "History"
-          ) {
-
-            location.href =
-              "history.html";
-
-            return;
-
-          }
+              }
 
 
-          /*
-            OTHER FEATURES
-          */
+              /*
+                ADD MONEY
+              */
 
-          alert(
-            action +
-            " is coming soon."
-          );
+              if (
+                action === "Add money"
+              ) {
 
-        };
+                location.href =
+                  "add-money.html";
 
-      });
+                return;
+
+              }
+
+
+              /*
+                RECEIVE
+              */
+
+              if (
+                action === "Receive"
+              ) {
+
+                location.href =
+                  "receive.html";
+
+                return;
+
+              }
+
+
+              /*
+                HISTORY
+              */
+
+              if (
+                action === "History"
+              ) {
+
+                location.href =
+                  "history.html";
+
+                return;
+
+              }
+
+
+              /*
+                OTHER FEATURES
+              */
+
+              alert(
+                action +
+                " is coming soon."
+              );
+
+            };
+
+        }
+      );
+
 
 
     /*
@@ -1342,7 +1813,24 @@
     ).onclick =
       async () => {
 
-        await sb.auth.signOut();
+
+        const {
+          error
+        } =
+          await sb.auth.signOut();
+
+
+        if (error) {
+
+          console.error(
+            "Logout error:",
+            error
+          );
+
+          return;
+
+        }
+
 
         location.href =
           "login.html";
@@ -1350,69 +1838,90 @@
       };
 
 
+
     /*
       HIDE / SHOW BALANCE
     */
 
-    let shown = true;
+    let shown =
+      true;
 
 
     document.getElementById(
       "toggle"
-    ).onclick = () => {
-
-      const balance =
-        document.getElementById(
-          "balance"
-        );
+    ).onclick =
+      () => {
 
 
-      shown = !shown;
+        const balance =
+          document.getElementById(
+            "balance"
+          );
 
 
-      if (shown) {
-
-        balance.textContent =
-          balance.dataset.real ||
-          "$0.00";
-
-
-        document.getElementById(
-          "toggle"
-        ).textContent =
-          "Hide";
-
-      } else {
-
-        balance.dataset.real =
-          balance.textContent;
+        const toggle =
+          document.getElementById(
+            "toggle"
+          );
 
 
-        balance.textContent =
-          "••••••";
+        shown =
+          !shown;
 
 
-        document.getElementById(
-          "toggle"
-        ).textContent =
-          "Show";
+        if (shown) {
 
-      }
 
-    };
+          balance.textContent =
+            balance.dataset.real ||
+            "$0.00";
+
+
+          toggle.textContent =
+            "Hide";
+
+
+        } else {
+
+
+          if (
+            !balance.dataset.real
+          ) {
+
+            balance.dataset.real =
+              balance.textContent;
+
+          }
+
+
+          balance.textContent =
+            "••••••";
+
+
+          toggle.textContent =
+            "Show";
+
+        }
+
+      };
+
 
   } catch (error) {
+
 
     console.error(
       "Veylo dashboard error:",
       error
     );
 
+
   }
+
 
 })();
 
 </script>
+
 
 </body>
 </html>
