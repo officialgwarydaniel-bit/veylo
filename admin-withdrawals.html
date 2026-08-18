@@ -19,29 +19,40 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+
   <style>
 
     :root {
+
       --bg: #0b0d0f;
       --surface: #14171a;
       --surface2: #191c20;
       --line: #292d31;
       --text: #f4f4f2;
       --muted: #9a9da0;
+
       --accent: #35d1ad;
       --accent2: #ffae32;
       --danger: #ff6868;
+
     }
+
 
     * {
       box-sizing: border-box;
     }
 
+
     html,
     body {
+
       margin: 0;
-      background: var(--bg);
-      color: var(--text);
+
+      background:
+        var(--bg);
+
+      color:
+        var(--text);
 
       font-family:
         -apple-system,
@@ -49,182 +60,220 @@
         "SF Pro Display",
         "Segoe UI",
         sans-serif;
+
     }
+
 
     body {
+
       padding-bottom: 50px;
+
     }
+
 
     button {
+
       font: inherit;
+
       cursor: pointer;
-      -webkit-tap-highlight-color: transparent;
+
+      -webkit-tap-highlight-color:
+        transparent;
+
     }
 
+
     .wrap {
-      width: min(100%, 900px);
-      margin: auto;
+
+      width:
+        min(100%, 900px);
+
+      margin:
+        auto;
 
       padding:
         18px
         16px
         70px;
+
     }
+
 
     /* HEADER */
 
     .top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
 
-      margin:
-        5px 0
+      display:
+        flex;
+
+      align-items:
+        center;
+
+      gap:
+        14px;
+
+      margin-bottom:
         25px;
+
     }
 
-    .brand {
-      font-size: 28px;
-      font-weight: 850;
-      letter-spacing: -1.2px;
-    }
 
-    .admin-badge {
-      padding:
-        8px
-        12px;
+    .back {
+
+      width:
+        44px;
+
+      height:
+        44px;
 
       border:
         1px solid
-        rgba(53,209,173,.35);
+        var(--line);
 
-      border-radius: 14px;
+      border-radius:
+        15px;
 
       background:
-        rgba(53,209,173,.08);
+        var(--surface);
 
       color:
-        var(--accent);
+        var(--text);
 
-      font-size: 12px;
-      font-weight: 800;
+      font-size:
+        22px;
+
     }
+
+
+    .brand {
+
+      font-size:
+        27px;
+
+      font-weight:
+        850;
+
+      letter-spacing:
+        -1px;
+
+    }
+
 
     /* TITLE */
 
-    .title h1 {
-      margin: 0 0 7px;
+    h1 {
 
-      font-size: 30px;
-      letter-spacing: -1px;
+      margin:
+        0 0 7px;
+
+      font-size:
+        30px;
+
+      letter-spacing:
+        -1px;
+
     }
 
-    .title p {
-      margin: 0;
 
-      color: var(--muted);
+    .subtitle {
 
-      line-height: 1.5;
+      color:
+        var(--muted);
+
+      margin:
+        0 0 25px;
+
+      line-height:
+        1.5;
+
     }
+
 
     /* STATUS */
 
     .status {
-      display: none;
 
-      margin-top: 18px;
+      display:
+        none;
 
-      padding: 14px 16px;
+      padding:
+        14px 16px;
 
-      border-radius: 16px;
+      border-radius:
+        16px;
 
-      font-size: 13px;
+      margin-bottom:
+        16px;
 
-      line-height: 1.5;
+      font-size:
+        13px;
+
+      line-height:
+        1.5;
+
     }
 
+
     .status.success {
-      display: block;
+
+      display:
+        block;
 
       background:
-        rgba(53,209,173,.10);
+        rgba(
+          53,
+          209,
+          173,
+          .10
+        );
 
       border:
         1px solid
-        rgba(53,209,173,.30);
+        rgba(
+          53,
+          209,
+          173,
+          .30
+        );
 
       color:
         #b9eee2;
+
     }
 
+
     .status.error {
-      display: block;
+
+      display:
+        block;
 
       background:
-        rgba(255,104,104,.10);
+        rgba(
+          255,
+          104,
+          104,
+          .10
+        );
 
       border:
         1px solid
-        rgba(255,104,104,.30);
+        rgba(
+          255,
+          104,
+          104,
+          .30
+        );
 
       color:
         #ffb3b3;
+
     }
 
-    /* SUMMARY */
 
-    .summary {
-      display: grid;
-
-      grid-template-columns:
-        repeat(3, 1fr);
-
-      gap: 10px;
-
-      margin:
-        22px 0;
-    }
-
-    .summary-card {
-      background:
-        var(--surface);
-
-      border:
-        1px solid
-        var(--line);
-
-      border-radius: 20px;
-
-      padding: 17px;
-    }
-
-    .summary-label {
-      color: var(--muted);
-
-      font-size: 11px;
-
-      font-weight: 800;
-
-      letter-spacing: 1px;
-    }
-
-    .summary-value {
-      margin-top: 8px;
-
-      font-size: 25px;
-
-      font-weight: 850;
-    }
-
-    /* REQUESTS */
-
-    .requests {
-      display: grid;
-
-      gap: 12px;
-    }
+    /* REQUEST CARD */
 
     .request {
+
       background:
         var(--surface);
 
@@ -232,122 +281,138 @@
         1px solid
         var(--line);
 
-      border-radius: 23px;
+      border-radius:
+        22px;
 
-      padding: 18px;
+      margin-bottom:
+        14px;
+
+      overflow:
+        hidden;
+
     }
 
-    .request-top {
-      display: flex;
+
+    .request-head {
+
+      display:
+        flex;
 
       justify-content:
         space-between;
 
       align-items:
-        flex-start;
+        center;
 
-      gap: 15px;
-    }
+      gap:
+        12px;
 
-    .amount {
-      font-size: 25px;
-
-      font-weight: 850;
-    }
-
-    .date {
-      margin-top: 5px;
-
-      color: var(--muted);
-
-      font-size: 12px;
-    }
-
-    .status-badge {
       padding:
-        7px
-        10px;
+        17px;
 
-      border-radius: 12px;
+      border-bottom:
+        1px solid
+        var(--line);
 
-      font-size: 11px;
+    }
 
-      font-weight: 850;
+
+    .request-title {
+
+      font-weight:
+        800;
+
+    }
+
+
+    .request-date {
+
+      margin-top:
+        4px;
+
+      color:
+        var(--muted);
+
+      font-size:
+        12px;
+
+    }
+
+
+    .badge {
+
+      padding:
+        7px 10px;
+
+      border-radius:
+        999px;
+
+      background:
+        rgba(
+          255,
+          174,
+          50,
+          .10
+        );
+
+      border:
+        1px solid
+        rgba(
+          255,
+          174,
+          50,
+          .25
+        );
+
+      color:
+        var(--accent2);
+
+      font-size:
+        11px;
+
+      font-weight:
+        800;
 
       text-transform:
         uppercase;
 
-      letter-spacing: .6px;
     }
 
-    .status-pending {
-      background:
-        rgba(255,174,50,.12);
 
-      color:
-        var(--accent2);
+    .request-body {
+
+      padding:
+        17px;
+
     }
 
-    .status-approved {
-      background:
-        rgba(53,209,173,.12);
 
-      color:
-        var(--accent);
+    .amount {
+
+      font-size:
+        29px;
+
+      font-weight:
+        850;
+
+      margin-bottom:
+        16px;
+
     }
 
-    .status-rejected {
-      background:
-        rgba(255,104,104,.12);
-
-      color:
-        var(--danger);
-    }
-
-    /* DETAILS */
 
     .details {
-      margin-top: 17px;
 
-      border-top:
-        1px solid
-        var(--line);
+      display:
+        grid;
 
-      padding-top: 15px;
+      gap:
+        10px;
+
     }
 
-    .detail-row {
-      display: flex;
 
-      justify-content:
-        space-between;
-
-      gap: 15px;
-
-      padding: 7px 0;
-
-      font-size: 13px;
-    }
-
-    .detail-label {
-      color:
-        var(--muted);
-
-      flex-shrink: 0;
-    }
-
-    .detail-value {
-      text-align: right;
-
-      word-break: break-word;
-    }
-
-    .destination {
-      margin-top: 10px;
-
-      padding: 13px;
-
-      border-radius: 15px;
+    .detail {
 
       background:
         var(--surface2);
@@ -356,99 +421,161 @@
         1px solid
         var(--line);
 
-      overflow-x: auto;
+      border-radius:
+        14px;
+
+      padding:
+        12px;
+
     }
 
-    .destination-title {
-      color: var(--muted);
 
-      font-size: 11px;
+    .detail-label {
 
-      font-weight: 800;
+      color:
+        var(--muted);
 
-      letter-spacing: 1px;
+      font-size:
+        11px;
 
-      margin-bottom: 8px;
+      font-weight:
+        800;
+
+      text-transform:
+        uppercase;
+
+      letter-spacing:
+        .7px;
+
+      margin-bottom:
+        5px;
+
     }
 
-    pre {
-      margin: 0;
 
-      white-space: pre-wrap;
+    .detail-value {
 
-      word-break: break-word;
+      word-break:
+        break-word;
 
-      color: var(--text);
+      font-size:
+        13px;
+
+      line-height:
+        1.5;
+
+    }
+
+
+    .destination {
+
+      margin-top:
+        12px;
+
+    }
+
+
+    .destination pre {
+
+      white-space:
+        pre-wrap;
+
+      word-break:
+        break-word;
+
+      margin:
+        0;
 
       font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        sans-serif;
+        inherit;
 
-      font-size: 12px;
+      font-size:
+        12px;
 
-      line-height: 1.5;
+      line-height:
+        1.5;
+
+      color:
+        var(--text);
+
     }
 
-    /* ACTIONS */
+
+    /* BUTTONS */
 
     .actions {
-      display: grid;
+
+      display:
+        grid;
 
       grid-template-columns:
         1fr 1fr;
 
-      gap: 10px;
+      gap:
+        10px;
 
-      margin-top: 17px;
+      margin-top:
+        17px;
+
     }
+
 
     .approve,
     .reject {
-      height: 48px;
 
-      border-radius: 15px;
+      height:
+        50px;
 
-      font-weight: 800;
+      border-radius:
+        15px;
+
+      font-weight:
+        800;
+
     }
+
 
     .approve {
+
       border:
         1px solid
-        rgba(53,209,173,.4);
+        var(--accent);
 
       background:
-        rgba(53,209,173,.12);
+        var(--accent);
 
       color:
-        var(--accent);
+        #06120f;
+
     }
+
 
     .reject {
+
       border:
         1px solid
-        rgba(255,104,104,.4);
+        rgba(
+          255,
+          104,
+          104,
+          .35
+        );
 
       background:
-        rgba(255,104,104,.10);
+        rgba(
+          255,
+          104,
+          104,
+          .08
+        );
 
       color:
-        var(--danger);
+        #ffb3b3;
+
     }
 
-    .approve:disabled,
-    .reject:disabled {
-      opacity: .45;
-      cursor: not-allowed;
-    }
-
-    /* EMPTY */
 
     .empty {
-      text-align: center;
-
-      padding: 45px 20px;
 
       background:
         var(--surface);
@@ -457,76 +584,51 @@
         1px solid
         var(--line);
 
-      border-radius: 22px;
+      border-radius:
+        22px;
+
+      padding:
+        35px 20px;
+
+      text-align:
+        center;
 
       color:
         var(--muted);
 
-      line-height: 1.5;
     }
 
-    /* LOADING */
 
     .loading {
-      text-align: center;
 
-      padding: 35px;
-
-      color:
-        var(--muted);
-    }
-
-    /* FOOTER BUTTON */
-
-    .logout {
-      width: 100%;
-
-      height: 48px;
-
-      margin-top: 25px;
-
-      border:
-        1px solid
-        var(--line);
-
-      border-radius: 15px;
-
-      background:
-        transparent;
+      text-align:
+        center;
 
       color:
         var(--muted);
 
-      font-weight: 700;
+      padding:
+        30px;
+
     }
 
-    @media (max-width: 600px) {
 
-      .summary {
+    @media (
+      max-width: 500px
+    ) {
+
+      h1 {
+
+        font-size:
+          27px;
+
+      }
+
+      .actions {
+
         grid-template-columns:
           1fr;
-      }
 
-      .request-top {
-        flex-direction:
-          column;
-      }
-
-      .status-badge {
-        align-self:
-          flex-start;
-      }
-
-      .detail-row {
-        flex-direction:
-          column;
-
-        gap: 3px;
-      }
-
-      .detail-value {
-        text-align:
-          left;
       }
 
     }
@@ -542,30 +644,34 @@
 <div class="wrap">
 
 
+  <!-- HEADER -->
+
   <header class="top">
+
+    <button
+      class="back"
+      id="back"
+      type="button"
+    >
+      ←
+    </button>
 
     <div class="brand">
       veylo
     </div>
 
-    <div class="admin-badge">
-      ADMIN
-    </div>
-
   </header>
 
 
-  <section class="title">
+  <h1>
+    Withdrawal Requests
+  </h1>
 
-    <h1>
-      Withdrawals
-    </h1>
 
-    <p>
-      Review and manage user withdrawal requests.
-    </p>
-
-  </section>
+  <p class="subtitle">
+    Admin review panel. Review pending withdrawal
+    requests and approve or reject them.
+  </p>
 
 
   <div
@@ -574,77 +680,12 @@
   ></div>
 
 
-  <section class="summary">
-
-    <div class="summary-card">
-
-      <div class="summary-label">
-        PENDING
-      </div>
-
-      <div
-        class="summary-value"
-        id="pendingCount"
-      >
-        0
-      </div>
-
-    </div>
-
-
-    <div class="summary-card">
-
-      <div class="summary-label">
-        APPROVED
-      </div>
-
-      <div
-        class="summary-value"
-        id="approvedCount"
-      >
-        0
-      </div>
-
-    </div>
-
-
-    <div class="summary-card">
-
-      <div class="summary-label">
-        REJECTED
-      </div>
-
-      <div
-        class="summary-value"
-        id="rejectedCount"
-      >
-        0
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <section
-    class="requests"
+  <div
     id="requests"
+    class="loading"
   >
-
-    <div class="loading">
-      Loading withdrawal requests…
-    </div>
-
-  </section>
-
-
-  <button
-    class="logout"
-    id="logout"
-    type="button"
-  >
-    Log out
-  </button>
+    Loading withdrawal requests…
+  </div>
 
 
 </div>
@@ -659,16 +700,18 @@
 
   let sb = null;
 
+  let currentUser = null;
 
-  const requestsElement =
+
+  const status =
     document.getElementById(
-      "requests"
+      "status"
     );
 
 
-  const statusElement =
+  const requests =
     document.getElementById(
-      "status"
+      "requests"
     );
 
 
@@ -681,105 +724,11 @@
     type
   ) {
 
-    statusElement.textContent =
+    status.textContent =
       message;
 
-    statusElement.className =
+    status.className =
       "status " + type;
-
-  }
-
-
-  /*
-    ESCAPE HTML
-  */
-
-  function escapeHTML(
-    value
-  ) {
-
-    return String(
-      value ?? ""
-    )
-      .replace(
-        /&/g,
-        "&amp;"
-      )
-      .replace(
-        /</g,
-        "&lt;"
-      )
-      .replace(
-        />/g,
-        "&gt;"
-      )
-      .replace(
-        /"/g,
-        "&quot;"
-      )
-      .replace(
-        /'/g,
-        "&#039;"
-      );
-
-  }
-
-
-  /*
-    DATE
-  */
-
-  function formatDate(
-    value
-  ) {
-
-    if (!value) {
-      return "Unknown date";
-    }
-
-    const date =
-      new Date(value);
-
-    if (
-      Number.isNaN(
-        date.getTime()
-      )
-    ) {
-
-      return "Unknown date";
-
-    }
-
-    return date.toLocaleString(
-      "en-US",
-      {
-        dateStyle: "medium",
-        timeStyle: "short"
-      }
-    );
-
-  }
-
-
-  /*
-    FORMAT MONEY
-  */
-
-  function money(
-    value
-  ) {
-
-    const number =
-      Number(value || 0);
-
-    return "$" +
-      number.toLocaleString(
-        "en-US",
-        {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2
-        }
-      );
 
   }
 
@@ -865,12 +814,16 @@
     }
 
 
+    currentUser =
+      user;
+
+
     /*
       CHECK ADMIN
     */
 
     const {
-      data: adminCheck,
+      data: isAdmin,
       error: adminError
     } =
       await sb.rpc(
@@ -887,36 +840,174 @@
         adminError
       );
 
-      showStatus(
-        "Unable to verify administrator access.",
-        "error"
+      throw new Error(
+        "Unable to verify administrator access."
       );
 
-      requestsElement.innerHTML =
-        `<div class="empty">
-          Administrator verification failed.
-        </div>`;
+    }
+
+
+    if (
+      isAdmin !== true
+    ) {
+
+      requests.className =
+        "empty";
+
+      requests.textContent =
+        "Access denied. Administrator access is required.";
 
       return;
 
     }
 
 
-    if (
-      adminCheck !== true
+    /*
+      BACK
+    */
+
+    document.getElementById(
+      "back"
+    ).onclick =
+      () => {
+
+        location.href =
+          "dashboard.html";
+
+      };
+
+
+    /*
+      FORMAT DATE
+    */
+
+    function formatDate(
+      value
     ) {
 
-      showStatus(
-        "You do not have administrator access.",
-        "error"
+      if (!value) {
+        return "Unknown date";
+      }
+
+
+      const date =
+        new Date(value);
+
+
+      if (
+        Number.isNaN(
+          date.getTime()
+        )
+      ) {
+
+        return "Unknown date";
+
+      }
+
+
+      return date.toLocaleString(
+        "en-US",
+        {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+          hour: "numeric",
+          minute: "2-digit"
+        }
       );
 
-      requestsElement.innerHTML =
-        `<div class="empty">
-          Access denied.
-        </div>`;
+    }
 
-      return;
+
+    /*
+      FORMAT MONEY
+    */
+
+    function money(
+      value
+    ) {
+
+      return "$" +
+        Number(
+          value || 0
+        ).toLocaleString(
+          "en-US",
+          {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+          }
+        );
+
+    }
+
+
+    /*
+      ESCAPE HTML
+    */
+
+    function escapeHTML(
+      value
+    ) {
+
+      return String(
+        value ?? ""
+      )
+        .replace(
+          /&/g,
+          "&amp;"
+        )
+        .replace(
+          /</g,
+          "&lt;"
+        )
+        .replace(
+          />/g,
+          "&gt;"
+        )
+        .replace(
+          /"/g,
+          "&quot;"
+        )
+        .replace(
+          /'/g,
+          "&#039;"
+        );
+
+    }
+
+
+    /*
+      DESTINATION
+    */
+
+    function destinationHTML(
+      destination
+    ) {
+
+      if (
+        !destination
+      ) {
+
+        return "No destination information";
+
+      }
+
+
+      try {
+
+        return escapeHTML(
+          JSON.stringify(
+            destination,
+            null,
+            2
+          )
+        );
+
+      } catch {
+
+        return "Destination information unavailable";
+
+      }
 
     }
 
@@ -928,15 +1019,18 @@
     async function loadRequests() {
 
 
-      requestsElement.innerHTML =
-        `<div class="loading">
-          Loading withdrawal requests…
-        </div>`;
+      requests.className =
+        "loading";
+
+      requests.textContent =
+        "Loading withdrawal requests…";
 
 
       const result =
         await sb
-          .from("withdrawal_requests")
+          .from(
+            "withdrawal_requests"
+          )
           .select(
             "id,user_id,amount,method,destination,status,created_at"
           )
@@ -952,120 +1046,307 @@
         result.error
       ) {
 
-        console.error(
-          "Withdrawal loading error:",
-          result.error
-        );
-
         throw result.error;
 
       }
 
 
-      const requests =
+      const rows =
         result.data || [];
 
 
-      /*
-        COUNTS
-      */
-
-      const pending =
-        requests.filter(
-          item =>
-            String(
-              item.status
-            ).toLowerCase() ===
-            "pending"
-        ).length;
-
-
-      const approved =
-        requests.filter(
-          item =>
-            String(
-              item.status
-            ).toLowerCase() ===
-            "approved"
-        ).length;
-
-
-      const rejected =
-        requests.filter(
-          item =>
-            String(
-              item.status
-            ).toLowerCase() ===
-            "rejected"
-        ).length;
-
-
-      document.getElementById(
-        "pendingCount"
-      ).textContent =
-        pending;
-
-
-      document.getElementById(
-        "approvedCount"
-      ).textContent =
-        approved;
-
-
-      document.getElementById(
-        "rejectedCount"
-      ).textContent =
-        rejected;
-
-
-      /*
-        EMPTY
-      */
-
       if (
-        requests.length === 0
+        rows.length === 0
       ) {
 
-        requestsElement.innerHTML =
-          `<div class="empty">
-            No withdrawal requests yet.
-          </div>`;
+        requests.className =
+          "empty";
+
+        requests.textContent =
+          "There are no withdrawal requests.";
 
         return;
 
       }
 
 
-      /*
-        REQUEST CARDS
-      */
+      requests.className =
+        "";
 
-      requestsElement.innerHTML =
-        requests
+
+      requests.innerHTML =
+        rows
           .map(
-            renderRequest
+            request => {
+
+
+              const pending =
+                String(
+                  request.status
+                ).toLowerCase() ===
+                "pending";
+
+
+              return `
+
+                <article
+                  class="request"
+                  data-id="${escapeHTML(
+                    request.id
+                  )}"
+                >
+
+                  <div class="request-head">
+
+                    <div>
+
+                      <div class="request-title">
+                        Withdrawal Request
+                      </div>
+
+                      <div class="request-date">
+                        ${escapeHTML(
+                          formatDate(
+                            request.created_at
+                          )
+                        )}
+                      </div>
+
+                    </div>
+
+                    <div class="badge">
+                      ${escapeHTML(
+                        request.status
+                      )}
+                    </div>
+
+                  </div>
+
+
+                  <div class="request-body">
+
+                    <div class="amount">
+                      ${money(
+                        request.amount
+                      )}
+                    </div>
+
+
+                    <div class="details">
+
+                      <div class="detail">
+
+                        <div class="detail-label">
+                          User ID
+                        </div>
+
+                        <div class="detail-value">
+                          ${escapeHTML(
+                            request.user_id
+                          )}
+                        </div>
+
+                      </div>
+
+
+                      <div class="detail">
+
+                        <div class="detail-label">
+                          Withdrawal Method
+                        </div>
+
+                        <div class="detail-value">
+                          ${escapeHTML(
+                            request.method
+                          )}
+                        </div>
+
+                      </div>
+
+
+                      <div class="detail destination">
+
+                        <div class="detail-label">
+                          Destination
+                        </div>
+
+                        <pre>${destinationHTML(
+                          request.destination
+                        )}</pre>
+
+                      </div>
+
+                    </div>
+
+
+                    ${
+                      pending
+                        ? `
+
+                          <div class="actions">
+
+                            <button
+                              class="approve"
+                              data-status="approved"
+                              data-id="${escapeHTML(
+                                request.id
+                              )}"
+                              type="button"
+                            >
+                              Approve
+                            </button>
+
+
+                            <button
+                              class="reject"
+                              data-status="rejected"
+                              data-id="${escapeHTML(
+                                request.id
+                              )}"
+                              type="button"
+                            >
+                              Reject
+                            </button>
+
+                          </div>
+
+                        `
+                        : ""
+                    }
+
+                  </div>
+
+                </article>
+
+              `;
+
+            }
           )
           .join("");
 
 
       /*
-        ACTION BUTTONS
+        APPROVE / REJECT
       */
 
-      requestsElement
+      requests
         .querySelectorAll(
-          "[data-decision]"
+          "[data-status]"
         )
         .forEach(
           button => {
 
-            button.onclick =
-              () => {
 
-                updateRequestStatus(
-                  button.dataset.id,
-                  button.dataset.decision
-                );
+            button.onclick =
+              async () => {
+
+
+                const id =
+                  button.dataset.id;
+
+
+                const newStatus =
+                  button.dataset.status;
+
+
+                const actionText =
+                  newStatus === "approved"
+                    ? "approve"
+                    : "reject";
+
+
+                const confirmed =
+                  confirm(
+                    "Are you sure you want to " +
+                    actionText +
+                    " this withdrawal request?"
+                  );
+
+
+                if (
+                  !confirmed
+                ) {
+
+                  return;
+
+                }
+
+
+                button.disabled =
+                  true;
+
+
+                button.textContent =
+                  newStatus === "approved"
+                    ? "Approving…"
+                    : "Rejecting…";
+
+
+                try {
+
+
+                  const result =
+                    await sb
+                      .from(
+                        "withdrawal_requests"
+                      )
+                      .update({
+                        status:
+                          newStatus
+                      })
+                      .eq(
+                        "id",
+                        id
+                      );
+
+
+                  if (
+                    result.error
+                  ) {
+
+                    throw result.error;
+
+                  }
+
+
+                  showStatus(
+                    "Withdrawal request marked as " +
+                    newStatus +
+                    ".",
+                    "success"
+                  );
+
+
+                  await loadRequests();
+
+
+                } catch (
+                  error
+                ) {
+
+
+                  console.error(
+                    "Admin withdrawal update error:",
+                    error
+                  );
+
+
+                  showStatus(
+                    "Could not update the withdrawal request.",
+                    "error"
+                  );
+
+
+                  button.disabled =
+                    false;
+
+
+                  button.textContent =
+                    newStatus === "approved"
+                      ? "Approve"
+                      : "Reject";
+
+                }
 
               };
 
@@ -1075,311 +1356,22 @@
     }
 
 
-
-    /*
-      RENDER REQUEST
-    */
-
-    function renderRequest(
-      request
-    ) {
-
-
-      const normalizedStatus =
-        String(
-          request.status ||
-          "pending"
-        ).toLowerCase();
-
-
-      let badgeClass =
-        "status-pending";
-
-
-      if (
-        normalizedStatus ===
-        "approved"
-      ) {
-
-        badgeClass =
-          "status-approved";
-
-      }
-
-
-      if (
-        normalizedStatus ===
-        "rejected"
-      ) {
-
-        badgeClass =
-          "status-rejected";
-
-      }
-
-
-      const destinationJSON =
-        JSON.stringify(
-          request.destination || {},
-          null,
-          2
-        );
-
-
-      const actions =
-        normalizedStatus ===
-        "pending"
-          ? `
-
-              <div class="actions">
-
-                <button
-                  class="approve"
-                  data-id="${escapeHTML(request.id)}"
-                  data-decision="approved"
-                  type="button"
-                >
-                  Approve withdrawal
-                </button>
-
-                <button
-                  class="reject"
-                  data-id="${escapeHTML(request.id)}"
-                  data-decision="rejected"
-                  type="button"
-                >
-                  Reject withdrawal
-                </button>
-
-              </div>
-
-            `
-          : "";
-
-
-      return `
-
-        <article class="request">
-
-          <div class="request-top">
-
-            <div>
-
-              <div class="amount">
-                ${money(request.amount)}
-              </div>
-
-              <div class="date">
-                Submitted ${formatDate(request.created_at)}
-              </div>
-
-            </div>
-
-
-            <div
-              class="status-badge ${badgeClass}"
-            >
-              ${escapeHTML(normalizedStatus)}
-            </div>
-
-          </div>
-
-
-          <div class="details">
-
-            <div class="detail-row">
-
-              <div class="detail-label">
-                Request ID
-              </div>
-
-              <div class="detail-value">
-                ${escapeHTML(request.id)}
-              </div>
-
-            </div>
-
-
-            <div class="detail-row">
-
-              <div class="detail-label">
-                User ID
-              </div>
-
-              <div class="detail-value">
-                ${escapeHTML(request.user_id)}
-              </div>
-
-            </div>
-
-
-            <div class="detail-row">
-
-              <div class="detail-label">
-                Method
-              </div>
-
-              <div class="detail-value">
-                ${escapeHTML(request.method)}
-              </div>
-
-            </div>
-
-
-            <div class="destination">
-
-              <div class="destination-title">
-                DESTINATION DETAILS
-              </div>
-
-              <pre>${escapeHTML(destinationJSON)}</pre>
-
-            </div>
-
-          </div>
-
-
-          ${actions}
-
-        </article>
-
-      `;
-
-    }
-
-
-
-    /*
-      UPDATE STATUS
-    */
-
-    async function updateRequestStatus(
-      requestId,
-      newStatus
-    ) {
-
-
-      const confirmed =
-        window.confirm(
-          newStatus === "approved"
-            ? "Approve this withdrawal request?"
-            : "Reject this withdrawal request?"
-        );
-
-
-      if (!confirmed) {
-        return;
-      }
-
-
-      try {
-
-
-        const result =
-          await sb
-            .from("withdrawal_requests")
-            .update({
-              status:
-                newStatus
-            })
-            .eq(
-              "id",
-              requestId
-            );
-
-
-        if (
-          result.error
-        ) {
-
-          throw result.error;
-
-        }
-
-
-        showStatus(
-          newStatus === "approved"
-            ? "Withdrawal approved successfully."
-            : "Withdrawal rejected successfully.",
-          "success"
-        );
-
-
-        await loadRequests();
-
-
-      } catch (error) {
-
-
-        console.error(
-          "Status update error:",
-          error
-        );
-
-
-        showStatus(
-          "We could not update this withdrawal request. Please try again.",
-          "error"
-        );
-
-      }
-
-    }
-
-
-
-    /*
-      LOGOUT
-    */
-
-    document.getElementById(
-      "logout"
-    ).onclick =
-      async () => {
-
-
-        await sb.auth.signOut();
-
-
-        location.href =
-          "login.html";
-
-      };
-
-
-    /*
-      INITIAL LOAD
-    */
-
     await loadRequests();
 
 
     /*
-      REFRESH EVERY 10 SECONDS
+      REFRESH EVERY 15 SECONDS
     */
 
     setInterval(
-      async () => {
-
-        try {
-
-          await loadRequests();
-
-        } catch (error) {
-
-          console.error(
-            "Automatic refresh error:",
-            error
-          );
-
-        }
-
-      },
-      10000
+      loadRequests,
+      15000
     );
 
 
-  } catch (error) {
+  } catch (
+    error
+  ) {
 
 
     console.error(
@@ -1388,14 +1380,16 @@
     );
 
 
-    requestsElement.innerHTML =
-      `<div class="empty">
-        Unable to load the administrator page.
-      </div>`;
+    requests.className =
+      "empty";
+
+    requests.textContent =
+      "Unable to load the admin withdrawal panel.";
 
 
     showStatus(
-      "Something went wrong loading the admin withdrawals page.",
+      error.message ||
+      "Something went wrong.",
       "error"
     );
 
