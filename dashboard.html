@@ -893,7 +893,9 @@
         value === "deposit" ||
         value === "add_money"
       ) {
+
         return "+";
+
       }
 
 
@@ -901,21 +903,27 @@
         value === "withdrawal" ||
         value === "withdraw"
       ) {
+
         return "↓";
+
       }
 
 
       if (
         value === "transfer"
       ) {
+
         return "⇄";
+
       }
 
 
       if (
         value === "receive"
       ) {
+
         return "↓";
+
       }
 
 
@@ -946,22 +954,30 @@
 
 
       if (type === "deposit") {
+
         return "Money added";
+
       }
 
 
       if (type === "withdrawal") {
+
         return "Withdrawal";
+
       }
 
 
       if (type === "transfer") {
+
         return "Transfer";
+
       }
 
 
       if (type === "receive") {
+
         return "Money received";
+
       }
 
 
@@ -999,6 +1015,7 @@
 
 
       return {
+
         text:
           prefix +
           "$" +
@@ -1130,7 +1147,9 @@
 
 
         if (result.error) {
+
           throw result.error;
+
         }
 
 
@@ -1203,8 +1222,16 @@
     }
 
 
+    /*
+      LOAD TRANSACTIONS
+    */
+
     await loadTransactions();
 
+
+    /*
+      REFRESH EVERY 10 SECONDS
+    */
 
     setInterval(
       loadTransactions,
@@ -1261,12 +1288,44 @@
 
 
           /*
+            RECEIVE
+          */
+
+          if (
+            action === "Receive"
+          ) {
+
+            location.href =
+              "receive.html";
+
+            return;
+
+          }
+
+
+          /*
+            HISTORY
+          */
+
+          if (
+            action === "History"
+          ) {
+
+            location.href =
+              "history.html";
+
+            return;
+
+          }
+
+
+          /*
             OTHER FEATURES
           */
 
           alert(
             action +
-            " will be added in the next Veylo build step."
+            " is coming soon."
           );
 
         };
