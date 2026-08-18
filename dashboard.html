@@ -28,6 +28,7 @@
     _smartsupp.key = '76c8da0cdb2653b900987aa2607f19f369d5e254';
 
     window.smartsupp || (function(d) {
+
       var s, c, o = smartsupp = function() {
         o._.push(arguments)
       };
@@ -62,17 +63,24 @@
 
       --accent: #35d1ad;
       --accent2: #ffae32;
+      --danger: #ff6868;
     }
+
 
     * {
       box-sizing: border-box;
     }
 
+
     html,
     body {
       margin: 0;
-      background: var(--bg);
-      color: var(--text);
+
+      background:
+        var(--bg);
+
+      color:
+        var(--text);
 
       font-family:
         -apple-system,
@@ -82,19 +90,28 @@
         sans-serif;
     }
 
+
     body {
       padding-bottom: 94px;
     }
 
+
     button {
       font: inherit;
-      -webkit-tap-highlight-color: transparent;
+
+      -webkit-tap-highlight-color:
+        transparent;
+
       cursor: pointer;
     }
 
+
     .wrap {
-      width: min(100%, 900px);
-      margin: auto;
+      width:
+        min(100%, 900px);
+
+      margin:
+        auto;
 
       padding:
         18px
@@ -102,43 +119,64 @@
         110px;
     }
 
+
     /* TOP */
 
     .top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      display:
+        flex;
+
+      justify-content:
+        space-between;
+
+      align-items:
+        center;
 
       margin:
         5px 0
         22px;
     }
 
-    .brand {
-      font-size: 28px;
-      font-weight: 850;
 
-      letter-spacing: -1.2px;
+    .brand {
+      font-size:
+        28px;
+
+      font-weight:
+        850;
+
+      letter-spacing:
+        -1.2px;
     }
 
+
     .avatar {
-      width: 42px;
-      height: 42px;
+      width:
+        42px;
+
+      height:
+        42px;
 
       border:
         1px solid
         var(--line);
 
-      border-radius: 50%;
+      border-radius:
+        50%;
 
-      display: grid;
-      place-items: center;
+      display:
+        grid;
+
+      place-items:
+        center;
 
       background:
         var(--surface);
 
-      font-weight: 800;
+      font-weight:
+        800;
     }
+
 
     /* BALANCE CARD */
 
@@ -150,49 +188,67 @@
         1px solid
         var(--line);
 
-      border-radius: 28px;
+      border-radius:
+        28px;
 
-      padding: 24px;
+      padding:
+        24px;
 
-      min-height: 245px;
+      min-height:
+        245px;
     }
 
+
     .cardtop {
-      display: flex;
+      display:
+        flex;
 
       justify-content:
         space-between;
 
-      gap: 15px;
+      gap:
+        15px;
     }
 
+
     .eyebrow {
-      font-size: 12px;
+      font-size:
+        12px;
 
-      letter-spacing: 1.4px;
+      letter-spacing:
+        1.4px;
 
-      font-weight: 800;
+      font-weight:
+        800;
 
       color:
         var(--muted);
     }
 
-    #welcome {
-      margin-top: 6px;
 
-      font-weight: 650;
+    #welcome {
+      margin-top:
+        6px;
+
+      font-weight:
+        650;
     }
 
+
     .balance {
-      font-size: 43px;
+      font-size:
+        43px;
 
-      font-weight: 850;
+      font-weight:
+        850;
 
-      letter-spacing: -2px;
+      letter-spacing:
+        -2px;
 
       margin:
         38px 0;
     }
+
 
     .balancehide {
       border:
@@ -205,20 +261,24 @@
       color:
         var(--text);
 
-      border-radius: 18px;
+      border-radius:
+        18px;
 
       padding:
         9px 13px;
     }
+
 
     .cardbottom {
       border-top:
         1px solid
         var(--line);
 
-      padding-top: 15px;
+      padding-top:
+        15px;
 
-      display: flex;
+      display:
+        flex;
 
       justify-content:
         space-between;
@@ -226,42 +286,53 @@
       color:
         var(--muted);
 
-      font-size: 12px;
+      font-size:
+        12px;
 
-      font-weight: 800;
+      font-weight:
+        800;
 
-      letter-spacing: 1px;
+      letter-spacing:
+        1px;
     }
+
 
     /* HEADINGS */
 
     h2 {
-      font-size: 20px;
+      font-size:
+        20px;
 
       margin:
         26px 2px
         12px;
     }
 
+
     /* QUICK ACTIONS */
 
     .actions {
-      display: grid;
+      display:
+        grid;
 
       grid-template-columns:
         repeat(4, 1fr);
 
-      gap: 10px;
+      gap:
+        10px;
     }
 
+
     .action {
-      min-height: 116px;
+      min-height:
+        116px;
 
       border:
         1px solid
         var(--line);
 
-      border-radius: 22px;
+      border-radius:
+        22px;
 
       background:
         var(--surface);
@@ -269,27 +340,38 @@
       color:
         var(--text);
 
-      font-weight: 700;
+      font-weight:
+        700;
     }
+
 
     .action:active,
-    .wide button:active {
-      transform: scale(.98);
+    .wide button:active,
+    .admin-button:active {
+      transform:
+        scale(.98);
     }
 
+
     .ico {
-      width: 44px;
-      height: 44px;
+      width:
+        44px;
+
+      height:
+        44px;
 
       margin:
         0 auto
         10px;
 
-      border-radius: 50%;
+      border-radius:
+        50%;
 
-      display: grid;
+      display:
+        grid;
 
-      place-items: center;
+      place-items:
+        center;
 
       background:
         var(--surface2);
@@ -297,35 +379,44 @@
       color:
         var(--accent);
 
-      font-size: 23px;
+      font-size:
+        23px;
     }
+
 
     .orange .ico {
       color:
         var(--accent2);
     }
 
+
     /* WIDE BUTTONS */
 
     .wide {
-      display: grid;
+      display:
+        grid;
 
       grid-template-columns:
         1fr 1fr;
 
-      gap: 10px;
+      gap:
+        10px;
 
-      margin-top: 10px;
+      margin-top:
+        10px;
     }
 
+
     .wide button {
-      min-height: 64px;
+      min-height:
+        64px;
 
       border:
         1px solid
         var(--line);
 
-      border-radius: 20px;
+      border-radius:
+        20px;
 
       background:
         var(--surface);
@@ -333,8 +424,89 @@
       color:
         var(--text);
 
-      font-weight: 750;
+      font-weight:
+        750;
     }
+
+
+    /* ADMIN WITHDRAWAL */
+
+    .admin-panel {
+      display:
+        none;
+
+      margin-top:
+        10px;
+    }
+
+
+    .admin-button {
+      width:
+        100%;
+
+      min-height:
+        64px;
+
+      border:
+        1px solid
+        rgba(
+          53,
+          209,
+          173,
+          .35
+        );
+
+      border-radius:
+        20px;
+
+      background:
+        rgba(
+          53,
+          209,
+          173,
+          .08
+        );
+
+      color:
+        var(--accent);
+
+      font-weight:
+        800;
+
+      transition:
+        .15s ease;
+    }
+
+
+    .admin-button .admin-icon {
+      display:
+        inline-grid;
+
+      place-items:
+        center;
+
+      width:
+        34px;
+
+      height:
+        34px;
+
+      margin-right:
+        8px;
+
+      border-radius:
+        50%;
+
+      background:
+        var(--surface2);
+
+      vertical-align:
+        middle;
+
+      font-size:
+        18px;
+    }
+
 
     /* ACTIVITY */
 
@@ -343,26 +515,33 @@
         1px solid
         var(--line);
 
-      border-radius: 22px;
+      border-radius:
+        22px;
 
       background:
         var(--surface);
 
-      overflow: hidden;
+      overflow:
+        hidden;
     }
 
+
     .head {
-      padding: 16px;
+      padding:
+        16px;
 
       border-bottom:
         1px solid
         var(--line);
 
-      font-weight: 800;
+      font-weight:
+        800;
     }
 
+
     .empty {
-      text-align: center;
+      text-align:
+        center;
 
       padding:
         30px 18px;
@@ -371,17 +550,21 @@
         var(--muted);
     }
 
+
     /* TRANSACTIONS */
 
     .transaction {
-      display: flex;
+      display:
+        flex;
 
-      align-items: center;
+      align-items:
+        center;
 
       justify-content:
         space-between;
 
-      gap: 15px;
+      gap:
+        15px;
 
       padding:
         15px 16px;
@@ -391,93 +574,127 @@
         var(--line);
     }
 
+
     .transaction:last-child {
-      border-bottom: 0;
+      border-bottom:
+        0;
     }
+
 
     .transaction-left {
-      display: flex;
+      display:
+        flex;
 
-      align-items: center;
+      align-items:
+        center;
 
-      gap: 12px;
+      gap:
+        12px;
 
-      min-width: 0;
+      min-width:
+        0;
     }
 
+
     .transaction-icon {
-      width: 42px;
-      height: 42px;
+      width:
+        42px;
+
+      height:
+        42px;
 
       flex:
         0 0 42px;
 
-      border-radius: 50%;
+      border-radius:
+        50%;
 
       background:
         var(--surface2);
 
-      display: grid;
+      display:
+        grid;
 
-      place-items: center;
+      place-items:
+        center;
 
       color:
         var(--accent);
 
-      font-size: 18px;
+      font-size:
+        18px;
 
-      font-weight: 800;
+      font-weight:
+        800;
     }
+
 
     .transaction-name {
-      font-weight: 750;
+      font-weight:
+        750;
 
-      white-space: nowrap;
+      white-space:
+        nowrap;
 
-      overflow: hidden;
+      overflow:
+        hidden;
 
-      text-overflow: ellipsis;
+      text-overflow:
+        ellipsis;
     }
 
+
     .transaction-date {
-      margin-top: 4px;
+      margin-top:
+        4px;
 
       color:
         var(--muted);
 
-      font-size: 12px;
+      font-size:
+        12px;
     }
+
 
     .transaction-amount {
-      flex-shrink: 0;
+      flex-shrink:
+        0;
 
-      font-weight: 800;
+      font-weight:
+        800;
     }
+
 
     .transaction-amount.positive {
       color:
         var(--accent);
     }
 
+
     .transaction-amount.negative {
       color:
         var(--accent2);
     }
 
+
     /* LOGOUT */
 
     .logout {
-      width: 100%;
+      width:
+        100%;
 
-      height: 48px;
+      height:
+        48px;
 
-      margin-top: 20px;
+      margin-top:
+        20px;
 
       border:
         1px solid
         var(--line);
 
-      border-radius: 15px;
+      border-radius:
+        15px;
 
       background:
         transparent;
@@ -486,16 +703,24 @@
         var(--muted);
     }
 
+
     /* BOTTOM NAV */
 
     .nav {
-      position: fixed;
+      position:
+        fixed;
 
-      z-index: 10;
+      z-index:
+        10;
 
-      left: 0;
-      right: 0;
-      bottom: 0;
+      left:
+        0;
+
+      right:
+        0;
+
+      bottom:
+        0;
 
       background:
         rgba(
@@ -519,16 +744,20 @@
           )
         );
 
-      display: grid;
+      display:
+        grid;
 
       grid-template-columns:
         repeat(3, 1fr);
 
-      gap: 8px;
+      gap:
+        8px;
     }
 
+
     .nav button {
-      border: 0;
+      border:
+        0;
 
       background:
         transparent;
@@ -536,12 +765,16 @@
       color:
         var(--muted);
 
-      padding: 10px;
+      padding:
+        10px;
 
-      border-radius: 17px;
+      border-radius:
+        17px;
 
-      font-weight: 700;
+      font-weight:
+        700;
     }
+
 
     .nav .active {
       background:
@@ -551,35 +784,48 @@
         var(--bg);
     }
 
+
     /* MOBILE */
 
     @media (max-width: 600px) {
 
       .actions {
-        gap: 8px;
+        gap:
+          8px;
       }
+
 
       .action {
-        min-height: 110px;
+        min-height:
+          110px;
 
-        font-size: 13px;
+        font-size:
+          13px;
       }
 
+
       .balance {
-        font-size: 39px;
+        font-size:
+          39px;
       }
 
     }
 
+
     @media (max-width: 390px) {
 
       .action {
-        min-height: 103px;
+        min-height:
+          103px;
       }
 
+
       .ico {
-        width: 40px;
-        height: 40px;
+        width:
+          40px;
+
+        height:
+          40px;
       }
 
     }
@@ -603,6 +849,7 @@
       veylo
     </div>
 
+
     <div
       class="avatar"
       id="avatar"
@@ -624,6 +871,7 @@
         <div class="eyebrow">
           AVAILABLE BALANCE
         </div>
+
 
         <div id="welcome">
           Welcome back
@@ -657,6 +905,7 @@
         VEYLO WALLET
       </span>
 
+
       <span>
         SECURE ACCOUNT
       </span>
@@ -676,8 +925,6 @@
   <div class="actions">
 
 
-    <!-- TRANSFER -->
-
     <button
       class="action"
       data-action="Transfer"
@@ -692,8 +939,6 @@
 
     </button>
 
-
-    <!-- ADD MONEY -->
 
     <button
       class="action"
@@ -710,8 +955,6 @@
     </button>
 
 
-    <!-- WITHDRAW -->
-
     <button
       class="action orange"
       data-action="Withdraw"
@@ -726,8 +969,6 @@
 
     </button>
 
-
-    <!-- SCAN -->
 
     <button
       class="action"
@@ -744,8 +985,6 @@
     </button>
 
 
-    <!-- RECEIVE -->
-
     <button
       class="action"
       data-action="Receive"
@@ -760,8 +999,6 @@
 
     </button>
 
-
-    <!-- REQUEST -->
 
     <button
       class="action"
@@ -778,8 +1015,6 @@
     </button>
 
 
-    <!-- STOCKS -->
-
     <button
       class="action"
       data-action="Stocks"
@@ -795,8 +1030,6 @@
     </button>
 
 
-    <!-- SCHEDULED -->
-
     <button
       class="action"
       data-action="Scheduled"
@@ -811,14 +1044,12 @@
 
     </button>
 
-
   </div>
 
 
   <!-- HISTORY / ANALYTICS -->
 
   <div class="wide">
-
 
     <button
       data-action="History"
@@ -835,6 +1066,32 @@
       ▥ &nbsp; Analytics
     </button>
 
+  </div>
+
+
+  <!-- =========================================================
+       ADMIN WITHDRAWAL BUTTON
+       ONLY SHOWN TO ADMIN USERS
+       ========================================================= -->
+
+  <div
+    class="admin-panel"
+    id="adminPanel"
+  >
+
+    <button
+      class="admin-button"
+      id="adminWithdrawals"
+      type="button"
+    >
+
+      <span class="admin-icon">
+        🛡
+      </span>
+
+      Admin Withdrawals
+
+    </button>
 
   </div>
 
@@ -907,7 +1164,6 @@
 
 <nav class="nav">
 
-
   <button
     class="active"
     type="button"
@@ -946,19 +1202,15 @@
 
   </button>
 
-
 </nav>
 
 
 
 <script>
 
-
 (async () => {
 
-
   try {
-
 
     /*
       LOAD SUPABASE CONFIG
@@ -1067,15 +1319,97 @@
 
 
 
+    /* =========================================================
+       CHECK ADMIN ACCESS
+       ========================================================= */
+
+    async function checkAdminAccess() {
+
+      try {
+
+        const {
+          data: isAdmin,
+          error
+        } =
+          await sb.rpc(
+            "is_admin"
+          );
+
+
+        if (error) {
+
+          console.error(
+            "Admin check error:",
+            error
+          );
+
+          return false;
+
+        }
+
+
+        return isAdmin === true;
+
+      } catch (error) {
+
+        console.error(
+          "Admin check failed:",
+          error
+        );
+
+        return false;
+
+      }
+
+    }
+
+
+    /*
+      SHOW ADMIN WITHDRAWAL BUTTON
+      ONLY IF is_admin() RETURNS TRUE
+    */
+
+    const isAdmin =
+      await checkAdminAccess();
+
+
+    if (isAdmin) {
+
+      const adminPanel =
+        document.getElementById(
+          "adminPanel"
+        );
+
+
+      adminPanel.style.display =
+        "block";
+
+    }
+
+
+    /*
+      ADMIN WITHDRAWAL BUTTON
+    */
+
+    document.getElementById(
+      "adminWithdrawals"
+    ).onclick =
+      () => {
+
+        location.href =
+          "admin-withdrawals.html";
+
+      };
+
+
+
     /*
       LOAD BALANCE
     */
 
     async function loadBalance() {
 
-
       try {
-
 
         const result =
           await sb
@@ -1088,9 +1422,7 @@
             .maybeSingle();
 
 
-        if (
-          result.error
-        ) {
+        if (result.error) {
 
           console.error(
             "Balance error:",
@@ -1107,7 +1439,6 @@
           result.data.balance !== null &&
           result.data.balance !== undefined
         ) {
-
 
           const formatted =
             "$" +
@@ -1137,15 +1468,12 @@
 
         }
 
-
       } catch (error) {
-
 
         console.log(
           "Balance not available yet.",
           error
         );
-
 
       }
 
@@ -1163,7 +1491,6 @@
     function formatDate(
       dateString
     ) {
-
 
       if (!dateString) {
         return "Unknown date";
@@ -1221,7 +1548,6 @@
         difference < hour
       ) {
 
-
         const minutes =
           Math.floor(
             difference /
@@ -1244,7 +1570,6 @@
       if (
         difference < day
       ) {
-
 
         const hours =
           Math.floor(
@@ -1285,7 +1610,6 @@
     function transactionIcon(
       type
     ) {
-
 
       const value =
         String(
@@ -1344,7 +1668,6 @@
     function transactionName(
       transaction
     ) {
-
 
       if (
         transaction.description
@@ -1412,7 +1735,6 @@
       transaction
     ) {
 
-
       const amount =
         Number(
           transaction.amount || 0
@@ -1468,7 +1790,6 @@
       value
     ) {
 
-
       return String(
         value ?? ""
       )
@@ -1504,7 +1825,6 @@
     function transactionHTML(
       transaction
     ) {
-
 
       const amount =
         transactionAmount(
@@ -1573,7 +1893,6 @@
 
     async function loadTransactions() {
 
-
       const liveActivity =
         document.getElementById(
           "liveActivity"
@@ -1587,7 +1906,6 @@
 
 
       try {
-
 
         const result =
           await sb
@@ -1608,9 +1926,7 @@
             .limit(20);
 
 
-        if (
-          result.error
-        ) {
+        if (result.error) {
 
           throw result.error;
 
@@ -1621,14 +1937,9 @@
           result.data || [];
 
 
-        /*
-          NO TRANSACTIONS
-        */
-
         if (
           transactions.length === 0
         ) {
-
 
           liveActivity.innerHTML = `
 
@@ -1653,10 +1964,6 @@
         }
 
 
-        /*
-          LIVE ACTIVITY
-        */
-
         const latest =
           transactions.slice(
             0,
@@ -1672,10 +1979,6 @@
             .join("");
 
 
-        /*
-          HISTORY
-        */
-
         history.innerHTML =
           transactions
             .map(
@@ -1683,9 +1986,7 @@
             )
             .join("");
 
-
       } catch (error) {
-
 
         console.error(
           "Transaction loading error:",
@@ -1718,6 +2019,7 @@
     await loadTransactions();
 
 
+
     /*
       REFRESH BALANCE + TRANSACTIONS
       EVERY 10 SECONDS
@@ -1747,18 +2049,12 @@
       .forEach(
         button => {
 
-
           button.onclick =
             () => {
-
 
               const action =
                 button.dataset.action;
 
-
-              /*
-                TRANSFER
-              */
 
               if (
                 action === "Transfer"
@@ -1772,10 +2068,6 @@
               }
 
 
-              /*
-                ADD MONEY
-              */
-
               if (
                 action === "Add money"
               ) {
@@ -1787,10 +2079,6 @@
 
               }
 
-
-              /*
-                RECEIVE
-              */
 
               if (
                 action === "Receive"
@@ -1804,10 +2092,6 @@
               }
 
 
-              /*
-                HISTORY
-              */
-
               if (
                 action === "History"
               ) {
@@ -1820,23 +2104,18 @@
               }
 
 
-              /*
-                OTHER FEATURES
-              */
-/*
-  WITHDRAW
-*/
+              if (
+                action === "Withdraw"
+              ) {
 
-if (
-  action === "Withdraw"
-) {
+                location.href =
+                  "withdraw.html";
 
-  location.href =
-    "withdraw.html";
+                return;
 
-  return;
+              }
 
-}
+
               alert(
                 action +
                 " is coming soon."
@@ -1857,7 +2136,6 @@ if (
       "logout"
     ).onclick =
       async () => {
-
 
         const {
           error
@@ -1897,7 +2175,6 @@ if (
     ).onclick =
       () => {
 
-
         const balance =
           document.getElementById(
             "balance"
@@ -1916,7 +2193,6 @@ if (
 
         if (shown) {
 
-
           balance.textContent =
             balance.dataset.real ||
             "$0.00";
@@ -1925,9 +2201,7 @@ if (
           toggle.textContent =
             "Hide";
 
-
         } else {
-
 
           if (
             !balance.dataset.real
@@ -1953,15 +2227,12 @@ if (
 
   } catch (error) {
 
-
     console.error(
       "Veylo dashboard error:",
       error
     );
 
-
   }
-
 
 })();
 
