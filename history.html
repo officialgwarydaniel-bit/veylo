@@ -1,0 +1,1493 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width,initial-scale=1,viewport-fit=cover"
+  >
+
+  <meta
+    name="theme-color"
+    content="#0b0d0f"
+  >
+
+  <title>Veylo — History</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+
+    :root {
+      --bg: #0b0d0f;
+      --surface: #14171a;
+      --surface2: #191c20;
+      --line: #292d31;
+      --text: #f4f4f2;
+      --muted: #9a9da0;
+
+      --accent: #35d1ad;
+      --accent2: #ffae32;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "SF Pro Display",
+        "Segoe UI",
+        sans-serif;
+    }
+
+    body {
+      padding-bottom: 100px;
+    }
+
+    button {
+      font: inherit;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .wrap {
+      width: min(100%, 900px);
+      margin: auto;
+
+      padding:
+        18px
+        16px
+        110px;
+    }
+
+    /* TOP */
+
+    .top {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+
+      margin:
+        5px 0
+        28px;
+    }
+
+    .back {
+      width: 44px;
+      height: 44px;
+
+      border:
+        1px solid var(--line);
+
+      border-radius: 50%;
+
+      background: var(--surface);
+      color: var(--text);
+
+      font-size: 24px;
+    }
+
+    .title {
+      font-size: 28px;
+      font-weight: 850;
+      letter-spacing: -1px;
+    }
+
+    /* SUMMARY */
+
+    .summary {
+      background: var(--surface);
+
+      border:
+        1px solid var(--line);
+
+      border-radius: 26px;
+
+      padding: 22px;
+
+      margin-bottom: 20px;
+    }
+
+    .eyebrow {
+      color: var(--muted);
+
+      font-size: 12px;
+
+      font-weight: 800;
+
+      letter-spacing: 1.4px;
+    }
+
+    .summary-title {
+      margin-top: 7px;
+
+      font-size: 24px;
+
+      font-weight: 800;
+    }
+
+    .summary-text {
+      margin-top: 7px;
+
+      color: var(--muted);
+
+      font-size: 14px;
+
+      line-height: 1.5;
+    }
+
+    /* FILTERS */
+
+    .filters {
+      display: grid;
+
+      grid-template-columns:
+        repeat(4, 1fr);
+
+      gap: 8px;
+
+      margin-bottom: 16px;
+    }
+
+    .filter {
+      min-height: 44px;
+
+      border:
+        1px solid var(--line);
+
+      border-radius: 15px;
+
+      background: var(--surface);
+
+      color: var(--muted);
+
+      font-weight: 750;
+
+      font-size: 13px;
+    }
+
+    .filter.active {
+      background: var(--text);
+      color: var(--bg);
+      border-color: var(--text);
+    }
+
+    /* ACTIVITY */
+
+    .activity {
+      background: var(--surface);
+
+      border:
+        1px solid var(--line);
+
+      border-radius: 24px;
+
+      overflow: hidden;
+    }
+
+    .activity-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      padding: 17px 16px;
+
+      border-bottom:
+        1px solid var(--line);
+    }
+
+    .activity-title {
+      font-weight: 800;
+    }
+
+    .count {
+      color: var(--muted);
+
+      font-size: 12px;
+
+      font-weight: 750;
+    }
+
+    /* TRANSACTION */
+
+    .transaction {
+      display: flex;
+
+      align-items: center;
+
+      justify-content: space-between;
+
+      gap: 14px;
+
+      padding: 16px;
+
+      border-bottom:
+        1px solid var(--line);
+    }
+
+    .transaction:last-child {
+      border-bottom: 0;
+    }
+
+    .transaction-left {
+      display: flex;
+
+      align-items: center;
+
+      gap: 12px;
+
+      min-width: 0;
+    }
+
+    .transaction-icon {
+      width: 44px;
+      height: 44px;
+
+      flex:
+        0 0 44px;
+
+      border-radius: 50%;
+
+      display: grid;
+
+      place-items: center;
+
+      background: var(--surface2);
+
+      color: var(--accent);
+
+      font-size: 20px;
+
+      font-weight: 850;
+    }
+
+    .transaction-icon.negative {
+      color: var(--accent2);
+    }
+
+    .transaction-info {
+      min-width: 0;
+    }
+
+    .transaction-name {
+      font-weight: 800;
+
+      white-space: nowrap;
+
+      overflow: hidden;
+
+      text-overflow: ellipsis;
+    }
+
+    .transaction-date {
+      margin-top: 4px;
+
+      color: var(--muted);
+
+      font-size: 12px;
+    }
+
+    .transaction-amount {
+      flex-shrink: 0;
+
+      font-weight: 850;
+
+      font-size: 15px;
+    }
+
+    .positive {
+      color: var(--accent);
+    }
+
+    .negative {
+      color: var(--accent2);
+    }
+
+    /* EMPTY */
+
+    .empty {
+      padding: 48px 20px;
+
+      text-align: center;
+
+      color: var(--muted);
+
+      line-height: 1.5;
+    }
+
+    .empty-icon {
+      width: 56px;
+      height: 56px;
+
+      margin:
+        0 auto 14px;
+
+      border-radius: 50%;
+
+      display: grid;
+
+      place-items: center;
+
+      background: var(--surface2);
+
+      color: var(--accent);
+
+      font-size: 25px;
+    }
+
+    .empty-title {
+      color: var(--text);
+
+      font-weight: 800;
+
+      margin-bottom: 6px;
+    }
+
+    /* LOADING */
+
+    .loading {
+      padding: 42px 20px;
+
+      text-align: center;
+
+      color: var(--muted);
+    }
+
+    /* NAV */
+
+    .nav {
+      position: fixed;
+
+      z-index: 10;
+
+      left: 0;
+      right: 0;
+      bottom: 0;
+
+      background:
+        rgba(11, 13, 15, .97);
+
+      border-top:
+        1px solid var(--line);
+
+      padding:
+        9px
+        15px
+        calc(
+          9px +
+          env(safe-area-inset-bottom)
+        );
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, 1fr);
+
+      gap: 8px;
+    }
+
+    .nav button {
+      border: 0;
+
+      background: transparent;
+
+      color: var(--muted);
+
+      padding: 10px;
+
+      border-radius: 17px;
+
+      font-weight: 700;
+    }
+
+    .nav .active {
+      background: var(--text);
+
+      color: var(--bg);
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 500px) {
+
+      .filters {
+        grid-template-columns:
+          repeat(2, 1fr);
+      }
+
+      .title {
+        font-size: 26px;
+      }
+
+      .transaction-amount {
+        font-size: 14px;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+<div class="wrap">
+
+  <!-- TOP -->
+
+  <header class="top">
+
+    <button
+      class="back"
+      id="back"
+      type="button"
+    >
+      ‹
+    </button>
+
+    <div class="title">
+      History
+    </div>
+
+  </header>
+
+
+  <!-- SUMMARY -->
+
+  <section class="summary">
+
+    <div class="eyebrow">
+      VEYLO ACTIVITY
+    </div>
+
+    <div class="summary-title">
+      Transaction history
+    </div>
+
+    <div class="summary-text">
+      View your Veylo transfers, money received,
+      deposits, and withdrawals.
+    </div>
+
+  </section>
+
+
+  <!-- FILTERS -->
+
+  <div class="filters">
+
+    <button
+      class="filter active"
+      data-filter="all"
+    >
+      All
+    </button>
+
+    <button
+      class="filter"
+      data-filter="deposit"
+    >
+      Added
+    </button>
+
+    <button
+      class="filter"
+      data-filter="receive"
+    >
+      Received
+    </button>
+
+    <button
+      class="filter"
+      data-filter="withdraw"
+    >
+      Withdrawals
+    </button>
+
+  </div>
+
+
+  <!-- ACTIVITY -->
+
+  <section class="activity">
+
+    <div class="activity-head">
+
+      <div class="activity-title">
+        Transactions
+      </div>
+
+      <div
+        class="count"
+        id="count"
+      >
+        Loading…
+      </div>
+
+    </div>
+
+
+    <div id="transactions">
+
+      <div class="loading">
+        Loading transactions…
+      </div>
+
+    </div>
+
+  </section>
+
+</div>
+
+
+<!-- NAV -->
+
+<nav class="nav">
+
+  <button
+    id="homeNav"
+  >
+    ⌂
+    <br>
+    Home
+  </button>
+
+  <button
+    class="active"
+  >
+    ◴
+    <br>
+    History
+  </button>
+
+  <button
+    id="analyticsNav"
+  >
+    ▥
+    <br>
+    Analytics
+  </button>
+
+</nav>
+
+
+<script>
+
+(async () => {
+
+  try {
+
+    /*
+      LOAD SUPABASE CONFIG
+    */
+
+    const txt =
+      await fetch(
+        "supabase-config.js",
+        {
+          cache: "no-store"
+        }
+      ).then(
+        response => response.text()
+      );
+
+
+    const url =
+      (
+        txt.match(
+          /SUPABASE_URL\s*=\s*["']([^"']+)["']/
+        ) || []
+      )[1];
+
+
+    const key =
+      (
+        txt.match(
+          /SUPABASE_PUBLISHABLE_KEY\s*=\s*["']([^"']+)["']/
+        ) || []
+      )[1];
+
+
+    if (!url || !key) {
+
+      console.error(
+        "Veylo Supabase configuration not found."
+      );
+
+      document.getElementById(
+        "transactions"
+      ).innerHTML = `
+        <div class="empty">
+
+          <div class="empty-icon">
+            !
+          </div>
+
+          <div class="empty-title">
+            Configuration error
+          </div>
+
+          Unable to connect to Veylo.
+
+        </div>
+      `;
+
+      return;
+
+    }
+
+
+    /*
+      CREATE SUPABASE CLIENT
+    */
+
+    const sb =
+      window.supabase.createClient(
+        url,
+        key
+      );
+
+
+    /*
+      CHECK LOGIN
+    */
+
+    const {
+      data: { user }
+    } =
+      await sb.auth.getUser();
+
+
+    if (!user) {
+
+      location.href =
+        "login.html";
+
+      return;
+
+    }
+
+
+    /*
+      ELEMENTS
+    */
+
+    const transactionContainer =
+      document.getElementById(
+        "transactions"
+      );
+
+
+    const countElement =
+      document.getElementById(
+        "count"
+      );
+
+
+    /*
+      ESCAPE HTML
+    */
+
+    function escapeHTML(value) {
+
+      return String(value ?? "")
+        .replace(
+          /&/g,
+          "&amp;"
+        )
+        .replace(
+          /</g,
+          "&lt;"
+        )
+        .replace(
+          />/g,
+          "&gt;"
+        )
+        .replace(
+          /"/g,
+          "&quot;"
+        )
+        .replace(
+          /'/g,
+          "&#039;"
+        );
+
+    }
+
+
+    /*
+      DATE FORMAT
+    */
+
+    function formatDate(
+      dateString
+    ) {
+
+      if (!dateString) {
+        return "Unknown date";
+      }
+
+
+      const date =
+        new Date(
+          dateString
+        );
+
+
+      const now =
+        new Date();
+
+
+      const difference =
+        now.getTime() -
+        date.getTime();
+
+
+      const minute =
+        60 * 1000;
+
+
+      const hour =
+        60 * minute;
+
+
+      const day =
+        24 * hour;
+
+
+      if (
+        difference >= 0 &&
+        difference < minute
+      ) {
+
+        return "Just now";
+
+      }
+
+
+      if (
+        difference >= 0 &&
+        difference < hour
+      ) {
+
+        const minutes =
+          Math.floor(
+            difference / minute
+          );
+
+
+        return (
+          minutes +
+          (
+            minutes === 1
+              ? " minute ago"
+              : " minutes ago"
+          )
+        );
+
+      }
+
+
+      if (
+        difference >= 0 &&
+        difference < day
+      ) {
+
+        const hours =
+          Math.floor(
+            difference / hour
+          );
+
+
+        return (
+          hours +
+          (
+            hours === 1
+              ? " hour ago"
+              : " hours ago"
+          )
+        );
+
+      }
+
+
+      return date.toLocaleDateString(
+        "en-US",
+        {
+          month: "short",
+          day: "numeric",
+          year: "numeric"
+        }
+      );
+
+    }
+
+
+    /*
+      NORMALIZE TYPE
+    */
+
+    function normalizeType(
+      type
+    ) {
+
+      return String(
+        type || ""
+      )
+        .toLowerCase()
+        .trim();
+
+    }
+
+
+    /*
+      GET TRANSACTION NAME
+    */
+
+    function transactionName(
+      transaction
+    ) {
+
+      if (
+        transaction.description
+      ) {
+
+        return transaction.description;
+
+      }
+
+
+      const type =
+        normalizeType(
+          transaction.type
+        );
+
+
+      if (
+        type === "deposit" ||
+        type === "add_money"
+      ) {
+
+        return "Money added";
+
+      }
+
+
+      if (
+        type === "withdrawal" ||
+        type === "withdraw"
+      ) {
+
+        return "Withdrawal";
+
+      }
+
+
+      if (
+        type === "transfer"
+      ) {
+
+        return "Transfer";
+
+      }
+
+
+      if (
+        type === "receive"
+      ) {
+
+        return "Money received";
+
+      }
+
+
+      if (
+        type === "request"
+      ) {
+
+        return "Money requested";
+
+      }
+
+
+      return "Transaction";
+
+    }
+
+
+    /*
+      GET ICON
+    */
+
+    function transactionIcon(
+      type
+    ) {
+
+      const value =
+        normalizeType(
+          type
+        );
+
+
+      if (
+        value === "deposit" ||
+        value === "add_money"
+      ) {
+
+        return "+";
+
+      }
+
+
+      if (
+        value === "withdrawal" ||
+        value === "withdraw"
+      ) {
+
+        return "↓";
+
+      }
+
+
+      if (
+        value === "transfer"
+      ) {
+
+        return "⇄";
+
+      }
+
+
+      if (
+        value === "receive"
+      ) {
+
+        return "↓";
+
+      }
+
+
+      if (
+        value === "request"
+      ) {
+
+        return "↗";
+
+      }
+
+
+      return "•";
+
+    }
+
+
+    /*
+      DETERMINE WHETHER
+      TRANSACTION IS NEGATIVE
+    */
+
+    function isNegative(
+      transaction
+    ) {
+
+      const type =
+        normalizeType(
+          transaction.type
+        );
+
+
+      return (
+        type === "withdrawal" ||
+        type === "withdraw" ||
+        type === "transfer"
+      );
+
+    }
+
+
+    /*
+      FORMAT AMOUNT
+    */
+
+    function formatAmount(
+      transaction
+    ) {
+
+      const amount =
+        Number(
+          transaction.amount || 0
+        );
+
+
+      const negative =
+        isNegative(
+          transaction
+        );
+
+
+      const prefix =
+        negative
+          ? "−"
+          : "+";
+
+
+      return (
+        prefix +
+        "$" +
+        Math.abs(
+          amount
+        ).toLocaleString(
+          "en-US",
+          {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+          }
+        )
+      );
+
+    }
+
+
+    /*
+      RENDER TRANSACTION
+    */
+
+    function renderTransaction(
+      transaction
+    ) {
+
+      const negative =
+        isNegative(
+          transaction
+        );
+
+
+      const iconClass =
+        negative
+          ? "transaction-icon negative"
+          : "transaction-icon";
+
+
+      const amountClass =
+        negative
+          ? "transaction-amount negative"
+          : "transaction-amount positive";
+
+
+      return `
+
+        <div class="transaction">
+
+          <div class="transaction-left">
+
+            <div
+              class="${iconClass}"
+            >
+              ${transactionIcon(
+                transaction.type
+              )}
+            </div>
+
+            <div
+              class="transaction-info"
+            >
+
+              <div
+                class="transaction-name"
+              >
+                ${escapeHTML(
+                  transactionName(
+                    transaction
+                  )
+                )}
+              </div>
+
+              <div
+                class="transaction-date"
+              >
+                ${formatDate(
+                  transaction.created_at
+                )}
+              </div>
+
+            </div>
+
+          </div>
+
+          <div
+            class="${amountClass}"
+          >
+            ${formatAmount(
+              transaction
+            )}
+          </div>
+
+        </div>
+
+      `;
+
+    }
+
+
+    /*
+      STORE TRANSACTIONS
+    */
+
+    let allTransactions = [];
+
+
+    /*
+      LOAD TRANSACTIONS
+    */
+
+    async function loadTransactions() {
+
+      transactionContainer.innerHTML = `
+        <div class="loading">
+          Loading transactions…
+        </div>
+      `;
+
+
+      const result =
+        await sb
+          .from("transactions")
+          .select(
+            "id,type,amount,description,created_at"
+          )
+          .eq(
+            "user_id",
+            user.id
+          )
+          .order(
+            "created_at",
+            {
+              ascending: false
+            }
+          )
+          .limit(100);
+
+
+      if (result.error) {
+
+        throw result.error;
+
+      }
+
+
+      allTransactions =
+        result.data || [];
+
+
+      renderFiltered(
+        "all"
+      );
+
+    }
+
+
+    /*
+      RENDER FILTERED
+    */
+
+    function renderFiltered(
+      filter
+    ) {
+
+      let transactions =
+        allTransactions;
+
+
+      if (
+        filter !== "all"
+      ) {
+
+        if (
+          filter === "deposit"
+        ) {
+
+          transactions =
+            allTransactions.filter(
+              transaction => {
+
+                const type =
+                  normalizeType(
+                    transaction.type
+                  );
+
+
+                return (
+                  type === "deposit" ||
+                  type === "add_money"
+                );
+
+              }
+            );
+
+        }
+
+
+        if (
+          filter === "receive"
+        ) {
+
+          transactions =
+            allTransactions.filter(
+              transaction => {
+
+                return (
+                  normalizeType(
+                    transaction.type
+                  ) === "receive"
+                );
+
+              }
+            );
+
+        }
+
+
+        if (
+          filter === "withdraw"
+        ) {
+
+          transactions =
+            allTransactions.filter(
+              transaction => {
+
+                const type =
+                  normalizeType(
+                    transaction.type
+                  );
+
+
+                return (
+                  type === "withdraw" ||
+                  type === "withdrawal"
+                );
+
+              }
+            );
+
+        }
+
+      }
+
+
+      countElement.textContent =
+        transactions.length +
+        (
+          transactions.length === 1
+            ? " transaction"
+            : " transactions"
+        );
+
+
+      if (
+        transactions.length === 0
+      ) {
+
+        transactionContainer.innerHTML = `
+
+          <div class="empty">
+
+            <div class="empty-icon">
+              ◴
+            </div>
+
+            <div class="empty-title">
+              No transactions
+            </div>
+
+            There are no transactions
+            in this category yet.
+
+          </div>
+
+        `;
+
+        return;
+
+      }
+
+
+      transactionContainer.innerHTML =
+        transactions
+          .map(
+            renderTransaction
+          )
+          .join("");
+
+    }
+
+
+    /*
+      FILTER BUTTONS
+    */
+
+    document
+      .querySelectorAll(
+        ".filter"
+      )
+      .forEach(button => {
+
+        button.onclick = () => {
+
+          document
+            .querySelectorAll(
+              ".filter"
+            )
+            .forEach(
+              other => {
+                other.classList.remove(
+                  "active"
+                );
+              }
+            );
+
+
+          button.classList.add(
+            "active"
+          );
+
+
+          renderFiltered(
+            button.dataset.filter
+          );
+
+        };
+
+      });
+
+
+    /*
+      BACK BUTTON
+    */
+
+    document.getElementById(
+      "back"
+    ).onclick = () => {
+
+      location.href =
+        "dashboard.html";
+
+    };
+
+
+    /*
+      HOME NAV
+    */
+
+    document.getElementById(
+      "homeNav"
+    ).onclick = () => {
+
+      location.href =
+        "dashboard.html";
+
+    };
+
+
+    /*
+      ANALYTICS NAV
+    */
+
+    document.getElementById(
+      "analyticsNav"
+    ).onclick = () => {
+
+      location.href =
+        "analytics.html";
+
+    };
+
+
+    /*
+      INITIAL LOAD
+    */
+
+    await loadTransactions();
+
+
+    /*
+      REFRESH EVERY 10 SECONDS
+    */
+
+    setInterval(
+      async () => {
+
+        try {
+
+          await loadTransactions();
+
+        } catch (error) {
+
+          console.error(
+            "History refresh error:",
+            error
+          );
+
+        }
+
+      },
+      10000
+    );
+
+
+  } catch (error) {
+
+    console.error(
+      "Veylo history error:",
+      error
+    );
+
+
+    const container =
+      document.getElementById(
+        "transactions"
+      );
+
+
+    if (container) {
+
+      container.innerHTML = `
+
+        <div class="empty">
+
+          <div class="empty-icon">
+            !
+          </div>
+
+          <div class="empty-title">
+            Unable to load history
+          </div>
+
+          Please try again.
+
+        </div>
+
+      `;
+
+    }
+
+  }
+
+})();
+
+</script>
+
+</body>
+
+</html>
