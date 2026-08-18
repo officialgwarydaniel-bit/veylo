@@ -12,56 +12,36 @@
 
   <meta
     name="theme-color"
-    content="#f5f7f8"
+    content="#0b0d0f"
   >
 
-  <title>Veylo — Withdraw Funds</title>
+  <title>Veylo — Withdraw</title>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
 
     :root {
-
-      --bg: #f5f7f8;
-      --surface: #ffffff;
-      --surface2: #f8fafb;
-
-      --text: #171b24;
-      --muted: #758196;
-
-      --line: #e4e8ed;
-
-      --accent: #55b895;
-      --accent-dark: #42a985;
-
-      --orange: #ff9828;
-
-      --danger: #e65c5c;
-
-      --shadow:
-        0 8px 28px rgba(20, 30, 40, .06);
-
+      --bg: #0b0d0f;
+      --surface: #14171a;
+      --surface2: #191c20;
+      --line: #292d31;
+      --text: #f4f4f2;
+      --muted: #9a9da0;
+      --accent: #35d1ad;
+      --accent2: #ffae32;
+      --danger: #ff6868;
     }
-
 
     * {
       box-sizing: border-box;
     }
 
-
     html,
     body {
-
       margin: 0;
-
-      min-height: 100%;
-
-      background:
-        var(--bg);
-
-      color:
-        var(--text);
+      background: var(--bg);
+      color: var(--text);
 
       font-family:
         -apple-system,
@@ -69,376 +49,184 @@
         "SF Pro Display",
         "Segoe UI",
         sans-serif;
-
     }
-
 
     body {
-
-      padding-bottom:
-        40px;
-
+      padding-bottom: 40px;
     }
-
 
     button,
     input,
     select {
-
-      font:
-        inherit;
-
-      -webkit-tap-highlight-color:
-        transparent;
-
+      font: inherit;
     }
-
 
     button {
-
-      cursor:
-        pointer;
-
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
     }
 
-
-    .page {
-
-      width:
-        min(
-          100%,
-          900px
-        );
-
-      margin:
-        auto;
+    .wrap {
+      width: min(100%, 700px);
+      margin: auto;
 
       padding:
-        0 18px 50px;
-
+        18px
+        16px
+        60px;
     }
-
 
     /* HEADER */
 
-    .header {
+    .top {
+      display: flex;
+      align-items: center;
+      gap: 14px;
 
-      height:
-        86px;
+      margin-bottom: 25px;
+    }
 
-      display:
-        grid;
+    .back {
+      width: 44px;
+      height: 44px;
 
-      grid-template-columns:
-        50px 1fr 50px;
-
-      align-items:
-        center;
-
-      text-align:
-        center;
-
-      background:
-        var(--surface);
-
-      margin:
-        0 -18px 22px;
-
-      padding:
-        0 18px;
-
-      border-bottom:
+      border:
         1px solid
         var(--line);
 
-    }
-
-
-    .back {
-
-      width:
-        42px;
-
-      height:
-        42px;
-
-      border:
-        0;
+      border-radius: 15px;
 
       background:
-        transparent;
-
-      font-size:
-        30px;
+        var(--surface);
 
       color:
         var(--text);
 
+      font-size: 22px;
     }
 
+    .brand {
+      font-size: 27px;
+      font-weight: 850;
 
-    .header-title {
-
-      font-size:
-        25px;
-
-      font-weight:
-        800;
-
-      letter-spacing:
-        -.7px;
-
+      letter-spacing: -1px;
     }
 
+    /* TITLE */
 
-    .header-spacer {
-      width: 42px;
+    .title {
+      margin-bottom: 20px;
     }
 
+    .title h1 {
+      margin: 0 0 7px;
 
-    /* STEP BAR */
-
-    .step-card {
-
-      background:
-        var(--surface);
-
-      border:
-        1px solid
-        var(--line);
-
-      border-radius:
-        24px;
-
-      padding:
-        20px 22px;
-
-      box-shadow:
-        var(--shadow);
-
-      margin-bottom:
-        24px;
-
+      font-size: 30px;
+      letter-spacing: -1px;
     }
 
+    .title p {
+      margin: 0;
 
-    .step-top {
+      color: var(--muted);
 
-      display:
-        flex;
-
-      justify-content:
-        space-between;
-
-      align-items:
-        center;
-
-      gap:
-        15px;
-
-      margin-bottom:
-        14px;
-
+      line-height: 1.5;
     }
-
-
-    .step-number {
-
-      color:
-        var(--accent);
-
-      font-size:
-        17px;
-
-      font-weight:
-        800;
-
-    }
-
-
-    .step-name {
-
-      color:
-        var(--muted);
-
-      font-size:
-        16px;
-
-      font-weight:
-        600;
-
-    }
-
-
-    .progress {
-
-      width:
-        100%;
-
-      height:
-        8px;
-
-      background:
-        #f0f3f5;
-
-      border-radius:
-        999px;
-
-      overflow:
-        hidden;
-
-    }
-
-
-    .progress-bar {
-
-      height:
-        100%;
-
-      width:
-        20%;
-
-      background:
-        var(--accent);
-
-      border-radius:
-        999px;
-
-      transition:
-        width .25s ease;
-
-    }
-
-
-    /* GENERAL CARD */
-
-    .card {
-
-      background:
-        var(--surface);
-
-      border:
-        1px solid
-        var(--line);
-
-      border-radius:
-        28px;
-
-      padding:
-        26px;
-
-      box-shadow:
-        var(--shadow);
-
-      margin-bottom:
-        18px;
-
-    }
-
 
     /* BALANCE */
 
-    .balance-row {
+    .balance-card {
+      background:
+        var(--surface);
 
-      display:
-        flex;
+      border:
+        1px solid
+        var(--line);
 
-      align-items:
-        center;
+      border-radius: 24px;
 
-      justify-content:
-        space-between;
+      padding: 20px;
 
-      gap:
-        20px;
-
+      margin-bottom: 15px;
     }
 
-
-    .balance-label {
-
+    .label {
       color:
         var(--muted);
 
-      font-size:
-        18px;
+      font-size: 12px;
 
-      font-weight:
-        600;
+      font-weight: 800;
 
+      letter-spacing: 1.2px;
     }
 
+    .available {
+      margin-top: 7px;
 
-    .balance-value {
+      font-size: 32px;
 
-      font-size:
-        34px;
+      font-weight: 850;
 
-      font-weight:
-        850;
-
-      letter-spacing:
-        -1.5px;
-
+      letter-spacing: -1px;
     }
-
 
     /* FORM */
 
-    .section-title {
+    .panel {
+      background:
+        var(--surface);
 
-      margin:
-        30px 0 12px;
+      border:
+        1px solid
+        var(--line);
 
-      font-size:
-        21px;
+      border-radius: 24px;
 
-      font-weight:
-        750;
+      padding: 20px;
 
+      margin-bottom: 15px;
     }
 
+    .panel-title {
+      font-size: 17px;
+
+      font-weight: 800;
+
+      margin-bottom: 15px;
+    }
 
     .field {
-
-      margin-bottom:
-        20px;
-
+      margin-bottom: 17px;
     }
 
-
-    label {
-
-      display:
-        block;
-
-      margin:
-        0 0 9px;
-
-      font-size:
-        17px;
-
-      font-weight:
-        650;
-
+    .field:last-child {
+      margin-bottom: 0;
     }
 
+    .field label {
+      display: block;
+
+      margin-bottom: 8px;
+
+      color: var(--muted);
+
+      font-size: 13px;
+
+      font-weight: 700;
+    }
 
     input,
     select {
+      width: 100%;
 
-      width:
-        100%;
-
-      height:
-        64px;
+      height: 54px;
 
       border:
         1px solid
         var(--line);
 
-      border-radius:
-        17px;
+      border-radius: 16px;
 
       background:
         var(--surface2);
@@ -446,83 +234,42 @@
       color:
         var(--text);
 
+      outline: none;
+
       padding:
-        0 18px;
-
-      outline:
-        none;
-
-      font-size:
-        18px;
-
+        0 15px;
     }
-
 
     input:focus,
     select:focus {
-
-      border:
-        2px solid
+      border-color:
         var(--accent);
-
-      background:
-        var(--surface);
-
     }
-
 
     input::placeholder {
-
       color:
-        #8793a5;
-
+        #666b70;
     }
-
-
-    .hint {
-
-      margin:
-        8px 6px 0;
-
-      color:
-        var(--muted);
-
-      font-size:
-        14px;
-
-    }
-
 
     /* METHODS */
 
-    .method-grid {
-
-      display:
-        grid;
+    .methods {
+      display: grid;
 
       grid-template-columns:
-        repeat(
-          2,
-          1fr
-        );
+        repeat(2, 1fr);
 
-      gap:
-        10px;
-
+      gap: 10px;
     }
 
-
-    .method-option {
-
-      min-height:
-        62px;
+    .method {
+      min-height: 72px;
 
       border:
         1px solid
         var(--line);
 
-      border-radius:
-        16px;
+      border-radius: 17px;
 
       background:
         var(--surface2);
@@ -530,596 +277,163 @@
       color:
         var(--text);
 
-      padding:
-        12px;
+      text-align: left;
 
-      font-weight:
-        650;
+      padding: 12px;
 
+      transition: .15s ease;
     }
 
+    .method strong {
+      display: block;
 
-    .method-option.selected {
-
-      border:
-        2px solid
-        var(--accent);
-
-      background:
-        #f1fbf7;
-
-      color:
-        #268866;
-
+      font-size: 14px;
     }
 
+    .method span {
+      display: block;
 
-    /* BUTTONS */
-
-    .buttons {
-
-      display:
-        grid;
-
-      grid-template-columns:
-        1fr 1fr;
-
-      gap:
-        14px;
-
-      margin-top:
-        28px;
-
-    }
-
-
-    .btn {
-
-      min-height:
-        64px;
-
-      border:
-        0;
-
-      border-radius:
-        18px;
-
-      font-size:
-        18px;
-
-      font-weight:
-        750;
-
-      padding:
-        0 18px;
-
-    }
-
-
-    .btn-back {
-
-      background:
-        var(--surface);
-
-      border:
-        1px solid
-        var(--line);
-
-      color:
-        var(--text);
-
-    }
-
-
-    .btn-primary {
-
-      background:
-        var(--accent);
-
-      color:
-        white;
-
-    }
-
-
-    .btn-primary:hover {
-
-      background:
-        var(--accent-dark);
-
-    }
-
-
-    .btn:disabled {
-
-      opacity:
-        .5;
-
-      cursor:
-        not-allowed;
-
-    }
-
-
-    /* REVIEW */
-
-    .review-row {
-
-      display:
-        flex;
-
-      justify-content:
-        space-between;
-
-      align-items:
-        center;
-
-      gap:
-        20px;
-
-      padding:
-        16px 0;
-
-      border-bottom:
-        1px solid
-        var(--line);
-
-      font-size:
-        17px;
-
-    }
-
-
-    .review-row:last-child {
-      border-bottom: 0;
-    }
-
-
-    .review-label {
+      margin-top: 4px;
 
       color:
         var(--muted);
 
+      font-size: 11px;
     }
 
+    .method.selected {
+      border-color:
+        var(--accent);
 
-    .review-value {
-
-      text-align:
-        right;
-
-      font-weight:
-        700;
-
+      box-shadow:
+        0 0 0 1px
+        var(--accent);
     }
 
+    /* DESTINATION */
 
-    .fee {
-
-      color:
-        var(--orange);
-
+    #destinationFields {
+      display: none;
     }
 
-
-    .total {
-
-      font-size:
-        22px;
-
-      font-weight:
-        850;
-
-    }
-
-
-    .receive-box {
-
-      margin-top:
-        16px;
-
-      padding:
-        18px;
-
-      border-radius:
-        18px;
-
+    .info {
       background:
-        #f1faf6;
-
-      display:
-        flex;
-
-      justify-content:
-        space-between;
-
-      gap:
-        15px;
-
-      color:
-        #3a9d76;
-
-      font-size:
-        19px;
-
-      font-weight:
-        750;
-
-    }
-
-
-    /* NOTICE */
-
-    .notice {
-
-      margin-top:
-        20px;
-
-      padding:
-        17px;
+        rgba(53, 209, 173, .08);
 
       border:
         1px solid
-        #f0d6a8;
-
-      border-radius:
-        18px;
-
-      background:
-        #fffaf1;
+        rgba(53, 209, 173, .25);
 
       color:
-        #6e5b3e;
+        #b9eee2;
 
-      line-height:
-        1.5;
+      border-radius: 16px;
 
+      padding: 13px;
+
+      margin-bottom: 17px;
+
+      font-size: 12px;
+
+      line-height: 1.5;
     }
 
+    /* BUTTON */
 
-    .notice strong {
+    .continue {
+      width: 100%;
 
-      display:
-        block;
+      height: 56px;
 
-      margin-bottom:
-        4px;
+      border: 0;
 
-      color:
-        #7b5a24;
-
-    }
-
-
-    /* VERIFICATION */
-
-    .verify {
-
-      text-align:
-        center;
-
-    }
-
-
-    .lock {
-
-      width:
-        82px;
-
-      height:
-        82px;
-
-      margin:
-        0 auto 24px;
-
-      display:
-        grid;
-
-      place-items:
-        center;
-
-      border-radius:
-        26px;
+      border-radius: 17px;
 
       background:
-        #e8f5f1;
+        var(--accent);
 
-      font-size:
-        39px;
+      color:
+        #06120f;
 
+      font-weight: 850;
+
+      font-size: 16px;
     }
 
-
-    .verify h2 {
-
-      margin:
-        0 0 10px;
-
-      font-size:
-        26px;
-
+    .continue:active {
+      transform: scale(.98);
     }
 
+    .continue:disabled {
+      opacity: .5;
+      cursor: not-allowed;
+    }
 
-    .verify p {
+    /* STATUS */
 
-      max-width:
-        620px;
+    .status {
+      display: none;
 
-      margin:
-        0 auto 28px;
+      border-radius: 17px;
 
+      padding: 15px;
+
+      margin-bottom: 15px;
+
+      line-height: 1.5;
+
+      font-size: 13px;
+    }
+
+    .status.success {
+      display: block;
+
+      background:
+        rgba(53, 209, 173, .10);
+
+      border:
+        1px solid
+        rgba(53, 209, 173, .30);
+
+      color:
+        #b9eee2;
+    }
+
+    .status.error {
+      display: block;
+
+      background:
+        rgba(255, 104, 104, .10);
+
+      border:
+        1px solid
+        rgba(255, 104, 104, .30);
+
+      color:
+        #ffb3b3;
+    }
+
+    .note {
       color:
         var(--muted);
 
-      font-size:
-        17px;
+      text-align: center;
 
-      line-height:
-        1.5;
+      font-size: 11px;
 
+      line-height: 1.5;
+
+      margin-top: 15px;
     }
 
+    @media (max-width: 450px) {
 
-    .code-input {
-
-      text-align:
-        center;
-
-      letter-spacing:
-        8px;
-
-      font-size:
-        25px;
-
-      font-weight:
-        800;
-
-    }
-
-
-    .warning {
-
-      margin-top:
-        18px;
-
-      padding:
-        16px;
-
-      border:
-        1px solid
-        #f0c8c8;
-
-      border-radius:
-        17px;
-
-      background:
-        #fff5f5;
-
-      color:
-        #8a5b5b;
-
-      text-align:
-        left;
-
-      line-height:
-        1.45;
-
-    }
-
-
-    .error {
-
-      display:
-        none;
-
-      margin:
-        15px 0;
-
-      padding:
-        14px 16px;
-
-      border:
-        1px solid
-        #efc3c3;
-
-      border-radius:
-        14px;
-
-      background:
-        #fff3f3;
-
-      color:
-        #a04444;
-
-      font-weight:
-        600;
-
-    }
-
-
-    .success {
-
-      text-align:
-        center;
-
-      padding:
-        25px 10px;
-
-    }
-
-
-    .success-icon {
-
-      width:
-        82px;
-
-      height:
-        82px;
-
-      margin:
-        0 auto 20px;
-
-      border-radius:
-        50%;
-
-      display:
-        grid;
-
-      place-items:
-        center;
-
-      background:
-        #e8f7f1;
-
-      color:
-        var(--accent);
-
-      font-size:
-        40px;
-
-    }
-
-
-    .success h2 {
-
-      margin:
-        0 0 10px;
-
-      font-size:
-        27px;
-
-    }
-
-
-    .request-id {
-
-      display:
-        inline-block;
-
-      margin-top:
-        12px;
-
-      padding:
-        10px 14px;
-
-      background:
-        var(--surface2);
-
-      border:
-        1px solid
-        var(--line);
-
-      border-radius:
-        12px;
-
-      font-family:
-        monospace;
-
-      font-weight:
-        700;
-
-    }
-
-
-    /* HIDDEN */
-
-    .step {
-      display:
-        none;
-    }
-
-
-    .step.active {
-      display:
-        block;
-    }
-
-
-    /* MOBILE */
-
-    @media (max-width: 600px) {
-
-      .page {
-        padding:
-          0 12px 40px;
+      .methods {
+        grid-template-columns: 1fr;
       }
 
-
-      .header {
-        margin-left:
-          -12px;
-
-        margin-right:
-          -12px;
-
-        padding-left:
-          12px;
-
-        padding-right:
-          12px;
-      }
-
-
-      .card {
-        padding:
-          20px;
-
-        border-radius:
-          23px;
-      }
-
-
-      .balance-value {
-        font-size:
-          28px;
-      }
-
-
-      .balance-label {
-        font-size:
-          16px;
-      }
-
-
-      .method-grid {
-        grid-template-columns:
-          1fr;
-      }
-
-
-      .buttons {
-        grid-template-columns:
-          1fr 1fr;
-      }
-
-
-      .btn {
-        font-size:
-          16px;
-      }
-
-
-      input,
-      select {
-        height:
-          60px;
-      }
-
-    }
-
-
-    @media (max-width: 390px) {
-
-      .buttons {
-        grid-template-columns:
-          1fr;
-      }
-
-
-      .btn-back {
-        order:
-          2;
+      .title h1 {
+        font-size: 27px;
       }
 
     }
@@ -1132,659 +446,284 @@
 <body>
 
 
-<div class="page">
+<div class="wrap">
 
 
   <!-- HEADER -->
 
-  <header class="header">
+  <header class="top">
 
     <button
       class="back"
-      id="backTop"
+      id="back"
       type="button"
-      aria-label="Go back"
     >
       ←
     </button>
 
-    <div class="header-title">
-      Withdraw Funds
+    <div class="brand">
+      veylo
     </div>
-
-    <div class="header-spacer"></div>
 
   </header>
 
 
+  <!-- TITLE -->
 
-  <!-- STEP PROGRESS -->
+  <section class="title">
 
-  <div class="step-card">
+    <h1>
+      Withdraw
+    </h1>
 
-    <div class="step-top">
+    <p>
+      Choose where you want your money sent.
+    </p>
 
-      <div
-        class="step-number"
-        id="stepNumber"
-      >
-        Step 1 of 5
-      </div>
+  </section>
 
-      <div
-        class="step-name"
-        id="stepName"
-      >
-        Withdrawal Details
-      </div>
 
+  <!-- BALANCE -->
+
+  <section class="balance-card">
+
+    <div class="label">
+      AVAILABLE BALANCE
     </div>
 
-
-    <div class="progress">
-
-      <div
-        class="progress-bar"
-        id="progressBar"
-      ></div>
-
+    <div
+      class="available"
+      id="balance"
+    >
+      $0.00
     </div>
 
-  </div>
+  </section>
 
 
-
-  <!-- ERROR -->
+  <!-- STATUS -->
 
   <div
-    class="error"
-    id="errorBox"
+    class="status"
+    id="status"
   ></div>
 
 
+  <!-- AMOUNT -->
 
-  <!-- STEP 1 -->
+  <section class="panel">
 
-  <section
-    class="step active"
-    id="step1"
-  >
-
-
-    <!-- BALANCE -->
-
-    <div class="card">
-
-      <div class="balance-row">
-
-        <div class="balance-label">
-          Available Balance
-        </div>
-
-        <div
-          class="balance-value"
-          id="balance"
-        >
-          $0.00
-        </div>
-
-      </div>
-
+    <div class="panel-title">
+      Withdrawal amount
     </div>
 
+    <div class="field">
 
+      <label for="amount">
+        Amount
+      </label>
 
-    <!-- AMOUNT -->
-
-    <div class="card">
-
-      <div class="section-title">
-        Amount to Withdraw
-      </div>
-
-
-      <div class="field">
-
-        <input
-          id="amount"
-          type="number"
-          min="5"
-          step="0.01"
-          inputmode="decimal"
-          placeholder="$0.00"
-        >
-
-        <div class="hint">
-          Minimum withdrawal: $5.00
-        </div>
-
-      </div>
-
-
-
-      <div class="section-title">
-        Withdrawal Method
-      </div>
-
-
-      <div
-        class="method-grid"
-        id="methodGrid"
+      <input
+        id="amount"
+        type="number"
+        min="1"
+        step="0.01"
+        inputmode="decimal"
+        placeholder="0.00"
       >
 
-
-        <button
-          class="method-option selected"
-          type="button"
-          data-method="Bank Account"
-        >
-          Bank Account
-        </button>
-
-
-        <button
-          class="method-option"
-          type="button"
-          data-method="Chime"
-        >
-          Chime
-        </button>
-
-
-        <button
-          class="method-option"
-          type="button"
-          data-method="PayPal"
-        >
-          PayPal
-        </button>
-
-
-        <button
-          class="method-option"
-          type="button"
-          data-method="Cash App"
-        >
-          Cash App
-        </button>
-
-
-        <button
-          class="method-option"
-          type="button"
-          data-method="Venmo"
-        >
-          Venmo
-        </button>
-
-
-        <button
-          class="method-option"
-          type="button"
-          data-method="Apple Pay"
-        >
-          Apple Pay
-        </button>
-
-
-        <button
-          class="method-option"
-          type="button"
-          data-method="Zelle"
-        >
-          Zelle
-        </button>
-
-
-        <button
-          class="method-option"
-          type="button"
-          data-method="Interac e-Transfer"
-        >
-          Interac e-Transfer
-        </button>
-
-
-        <button
-          class="method-option"
-          type="button"
-          data-method="Wire Transfer"
-        >
-          Wire Transfer
-        </button>
-
-
-        <button
-          class="method-option"
-          type="button"
-          data-method="Other"
-        >
-          Other
-        </button>
-
-
-      </div>
-
     </div>
-
-
-
-    <!-- DESTINATION DETAILS -->
-
-    <div class="card">
-
-      <div class="section-title">
-        Withdrawal Destination
-      </div>
-
-
-      <div id="destinationFields"></div>
-
-    </div>
-
-
-
-    <div class="buttons">
-
-      <button
-        class="btn btn-back"
-        id="cancelButton"
-        type="button"
-      >
-        Cancel
-      </button>
-
-
-      <button
-        class="btn btn-primary"
-        id="continue1"
-        type="button"
-      >
-        Continue
-      </button>
-
-    </div>
-
 
   </section>
 
 
+  <!-- METHOD -->
 
-  <!-- STEP 2 -->
+  <section class="panel">
 
-  <section
-    class="step"
-    id="step2"
-  >
-
-    <div class="card">
-
-      <div class="section-title">
-        Withdrawal Review
-      </div>
+    <div class="panel-title">
+      Withdrawal method
+    </div>
 
 
-      <div class="review-row">
-
-        <span class="review-label">
-          Withdrawal Amount
-        </span>
-
-        <span
-          class="review-value"
-          id="reviewAmount"
-        >
-          $0.00
-        </span>
-
-      </div>
+    <div class="methods">
 
 
-      <div class="review-row">
+      <button
+        class="method"
+        data-method="Bank Account"
+        type="button"
+      >
 
-        <span class="review-label">
-          Processing Fee
-        </span>
-
-        <span
-          class="review-value fee"
-          id="reviewFee"
-        >
-          $0.00
-        </span>
-
-      </div>
-
-
-      <div class="review-row">
-
-        <span class="review-label total">
-          Total Deducted
-        </span>
-
-        <span
-          class="review-value total"
-          id="reviewTotal"
-        >
-          $0.00
-        </span>
-
-      </div>
-
-
-      <div class="receive-box">
+        <strong>
+          🏦 Bank Account
+        </strong>
 
         <span>
-          You'll Receive
+          Bank transfer
         </span>
 
-        <span id="reviewReceive">
-          $0.00
-        </span>
-
-      </div>
+      </button>
 
 
-      <div class="notice">
+      <button
+        class="method"
+        data-method="PayPal"
+        type="button"
+      >
 
         <strong>
-          Withdrawal processing
+          PayPal
         </strong>
 
-        Your withdrawal request will be reviewed and processed
-        according to Veylo's withdrawal policy. Any applicable
-        processing fee is shown above before you confirm.
+        <span>
+          PayPal email
+        </span>
 
-      </div>
-
-    </div>
-
-
-
-    <div class="buttons">
-
-      <button
-        class="btn btn-back"
-        id="back2"
-        type="button"
-      >
-        Back
       </button>
 
 
       <button
-        class="btn btn-primary"
-        id="continue2"
+        class="method"
+        data-method="Cash App"
         type="button"
       >
-        Accept & Continue
+
+        <strong>
+          Cash App
+        </strong>
+
+        <span>
+          $Cashtag
+        </span>
+
       </button>
+
+
+      <button
+        class="method"
+        data-method="Venmo"
+        type="button"
+      >
+
+        <strong>
+          Venmo
+        </strong>
+
+        <span>
+          Venmo username
+        </span>
+
+      </button>
+
+
+      <button
+        class="method"
+        data-method="Zelle"
+        type="button"
+      >
+
+        <strong>
+          Zelle
+        </strong>
+
+        <span>
+          Email or phone
+        </span>
+
+      </button>
+
+
+      <button
+        class="method"
+        data-method="Apple Pay"
+        type="button"
+      >
+
+        <strong>
+          Apple Pay
+        </strong>
+
+        <span>
+          Supported destination
+        </span>
+
+      </button>
+
+
+      <button
+        class="method"
+        data-method="Chime"
+        type="button"
+      >
+
+        <strong>
+          Chime
+        </strong>
+
+        <span>
+          Chime destination
+        </span>
+
+      </button>
+
+
+      <button
+        class="method"
+        data-method="Wire Transfer"
+        type="button"
+      >
+
+        <strong>
+          Wire Transfer
+        </strong>
+
+        <span>
+          Bank wire
+        </span>
+
+      </button>
+
 
     </div>
 
   </section>
 
 
-
-  <!-- STEP 3 -->
-
-  <section
-    class="step"
-    id="step3"
-  >
-
-    <div class="card">
-
-      <div class="section-title">
-        Confirm Withdrawal Details
-      </div>
-
-
-      <div class="review-row">
-
-        <span class="review-label">
-          Amount
-        </span>
-
-        <span
-          class="review-value"
-          id="confirmAmount"
-        >
-          $0.00
-        </span>
-
-      </div>
-
-
-      <div class="review-row">
-
-        <span class="review-label">
-          Method
-        </span>
-
-        <span
-          class="review-value"
-          id="confirmMethod"
-        >
-          Bank Account
-        </span>
-
-      </div>
-
-
-      <div
-        id="confirmDestination"
-      ></div>
-
-
-      <div class="notice">
-
-        <strong>
-          Check your information
-        </strong>
-
-        Make sure the withdrawal destination belongs to you
-        and that the account information is correct before
-        continuing.
-
-      </div>
-
-    </div>
-
-
-
-    <div class="buttons">
-
-      <button
-        class="btn btn-back"
-        id="back3"
-        type="button"
-      >
-        Back
-      </button>
-
-
-      <button
-        class="btn btn-primary"
-        id="continue3"
-        type="button"
-      >
-        Confirm & Continue
-      </button>
-
-    </div>
-
-  </section>
-
-
-
-  <!-- STEP 4 -->
+  <!-- DESTINATION -->
 
   <section
-    class="step"
-    id="step4"
+    class="panel"
+    id="destinationFields"
   >
 
-    <div class="card verify">
-
-      <div class="lock">
-        🔒
-      </div>
-
-
-      <h2>
-        Enter Verification Code
-      </h2>
-
-
-      <p>
-
-        Enter the verification code issued by Veylo's
-        account-security system to authorize this withdrawal.
-
-        <br><br>
-
-        <strong>
-          Veylo will never ask you to purchase a verification
-          code in order to receive your funds.
-        </strong>
-
-      </p>
-
-
-      <div
-        class="field"
-        style="text-align:left"
-      >
-
-        <label for="verificationCode">
-          Verification Code
-        </label>
-
-        <input
-          class="code-input"
-          id="verificationCode"
-          type="text"
-          inputmode="numeric"
-          maxlength="8"
-          autocomplete="one-time-code"
-          placeholder="Enter code"
-        >
-
-      </div>
-
-
-      <div class="warning">
-
-        <strong>
-          Security notice
-        </strong>
-
-        Only enter a verification code that was legitimately
-        issued for your Veylo account. Do not share the code
-        with another person.
-
-      </div>
-
+    <div class="panel-title">
+      Destination details
     </div>
 
 
-
-    <div class="buttons">
-
-      <button
-        class="btn btn-back"
-        id="back4"
-        type="button"
-      >
-        Back
-      </button>
-
-
-      <button
-        class="btn btn-primary"
-        id="verifyButton"
-        type="button"
-      >
-        Verify & Withdraw
-      </button>
-
-    </div>
-
-  </section>
-
-
-
-  <!-- STEP 5 -->
-
-  <section
-    class="step"
-    id="step5"
-  >
-
-    <div class="card success">
-
-      <div class="success-icon">
-        ✓
-      </div>
-
-
-      <h2>
-        Withdrawal Submitted
-      </h2>
-
-
-      <p
-        style="
-          color:var(--muted);
-          line-height:1.6;
-        "
-      >
-
-        Your withdrawal request has been submitted successfully.
-        Your request is now pending processing.
-
-      </p>
-
-
-      <div
-        class="request-id"
-        id="requestId"
-      >
-        Pending
-
-      </div>
-
-
-      <div
-        class="notice"
-        style="text-align:left"
-      >
-
-        <strong>
-          Keep your request ID
-        </strong>
-
-        You can use this ID when contacting Veylo support
-        about your withdrawal.
-
-      </div>
-
+    <div class="info">
+      Enter the destination information carefully.
+      Veylo will use this information to process
+      your withdrawal request.
     </div>
 
 
+    <div id="dynamicFields"></div>
 
-    <div class="buttons">
 
-      <button
-        class="btn btn-back"
-        id="dashboardButton"
-        type="button"
-        style="grid-column:1/-1"
-      >
-        Back to Dashboard
-      </button>
+    <button
+      class="continue"
+      id="submitWithdrawal"
+      type="button"
+    >
+      Request withdrawal
+    </button>
 
+
+    <div class="note">
+      Withdrawals may require additional verification
+      before processing.
     </div>
 
   </section>
@@ -1794,216 +733,75 @@
 
 
 
-<!-- SMARTSUPP -->
-
-<script type="text/javascript">
-
-  var _smartsupp =
-    _smartsupp || {};
-
-  _smartsupp.key =
-    '76c8da0cdb2653b900987aa2607f19f369d5e254';
-
-  window.smartsupp ||
-  (function(d) {
-
-    var s,
-        c,
-        o =
-          smartsupp =
-            function() {
-              o._.push(arguments)
-            };
-
-    o._ = [];
-
-    s =
-      d.getElementsByTagName(
-        'script'
-      )[0];
-
-    c =
-      d.createElement(
-        'script'
-      );
-
-    c.type =
-      'text/javascript';
-
-    c.charset =
-      'utf-8';
-
-    c.async =
-      true;
-
-    c.src =
-      'https://www.smartsuppchat.com/loader.js?';
-
-    s.parentNode.insertBefore(
-      c,
-      s
-    );
-
-  })(document);
-
-</script>
-
-
-
 <script>
 
+
 (async () => {
-
-
-  /*
-    CONFIGURATION
-  */
-
-  const MIN_WITHDRAWAL =
-    5;
-
-  /*
-    0.1% processing fee.
-    Change this value if your actual
-    disclosed fee is different.
-  */
-
-  const PROCESSING_FEE_RATE =
-    0.001;
 
 
   let sb = null;
 
   let user = null;
 
-  let currentStep = 1;
+  let currentBalance = 0;
 
-  let availableBalance = 0;
-
-  let selectedMethod =
-    "Bank Account";
-
-  let withdrawalAmount =
-    0;
-
-  let processingFee =
-    0;
-
-  let destinationData = {};
+  let selectedMethod = null;
 
 
-
-  /*
-    ELEMENTS
-  */
-
-  const balanceEl =
+  const balanceElement =
     document.getElementById(
       "balance"
     );
 
-  const errorBox =
-    document.getElementById(
-      "errorBox"
-    );
 
-  const amountInput =
+  const amountElement =
     document.getElementById(
       "amount"
     );
 
-  const destinationFields =
+
+  const destination =
     document.getElementById(
       "destinationFields"
     );
 
 
+  const dynamicFields =
+    document.getElementById(
+      "dynamicFields"
+    );
+
+
+  const status =
+    document.getElementById(
+      "status"
+    );
+
 
   /*
-    HELPERS
+    STATUS MESSAGE
   */
 
-  function money(value) {
+  function showStatus(
+    message,
+    type
+  ) {
 
-    return "$" +
-      Number(
-        value || 0
-      ).toLocaleString(
-        "en-US",
-        {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2
-        }
-      );
-
-  }
-
-
-
-  function showError(message) {
-
-    errorBox.textContent =
+    status.textContent =
       message;
 
-    errorBox.style.display =
-      "block";
-
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
+    status.className =
+      "status " + type;
 
   }
-
-
-
-  function clearError() {
-
-    errorBox.textContent =
-      "";
-
-    errorBox.style.display =
-      "none";
-
-  }
-
-
-
-  function escapeHTML(value) {
-
-    return String(
-      value ?? ""
-    )
-      .replace(
-        /&/g,
-        "&amp;"
-      )
-      .replace(
-        /</g,
-        "&lt;"
-      )
-      .replace(
-        />/g,
-        "&gt;"
-      )
-      .replace(
-        /"/g,
-        "&quot;"
-      )
-      .replace(
-        /'/g,
-        "&#039;"
-      );
-
-  }
-
 
 
   /*
-    SUPABASE CONFIG
+    LOAD SUPABASE
   */
 
   try {
+
 
     const txt =
       await fetch(
@@ -2011,7 +809,8 @@
         {
           cache: "no-store"
         }
-      ).then(
+      )
+      .then(
         response =>
           response.text()
       );
@@ -2033,10 +832,14 @@
       )[1];
 
 
-    if (!url || !key) {
+    if (
+      !url ||
+      !key
+    ) {
 
-      showError(
-        "Supabase configuration was not found."
+      showStatus(
+        "Veylo configuration could not be loaded.",
+        "error"
       );
 
       return;
@@ -2051,39 +854,22 @@
       );
 
 
-  } catch (error) {
-
-    console.error(
-      error
-    );
-
-    showError(
-      "Unable to load Veylo configuration."
-    );
-
-    return;
-
-  }
-
-
-
-  /*
-    CHECK AUTHENTICATION
-  */
-
-  try {
+    /*
+      AUTHENTICATED USER
+    */
 
     const {
-      data,
-      error
+      data: {
+        user: authenticatedUser
+      },
+      error: userError
     } =
       await sb.auth.getUser();
 
 
     if (
-      error ||
-      !data ||
-      !data.user
+      userError ||
+      !authenticatedUser
     ) {
 
       location.href =
@@ -2095,36 +881,17 @@
 
 
     user =
-      data.user;
+      authenticatedUser;
 
 
-  } catch (error) {
+    /*
+      LOAD BALANCE
+    */
 
-    console.error(
-      error
-    );
-
-    location.href =
-      "login.html";
-
-    return;
-
-  }
+    async function loadBalance() {
 
 
-
-  /*
-    LOAD BALANCE
-  */
-
-  async function loadBalance() {
-
-    try {
-
-      const {
-        data,
-        error
-      } =
+      const result =
         await sb
           .from("profiles")
           .select("balance")
@@ -2135,667 +902,18 @@
           .maybeSingle();
 
 
-      if (error) {
+      if (
+        result.error
+      ) {
 
         console.error(
           "Balance error:",
-          error
+          result.error
         );
 
-        showError(
-          "Unable to load your available balance."
-        );
-
-        return;
-
-      }
-
-
-      availableBalance =
-        Number(
-          data?.balance || 0
-        );
-
-
-      balanceEl.textContent =
-        money(
-          availableBalance
-        );
-
-
-    } catch (error) {
-
-      console.error(
-        error
-      );
-
-      showError(
-        "Unable to load your balance."
-      );
-
-    }
-
-  }
-
-
-  await loadBalance();
-
-
-
-  /*
-    PAYMENT METHOD FIELDS
-  */
-
-  function renderDestinationFields() {
-
-
-    const method =
-      selectedMethod;
-
-
-    let html = "";
-
-
-    if (
-      method === "Bank Account"
-    ) {
-
-      html = `
-
-        <div class="field">
-
-          <label>
-            Account Holder Name
-          </label>
-
-          <input
-            data-field="account_holder"
-            type="text"
-            autocomplete="name"
-            placeholder="Enter account holder name"
-          >
-
-        </div>
-
-
-        <div class="field">
-
-          <label>
-            Bank Name
-          </label>
-
-          <input
-            data-field="bank_name"
-            type="text"
-            placeholder="Enter bank name"
-          >
-
-        </div>
-
-
-        <div class="field">
-
-          <label>
-            Routing Number
-          </label>
-
-          <input
-            data-field="routing_number"
-            type="text"
-            inputmode="numeric"
-            placeholder="Enter routing number"
-          >
-
-        </div>
-
-
-        <div class="field">
-
-          <label>
-            Account Number
-          </label>
-
-          <input
-            data-field="account_number"
-            type="text"
-            inputmode="numeric"
-            placeholder="Enter account number"
-          >
-
-        </div>
-
-      `;
-
-    }
-
-
-    else if (
-      method === "Wire Transfer"
-    ) {
-
-      html = `
-
-        <div class="field">
-
-          <label>
-            Account Holder Name
-          </label>
-
-          <input
-            data-field="account_holder"
-            type="text"
-            placeholder="Enter account holder name"
-          >
-
-        </div>
-
-
-        <div class="field">
-
-          <label>
-            Bank Name
-          </label>
-
-          <input
-            data-field="bank_name"
-            type="text"
-            placeholder="Enter bank name"
-          >
-
-        </div>
-
-
-        <div class="field">
-
-          <label>
-            Country / Region
-          </label>
-
-          <input
-            data-field="country"
-            type="text"
-            placeholder="Enter country or region"
-          >
-
-        </div>
-
-
-        <div class="field">
-
-          <label>
-            SWIFT / BIC Code
-          </label>
-
-          <input
-            data-field="swift_bic"
-            type="text"
-            placeholder="Enter SWIFT / BIC code"
-          >
-
-        </div>
-
-
-        <div class="field">
-
-          <label>
-            Account Number / IBAN
-          </label>
-
-          <input
-            data-field="account_number"
-            type="text"
-            placeholder="Enter account number or IBAN"
-          >
-
-        </div>
-
-      `;
-
-    }
-
-
-    else if (
-      method === "PayPal"
-    ) {
-
-      html = `
-
-        <div class="field">
-
-          <label>
-            PayPal Email
-          </label>
-
-          <input
-            data-field="paypal_email"
-            type="email"
-            autocomplete="email"
-            placeholder="Enter PayPal email"
-          >
-
-        </div>
-
-      `;
-
-    }
-
-
-    else if (
-      method === "Cash App"
-    ) {
-
-      html = `
-
-        <div class="field">
-
-          <label>
-            Cash App $Cashtag
-          </label>
-
-          <input
-            data-field="cashapp_tag"
-            type="text"
-            placeholder="$YourCashtag"
-          >
-
-          <div class="hint">
-            Enter the Cash App username associated with your account.
-          </div>
-
-        </div>
-
-      `;
-
-    }
-
-
-    else if (
-      method === "Venmo"
-    ) {
-
-      html = `
-
-        <div class="field">
-
-          <label>
-            Venmo Username
-          </label>
-
-          <input
-            data-field="venmo_username"
-            type="text"
-            placeholder="@username"
-          >
-
-        </div>
-
-      `;
-
-    }
-
-
-    else if (
-      method === "Chime"
-    ) {
-
-      html = `
-
-        <div class="field">
-
-          <label>
-            Chime Email or $ChimeTag
-          </label>
-
-          <input
-            data-field="chime_identifier"
-            type="text"
-            placeholder="Enter Chime email or $ChimeTag"
-          >
-
-        </div>
-
-      `;
-
-    }
-
-
-    else if (
-      method === "Zelle"
-    ) {
-
-      html = `
-
-        <div class="field">
-
-          <label>
-            Zelle Email or Phone
-          </label>
-
-          <input
-            data-field="zelle_identifier"
-            type="text"
-            placeholder="Enter Zelle email or phone"
-          >
-
-        </div>
-
-      `;
-
-    }
-
-
-    else if (
-      method === "Apple Pay"
-    ) {
-
-      html = `
-
-        <div class="field">
-
-          <label>
-            Apple Pay Contact
-          </label>
-
-          <input
-            data-field="apple_pay_contact"
-            type="text"
-            placeholder="Enter Apple Pay email or phone"
-          >
-
-        </div>
-
-      `;
-
-    }
-
-
-    else if (
-      method === "Interac e-Transfer"
-    ) {
-
-      html = `
-
-        <div class="field">
-
-          <label>
-            Interac Email
-          </label>
-
-          <input
-            data-field="interac_email"
-            type="email"
-            placeholder="Enter Interac email"
-          >
-
-        </div>
-
-      `;
-
-    }
-
-
-    else {
-
-      html = `
-
-        <div class="field">
-
-          <label>
-            Destination Details
-          </label>
-
-          <input
-            data-field="other_destination"
-            type="text"
-            placeholder="Enter your withdrawal destination"
-          >
-
-        </div>
-
-      `;
-
-    }
-
-
-    destinationFields.innerHTML =
-      html;
-
-  }
-
-
-
-  renderDestinationFields();
-
-
-
-  /*
-    SELECT PAYMENT METHOD
-  */
-
-  document
-    .querySelectorAll(
-      ".method-option"
-    )
-    .forEach(
-      button => {
-
-        button.addEventListener(
-          "click",
-          () => {
-
-            document
-              .querySelectorAll(
-                ".method-option"
-              )
-              .forEach(
-                item =>
-                  item.classList.remove(
-                    "selected"
-                  )
-              );
-
-
-            button.classList.add(
-              "selected"
-            );
-
-
-            selectedMethod =
-              button.dataset.method;
-
-
-            renderDestinationFields();
-
-            clearError();
-
-          }
-        );
-
-      }
-    );
-
-
-
-  /*
-    COLLECT DESTINATION
-  */
-
-  function collectDestination() {
-
-    const fields =
-      destinationFields
-        .querySelectorAll(
-          "[data-field]"
-        );
-
-
-    const result = {};
-
-
-    fields.forEach(
-      field => {
-
-        result[
-          field.dataset.field
-        ] =
-          field.value.trim();
-
-      }
-    );
-
-
-    return result;
-
-  }
-
-
-
-  /*
-    VALIDATE DESTINATION
-  */
-
-  function validateDestination(
-    data
-  ) {
-
-    const values =
-      Object.values(
-        data
-      );
-
-
-    if (
-      values.length === 0
-    ) {
-
-      return false;
-
-    }
-
-
-    return values.every(
-      value =>
-        String(
-          value || ""
-        ).trim().length > 0
-    );
-
-  }
-
-
-
-  /*
-    UPDATE PROGRESS
-  */
-
-  function updateProgress() {
-
-
-    const names = {
-
-      1:
-        "Withdrawal Details",
-
-      2:
-        "Fee Review",
-
-      3:
-        "Confirmation",
-
-      4:
-        "Verification Code",
-
-      5:
-        "Complete"
-
-    };
-
-
-    document.getElementById(
-      "stepNumber"
-    ).textContent =
-      "Step " +
-      currentStep +
-      " of 5";
-
-
-    document.getElementById(
-      "stepName"
-    ).textContent =
-      names[
-        currentStep
-      ];
-
-
-    document.getElementById(
-      "progressBar"
-    ).style.width =
-      (
-        currentStep * 20
-      ) +
-      "%";
-
-
-    document
-      .querySelectorAll(
-        ".step"
-      )
-      .forEach(
-        step => {
-
-          step.classList.remove(
-            "active"
-          );
-
-        }
-      );
-
-
-    document.getElementById(
-      "step" +
-      currentStep
-    ).classList.add(
-      "active"
-    );
-
-
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
-
-  }
-
-
-
-  /*
-    STEP 1
-  */
-
-  document.getElementById(
-    "continue1"
-  ).onclick =
-    () => {
-
-
-      clearError();
-
-
-      const amount =
-        Number(
-          amountInput.value
-        );
-
-
-      if (
-        !Number.isFinite(
-          amount
-        ) ||
-        amount < MIN_WITHDRAWAL
-      ) {
-
-        showError(
-          "Enter a withdrawal amount of at least $5.00."
+        showStatus(
+          "Unable to load your balance.",
+          "error"
         );
 
         return;
@@ -2804,581 +922,723 @@
 
 
       if (
-        amount > availableBalance
+        result.data &&
+        result.data.balance !== null &&
+        result.data.balance !== undefined
       ) {
 
-        showError(
-          "The withdrawal amount cannot exceed your available balance."
-        );
-
-        return;
-
-      }
-
-
-      destinationData =
-        collectDestination();
-
-
-      if (
-        !validateDestination(
-          destinationData
-        )
-      ) {
-
-        showError(
-          "Please complete all required withdrawal destination fields."
-        );
-
-        return;
-
-      }
-
-
-      withdrawalAmount =
-        Number(
-          amount.toFixed(2)
-        );
-
-
-      processingFee =
-        Number(
-          (
-            withdrawalAmount *
-            PROCESSING_FEE_RATE
-          ).toFixed(2)
-        );
-
-
-      const total =
-        Number(
-          (
-            withdrawalAmount +
-            processingFee
-          ).toFixed(2)
-        );
-
-
-      if (
-        total > availableBalance
-      ) {
-
-        showError(
-          "The withdrawal amount plus processing fee exceeds your available balance."
-        );
-
-        return;
-
-      }
-
-
-      document.getElementById(
-        "reviewAmount"
-      ).textContent =
-        money(
-          withdrawalAmount
-        );
-
-
-      document.getElementById(
-        "reviewFee"
-      ).textContent =
-        money(
-          processingFee
-        );
-
-
-      document.getElementById(
-        "reviewTotal"
-      ).textContent =
-        money(
-          total
-        );
-
-
-      document.getElementById(
-        "reviewReceive"
-      ).textContent =
-        money(
-          withdrawalAmount
-        );
-
-
-      currentStep =
-        2;
-
-
-      updateProgress();
-
-    };
-
-
-
-  /*
-    STEP 2
-  */
-
-  document.getElementById(
-    "continue2"
-  ).onclick =
-    () => {
-
-      clearError();
-
-
-      document.getElementById(
-        "confirmAmount"
-      ).textContent =
-        money(
-          withdrawalAmount
-        );
-
-
-      document.getElementById(
-        "confirmMethod"
-      ).textContent =
-        selectedMethod;
-
-
-      const confirm =
-        document.getElementById(
-          "confirmDestination"
-        );
-
-
-      confirm.innerHTML = "";
-
-
-      Object.entries(
-        destinationData
-      ).forEach(
-        ([key, value]) => {
-
-          const row =
-            document.createElement(
-              "div"
-            );
-
-
-          row.className =
-            "review-row";
-
-
-          const label =
-            document.createElement(
-              "span"
-            );
-
-
-          label.className =
-            "review-label";
-
-
-          label.textContent =
-            key
-              .replace(
-                /_/g,
-                " "
-              )
-              .replace(
-                /\b\w/g,
-                char =>
-                  char.toUpperCase()
-              );
-
-
-          const val =
-            document.createElement(
-              "span"
-            );
-
-
-          val.className =
-            "review-value";
-
-
-          val.textContent =
-            value;
-
-
-          row.appendChild(
-            label
+        currentBalance =
+          Number(
+            result.data.balance
           );
 
 
-          row.appendChild(
-            val
-          );
-
-
-          confirm.appendChild(
-            row
-          );
-
-        }
-      );
-
-
-      currentStep =
-        3;
-
-
-      updateProgress();
-
-    };
-
-
-
-  /*
-    STEP 3
-  */
-
-  document.getElementById(
-    "continue3"
-  ).onclick =
-    () => {
-
-      clearError();
-
-      currentStep =
-        4;
-
-      updateProgress();
-
-    };
-
-
-
-  /*
-    STEP 4
-    REAL BACKEND VERIFICATION
-  */
-
-  document.getElementById(
-    "verifyButton"
-  ).onclick =
-    async () => {
-
-
-      clearError();
-
-
-      const code =
-        document
-          .getElementById(
-            "verificationCode"
-          )
-          .value
-          .trim();
-
-
-      if (
-        !code
-      ) {
-
-        showError(
-          "Enter your verification code."
-        );
-
-        return;
-
-      }
-
-
-      if (
-        code.length < 4 ||
-        code.length > 8
-      ) {
-
-        showError(
-          "Enter a valid verification code."
-        );
-
-        return;
-
-      }
-
-
-      const button =
-        document.getElementById(
-          "verifyButton"
-        );
-
-
-      button.disabled =
-        true;
-
-
-      button.textContent =
-        "Verifying…";
-
-
-      try {
-
-
-        /*
-          IMPORTANT:
-
-          This calls a Supabase RPC named:
-
-          verify_and_create_withdrawal
-
-          The RPC must verify the code server-side,
-          validate the user's balance, create the
-          withdrawal request, and return the request ID.
-
-          Do NOT put a secret/service-role key in
-          this HTML file.
-        */
-
-        const {
-          data,
-          error
-        } =
-          await sb.rpc(
-            "verify_and_create_withdrawal",
+        balanceElement.textContent =
+          "$" +
+          currentBalance.toLocaleString(
+            "en-US",
             {
-              p_amount:
-                withdrawalAmount,
-
-              p_method:
-                selectedMethod,
-
-              p_destination:
-                destinationData,
-
-              p_verification_code:
-                code,
-
-              p_processing_fee:
-                processingFee
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2
             }
           );
 
-
-        if (error) {
-
-          throw error;
-
-        }
-
-
-        let requestId =
-          null;
-
-
-        if (
-          Array.isArray(
-            data
-          )
-        ) {
-
-          requestId =
-            data[0]?.id ||
-            data[0]?.withdrawal_id ||
-            null;
-
-        } else if (
-          data
-        ) {
-
-          requestId =
-            data.id ||
-            data.withdrawal_id ||
-            data.request_id ||
-            null;
-
-        }
-
-
-        document.getElementById(
-          "requestId"
-        ).textContent =
-          requestId ||
-          "Submitted";
-
-
-        currentStep =
-          5;
-
-
-        updateProgress();
-
-
-      } catch (error) {
-
-
-        console.error(
-          "Withdrawal verification error:",
-          error
-        );
-
-
-        showError(
-          error?.message ||
-          "Unable to verify the withdrawal. Please contact Veylo support."
-        );
-
-
-        button.disabled =
-          false;
-
-
-        button.textContent =
-          "Verify & Withdraw";
-
       }
 
-    };
+    }
+
+
+    await loadBalance();
 
 
 
-  /*
-    BACK BUTTONS
-  */
+    /*
+      BACK BUTTON
+    */
 
-  document.getElementById(
-    "back2"
-  ).onclick =
-    () => {
-
-      currentStep =
-        1;
-
-      updateProgress();
-
-    };
-
-
-  document.getElementById(
-    "back3"
-  ).onclick =
-    () => {
-
-      currentStep =
-        2;
-
-      updateProgress();
-
-    };
-
-
-  document.getElementById(
-    "back4"
-  ).onclick =
-    () => {
-
-      currentStep =
-        3;
-
-      updateProgress();
-
-    };
-
-
-
-  /*
-    TOP BACK
-  */
-
-  document.getElementById(
-    "backTop"
-  ).onclick =
-    () => {
-
-      if (
-        currentStep === 1
-      ) {
-
-        history.back();
-
-        return;
-
-      }
-
-
-      if (
-        currentStep === 5
-      ) {
+    document.getElementById(
+      "back"
+    ).onclick =
+      () => {
 
         location.href =
           "dashboard.html";
 
-        return;
+      };
+
+
+
+    /*
+      SELECT METHOD
+    */
+
+    document
+      .querySelectorAll(
+        ".method"
+      )
+      .forEach(
+        button => {
+
+
+          button.onclick =
+            () => {
+
+
+              document
+                .querySelectorAll(
+                  ".method"
+                )
+                .forEach(
+                  item =>
+                    item.classList.remove(
+                      "selected"
+                    )
+                );
+
+
+              button.classList.add(
+                "selected"
+              );
+
+
+              selectedMethod =
+                button.dataset.method;
+
+
+              renderDestinationFields(
+                selectedMethod
+              );
+
+
+              destination.style.display =
+                "block";
+
+
+              destination.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+              });
+
+            };
+
+        }
+      );
+
+
+
+    /*
+      DESTINATION FIELDS
+    */
+
+    function renderDestinationFields(
+      method
+    ) {
+
+
+      let html = "";
+
+
+      if (
+        method === "Bank Account"
+      ) {
+
+
+        html = `
+
+          <div class="field">
+
+            <label>
+              Account holder name
+            </label>
+
+            <input
+              id="accountName"
+              type="text"
+              autocomplete="name"
+              placeholder="Full name"
+            >
+
+          </div>
+
+
+          <div class="field">
+
+            <label>
+              Bank name
+            </label>
+
+            <input
+              id="bankName"
+              type="text"
+              placeholder="Bank name"
+            >
+
+          </div>
+
+
+          <div class="field">
+
+            <label>
+              Account number
+            </label>
+
+            <input
+              id="accountNumber"
+              type="text"
+              inputmode="numeric"
+              placeholder="Account number"
+            >
+
+          </div>
+
+
+          <div class="field">
+
+            <label>
+              Routing / sort code
+            </label>
+
+            <input
+              id="routingNumber"
+              type="text"
+              inputmode="numeric"
+              placeholder="Routing or sort code"
+            >
+
+          </div>
+
+        `;
 
       }
 
 
-      currentStep =
-        Math.max(
-          1,
-          currentStep - 1
+      else if (
+        method === "PayPal"
+      ) {
+
+
+        html = `
+
+          <div class="field">
+
+            <label>
+              PayPal email
+            </label>
+
+            <input
+              id="paypalEmail"
+              type="email"
+              autocomplete="email"
+              placeholder="name@example.com"
+            >
+
+          </div>
+
+        `;
+
+      }
+
+
+      else if (
+        method === "Cash App"
+      ) {
+
+
+        html = `
+
+          <div class="field">
+
+            <label>
+              Cash App $Cashtag
+            </label>
+
+            <input
+              id="cashTag"
+              type="text"
+              placeholder="$Cashtag"
+            >
+
+          </div>
+
+        `;
+
+      }
+
+
+      else if (
+        method === "Venmo"
+      ) {
+
+
+        html = `
+
+          <div class="field">
+
+            <label>
+              Venmo username
+            </label>
+
+            <input
+              id="venmoUsername"
+              type="text"
+              placeholder="@username"
+            >
+
+          </div>
+
+        `;
+
+      }
+
+
+      else if (
+        method === "Zelle"
+      ) {
+
+
+        html = `
+
+          <div class="field">
+
+            <label>
+              Zelle email or phone
+            </label>
+
+            <input
+              id="zelleDestination"
+              type="text"
+              placeholder="Email or phone number"
+            >
+
+          </div>
+
+        `;
+
+      }
+
+
+      else if (
+        method === "Apple Pay"
+      ) {
+
+
+        html = `
+
+          <div class="field">
+
+            <label>
+              Apple Pay destination
+            </label>
+
+            <input
+              id="applePayDestination"
+              type="text"
+              placeholder="Email or phone number"
+            >
+
+          </div>
+
+        `;
+
+      }
+
+
+      else if (
+        method === "Chime"
+      ) {
+
+
+        html = `
+
+          <div class="field">
+
+            <label>
+              Chime destination
+            </label>
+
+            <input
+              id="chimeDestination"
+              type="text"
+              placeholder="Chime email or phone"
+            >
+
+          </div>
+
+        `;
+
+      }
+
+
+      else if (
+        method === "Wire Transfer"
+      ) {
+
+
+        html = `
+
+          <div class="field">
+
+            <label>
+              Account holder name
+            </label>
+
+            <input
+              id="wireName"
+              type="text"
+              placeholder="Full name"
+            >
+
+          </div>
+
+
+          <div class="field">
+
+            <label>
+              Bank name
+            </label>
+
+            <input
+              id="wireBank"
+              type="text"
+              placeholder="Bank name"
+            >
+
+          </div>
+
+
+          <div class="field">
+
+            <label>
+              Account number / IBAN
+            </label>
+
+            <input
+              id="wireAccount"
+              type="text"
+              placeholder="Account number or IBAN"
+            >
+
+          </div>
+
+
+          <div class="field">
+
+            <label>
+              SWIFT / BIC
+            </label>
+
+            <input
+              id="wireSwift"
+              type="text"
+              placeholder="SWIFT / BIC"
+            >
+
+          </div>
+
+        `;
+
+      }
+
+
+      dynamicFields.innerHTML =
+        html;
+
+    }
+
+
+
+    /*
+      GET DESTINATION DATA
+    */
+
+    function getDestinationData() {
+
+
+      const fields =
+        dynamicFields.querySelectorAll(
+          "input"
         );
 
 
-      updateProgress();
-
-    };
+      const data = {};
 
 
+      fields.forEach(
+        field => {
 
-  /*
-    CANCEL
-  */
+          data[field.id] =
+            field.value.trim();
 
-  document.getElementById(
-    "cancelButton"
-  ).onclick =
-    () => {
-
-      location.href =
-        "dashboard.html";
-
-    };
+        }
+      );
 
 
-
-  /*
-    DASHBOARD
-
-  */
-
-  document.getElementById(
-    "dashboardButton"
-  ).onclick =
-    () => {
-
-      location.href =
-        "dashboard.html";
-
-    };
-
-
-
-  /*
-    LIMIT VERIFICATION INPUT
-  */
-
-  document.getElementById(
-    "verificationCode"
-  ).addEventListener(
-    "input",
-    event => {
-
-      event.target.value =
-        event.target.value
-          .replace(
-            /[^0-9A-Za-z]/g,
-            ""
-          )
-          .slice(
-            0,
-            8
-          );
+      return data;
 
     }
-  );
 
+
+
+    /*
+      VALIDATE
+    */
+
+    function validate() {
+
+
+      const amount =
+        Number(
+          amountElement.value
+        );
+
+
+      if (
+        !Number.isFinite(amount) ||
+        amount <= 0
+      ) {
+
+        showStatus(
+          "Enter a valid withdrawal amount.",
+          "error"
+        );
+
+        return null;
+
+      }
+
+
+      if (
+        amount > currentBalance
+      ) {
+
+        showStatus(
+          "The withdrawal amount is greater than your available balance.",
+          "error"
+        );
+
+        return null;
+
+      }
+
+
+      if (
+        !selectedMethod
+      ) {
+
+        showStatus(
+          "Choose a withdrawal method.",
+          "error"
+        );
+
+        return null;
+
+      }
+
+
+      const destinationData =
+        getDestinationData();
+
+
+      const values =
+        Object.values(
+          destinationData
+        );
+
+
+      if (
+        values.some(
+          value => !value
+        )
+      ) {
+
+        showStatus(
+          "Please complete all required destination information.",
+          "error"
+        );
+
+        return null;
+
+      }
+
+
+      return {
+        amount:
+          Math.round(
+            amount * 100
+          ) / 100,
+
+        method:
+          selectedMethod,
+
+        destination:
+          destinationData
+
+      };
+
+    }
+
+
+
+    /*
+      SUBMIT WITHDRAWAL REQUEST
+    */
+
+    document.getElementById(
+      "submitWithdrawal"
+    ).onclick =
+      async () => {
+
+
+        status.className =
+          "status";
+
+
+        const request =
+          validate();
+
+
+        if (!request) {
+          return;
+        }
+
+
+        const button =
+          document.getElementById(
+            "submitWithdrawal"
+          );
+
+
+        button.disabled =
+          true;
+
+
+        button.textContent =
+          "Submitting…";
+
+
+        try {
+
+
+          /*
+            IMPORTANT:
+            This creates a REQUEST only.
+
+            It does NOT directly change
+            the user's balance.
+
+            A secure server-side function
+            should approve/process the
+            withdrawal and update balances.
+          */
+
+          const result =
+            await sb
+              .from("withdrawal_requests")
+              .insert({
+
+                user_id:
+                  user.id,
+
+                amount:
+                  request.amount,
+
+                method:
+                  request.method,
+
+                destination:
+                  request.destination,
+
+                status:
+                  "pending"
+
+              });
+
+
+          if (
+            result.error
+          ) {
+
+            throw result.error;
+
+          }
+
+
+          showStatus(
+            "Your withdrawal request has been submitted and is pending review.",
+            "success"
+          );
+
+
+          button.textContent =
+            "Request submitted";
+
+
+          amountElement.value =
+            "";
+
+
+          destination.style.display =
+            "none";
+
+
+          document
+            .querySelectorAll(
+              ".method"
+            )
+            .forEach(
+              item =>
+                item.classList.remove(
+                  "selected"
+                )
+            );
+
+
+          selectedMethod =
+            null;
+
+
+        } catch (error) {
+
+
+          console.error(
+            "Withdrawal error:",
+            error
+          );
+
+
+          showStatus(
+            "We could not submit your withdrawal request. Please try again.",
+            "error"
+          );
+
+
+          button.disabled =
+            false;
+
+
+          button.textContent =
+            "Request withdrawal";
+
+        }
+
+      };
+
+
+  } catch (error) {
+
+
+    console.error(
+      "Veylo withdrawal error:",
+      error
+    );
+
+
+    showStatus(
+      "Something went wrong loading the withdrawal page.",
+      "error"
+    );
+
+  }
 
 
 })();
@@ -3387,5 +1647,4 @@
 
 
 </body>
-
 </html>
