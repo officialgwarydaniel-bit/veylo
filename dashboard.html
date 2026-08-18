@@ -18,7 +18,7 @@
       --text: #f4f4f2;
       --muted: #9a9da0;
 
-      /* Interactive colours only */
+      /* Interactive colours */
       --accent: #35d1ad;
       --accent2: #ffae32;
     }
@@ -241,6 +241,80 @@
       padding: 30px 18px;
 
       color: var(--muted);
+    }
+
+    /* TRANSACTIONS */
+
+    .transaction {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 15px;
+
+      padding: 15px 16px;
+
+      border-bottom: 1px solid var(--line);
+    }
+
+    .transaction:last-child {
+      border-bottom: 0;
+    }
+
+    .transaction-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .transaction-icon {
+      width: 42px;
+      height: 42px;
+
+      flex: 0 0 42px;
+
+      border-radius: 50%;
+
+      background: var(--surface2);
+
+      display: grid;
+      place-items: center;
+
+      color: var(--accent);
+
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .transaction-name {
+      font-weight: 750;
+
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .transaction-date {
+      margin-top: 4px;
+
+      color: var(--muted);
+
+      font-size: 12px;
+    }
+
+    .transaction-amount {
+      flex-shrink: 0;
+
+      font-weight: 800;
+    }
+
+    .transaction-amount.positive {
+      color: var(--accent);
+    }
+
+    .transaction-amount.negative {
+      color: var(--accent2);
     }
 
     /* LOGOUT */
@@ -544,8 +618,10 @@
       LIVE ACTIVITY
     </div>
 
-    <div class="empty">
-      Your recent transactions will appear here.
+    <div id="liveActivity">
+      <div class="empty">
+        Loading activity…
+      </div>
     </div>
 
   </section>
@@ -564,8 +640,10 @@
       Transaction History
     </div>
 
-    <div class="empty">
-      No transactions yet.
+    <div id="transactionHistory">
+      <div class="empty">
+        Loading transactions…
+      </div>
     </div>
 
   </section>
@@ -615,8 +693,7 @@
   try {
 
     /*
-      Load your existing Supabase configuration.
-      Do NOT put the Supabase keys directly in this file.
+      Load existing Supabase configuration.
     */
 
     const txt =
@@ -682,7 +759,7 @@
 
 
     /*
-      User name.
+      USER INFORMATION
     */
 
     const name =
@@ -704,7 +781,7 @@
 
 
     /*
-      Get user's balance.
+      LOAD BALANCE
     */
 
     try {
@@ -723,9 +800,7 @@
         result.data.balance !== undefined
       ) {
 
-        document.getElementById(
-          "balance"
-        ).textContent =
+        const formatted =
           "$" +
           Number(
             result.data.balance
@@ -737,19 +812,491 @@
             }
           );
 
+
+        const balanceElement =
+          document.getElementById(
+            "balance"
+          );
+
+
+        balanceElement.textContent =
+          formatted;
+
+
+        balanceElement.dataset.real =
+          formatted;
+
       }
 
     } catch (error) {
 
       console.log(
-        "Balance not available yet."
+        "Balance not available yet.",
+        error
       );
 
     }
 
 
     /*
-      CONNECT DASHBOARD BUTTONS
+      FORMAT TRANSACTION DATE
+    */
+
+    function formatDate(dateString) {
+
+      const date =
+        new Date(dateString);
+
+
+      const now =
+        new Date();
+
+
+      const difference =
+        now.getTime() -
+        date.getTime();
+
+
+      const minute =
+        60 * 1000;
+
+
+      const hour =
+        60 * minute;
+
+
+      const day =
+        24 * hour;
+
+
+      if (difference < minute) {
+        return "Just now";
+      }
+
+
+      if (difference < hour) {
+
+        const minutes =
+          Math.floor(
+            difference / minute
+          );
+
+        return minutes +
+          (minutes === 1
+            ? " minute ago"
+            : " minutes ago");
+
+      }
+
+
+      if (difference < day) {
+
+        const hours =
+          Math.floor(
+            difference / hour
+          );
+
+        return hours +
+          (hours === 1
+            ? " hour ago"
+            : " hours ago");
+
+      }
+
+
+      return date.toLocaleDateString(
+        "en-US",
+        {
+          month: "short",
+          day: "numeric",
+          year: "numeric"
+        }
+      );
+
+    }
+
+
+    /*
+      TRANSACTION ICON
+    */
+
+    function transactionIcon(type) {
+
+      const value =
+        String(type || "")
+          .toLowerCase();
+
+
+      if (
+        value === "deposit" ||
+        value === "add_money"
+      ) {
+
+        return "+";
+
+      }
+
+
+      if (
+        value === "withdrawal" ||
+        value === "withdraw"
+      ) {
+
+        return "↓";
+
+      }
+
+
+      if (
+        value === "transfer"
+      ) {
+
+        return "⇄";
+
+      }
+
+
+      if (
+        value === "receive"
+      ) {
+
+        return "↓";
+
+      }
+
+
+      return "•";
+
+    }
+
+
+    /*
+      TRANSACTION NAME
+    */
+
+    function transactionName(transaction) {
+
+      if (
+        transaction.description
+      ) {
+
+        return transaction.description;
+
+      }
+
+
+      const type =
+        String(
+          transaction.type || ""
+        ).toLowerCase();
+
+
+      if (type === "deposit") {
+        return "Money added";
+      }
+
+
+      if (type === "withdrawal") {
+        return "Withdrawal";
+      }
+
+
+      if (type === "transfer") {
+        return "Transfer";
+      }
+
+
+      if (type === "receive") {
+        return "Money received";
+      }
+
+
+      return "Transaction";
+
+    }
+
+
+    /*
+      TRANSACTION AMOUNT
+    */
+
+    function transactionAmount(transaction) {
+
+      const amount =
+        Number(
+          transaction.amount || 0
+        );
+
+
+      const type =
+        String(
+          transaction.type || ""
+        ).toLowerCase();
+
+
+      const negative =
+        type === "withdrawal" ||
+        type === "withdraw" ||
+        type === "transfer";
+
+
+      const prefix =
+        negative ? "−" : "+";
+
+
+      return {
+        text:
+          prefix +
+          "$" +
+          Math.abs(amount).toLocaleString(
+            "en-US",
+            {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2
+            }
+          ),
+        negative
+      };
+
+    }
+
+
+    /*
+      CREATE TRANSACTION HTML
+    */
+
+    function transactionHTML(transaction) {
+
+      const amount =
+        transactionAmount(
+          transaction
+        );
+
+
+      const amountClass =
+        amount.negative
+          ? "negative"
+          : "positive";
+
+
+      return `
+        <div class="transaction">
+
+          <div class="transaction-left">
+
+            <div class="transaction-icon">
+              ${transactionIcon(transaction.type)}
+            </div>
+
+            <div>
+
+              <div class="transaction-name">
+                ${escapeHTML(
+                  transactionName(transaction)
+                )}
+              </div>
+
+              <div class="transaction-date">
+                ${formatDate(
+                  transaction.created_at
+                )}
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="transaction-amount ${amountClass}">
+            ${amount.text}
+          </div>
+
+        </div>
+      `;
+
+    }
+
+
+    /*
+      SAFELY DISPLAY DATABASE TEXT
+    */
+
+    function escapeHTML(value) {
+
+      return String(value ?? "")
+        .replace(
+          /&/g,
+          "&amp;"
+        )
+        .replace(
+          /</g,
+          "&lt;"
+        )
+        .replace(
+          />/g,
+          "&gt;"
+        )
+        .replace(
+          /"/g,
+          "&quot;"
+        )
+        .replace(
+          /'/g,
+          "&#039;"
+        );
+
+    }
+
+
+    /*
+      LOAD TRANSACTIONS
+    */
+
+    async function loadTransactions() {
+
+      const liveActivity =
+        document.getElementById(
+          "liveActivity"
+        );
+
+
+      const history =
+        document.getElementById(
+          "transactionHistory"
+        );
+
+
+      try {
+
+        const result =
+          await sb
+            .from("transactions")
+            .select(
+              "id,type,amount,description,created_at"
+            )
+            .eq(
+              "user_id",
+              user.id
+            )
+            .order(
+              "created_at",
+              {
+                ascending: false
+              }
+            )
+            .limit(20);
+
+
+        if (result.error) {
+          throw result.error;
+        }
+
+
+        const transactions =
+          result.data || [];
+
+
+        /*
+          No transactions.
+        */
+
+        if (
+          transactions.length === 0
+        ) {
+
+          liveActivity.innerHTML = `
+            <div class="empty">
+              Your recent transactions will appear here.
+            </div>
+          `;
+
+
+          history.innerHTML = `
+            <div class="empty">
+              No transactions yet.
+            </div>
+          `;
+
+
+          return;
+
+        }
+
+
+        /*
+          Live activity = latest 5.
+        */
+
+        const latest =
+          transactions.slice(
+            0,
+            5
+          );
+
+
+        liveActivity.innerHTML =
+          latest
+            .map(
+              transactionHTML
+            )
+            .join("");
+
+
+        /*
+          History = latest 20.
+        */
+
+        history.innerHTML =
+          transactions
+            .map(
+              transactionHTML
+            )
+            .join("");
+
+      } catch (error) {
+
+        console.error(
+          "Transaction loading error:",
+          error
+        );
+
+
+        liveActivity.innerHTML = `
+          <div class="empty">
+            Unable to load activity.
+          </div>
+        `;
+
+
+        history.innerHTML = `
+          <div class="empty">
+            Unable to load transaction history.
+          </div>
+        `;
+
+      }
+
+    }
+
+
+    /*
+      Load transactions immediately.
+    */
+
+    await loadTransactions();
+
+
+    /*
+      Refresh activity every 10 seconds.
+    */
+
+    setInterval(
+      loadTransactions,
+      10000
+    );
+
+
+    /*
+      DASHBOARD BUTTONS
     */
 
     document
@@ -776,12 +1323,14 @@
               "add-money.html";
 
             return;
+
           }
 
 
           /*
-            Other features will be
-            connected one at a time.
+            Everything else will be
+            connected one feature at
+            a time.
           */
 
           alert(
@@ -795,7 +1344,7 @@
 
 
     /*
-      Logout.
+      LOGOUT
     */
 
     document.getElementById(
@@ -812,7 +1361,7 @@
 
 
     /*
-      Hide / show balance.
+      HIDE / SHOW BALANCE
     */
 
     let shown = true;
@@ -837,6 +1386,7 @@
           balance.dataset.real ||
           "$0.00";
 
+
         document.getElementById(
           "toggle"
         ).textContent =
@@ -847,8 +1397,10 @@
         balance.dataset.real =
           balance.textContent;
 
+
         balance.textContent =
           "••••••";
+
 
         document.getElementById(
           "toggle"
