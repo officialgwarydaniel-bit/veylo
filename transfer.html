@@ -1,0 +1,642 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0b0d0f">
+
+  <title>Veylo — Transfer</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    :root {
+      --bg: #0b0d0f;
+      --surface: #14171a;
+      --surface2: #191c20;
+      --line: #292d31;
+      --text: #f4f4f2;
+      --muted: #9a9da0;
+      --accent: #35d1ad;
+      --accent2: #ffae32;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "SF Pro Display",
+        "Segoe UI",
+        sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    .wrap {
+      width: min(100%, 600px);
+      margin: auto;
+      padding: 18px 16px 40px;
+    }
+
+    .back {
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      padding: 8px 0;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .brand {
+      margin: 20px 0 34px;
+      font-size: 28px;
+      font-weight: 850;
+      letter-spacing: -1.2px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      padding: 24px;
+    }
+
+    .eyebrow {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 1.4px;
+    }
+
+    h1 {
+      margin: 8px 0;
+      font-size: 30px;
+      letter-spacing: -1px;
+    }
+
+    .description {
+      color: var(--muted);
+      line-height: 1.5;
+      margin: 0 0 28px;
+    }
+
+    .balance-box {
+      border: 1px solid var(--line);
+      background: var(--surface2);
+      border-radius: 18px;
+      padding: 15px;
+      margin-bottom: 24px;
+    }
+
+    .balance-label {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .balance-value {
+      margin-top: 5px;
+      font-size: 24px;
+      font-weight: 850;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .field {
+      width: 100%;
+      border: 1px solid var(--line);
+      outline: none;
+      background: var(--surface2);
+      color: var(--text);
+      border-radius: 17px;
+      padding: 16px;
+      margin-bottom: 20px;
+    }
+
+    .field:focus {
+      border-color: var(--accent);
+    }
+
+    .amount-wrap {
+      display: flex;
+      align-items: center;
+      border: 1px solid var(--line);
+      background: var(--surface2);
+      border-radius: 17px;
+      padding-left: 16px;
+      margin-bottom: 24px;
+    }
+
+    .currency {
+      font-size: 25px;
+      font-weight: 850;
+    }
+
+    .amount {
+      width: 100%;
+      border: 0;
+      outline: none;
+      background: transparent;
+      color: var(--text);
+      font-size: 28px;
+      font-weight: 850;
+      padding: 16px 12px;
+    }
+
+    .quick {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-top: -10px;
+      margin-bottom: 24px;
+    }
+
+    .quick button {
+      border: 1px solid var(--line);
+      background: var(--surface2);
+      color: var(--text);
+      border-radius: 13px;
+      padding: 10px 4px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .confirm {
+      width: 100%;
+      height: 54px;
+      border: 0;
+      border-radius: 17px;
+      background: var(--accent);
+      color: #06231d;
+      font-weight: 850;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .confirm:disabled {
+      opacity: .55;
+      cursor: default;
+    }
+
+    #message {
+      min-height: 24px;
+      margin-top: 16px;
+      text-align: center;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    .notice {
+      margin-top: 20px;
+      padding: 15px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="wrap">
+
+  <button
+    class="back"
+    type="button"
+    onclick="location.href='dashboard.html'"
+  >
+    ← Back
+  </button>
+
+  <div class="brand">
+    veylo
+  </div>
+
+  <section class="card">
+
+    <div class="eyebrow">
+      VEYLO TRANSFER
+    </div>
+
+    <h1>
+      Transfer money
+    </h1>
+
+    <p class="description">
+      Send money to another Veylo user using their account email.
+    </p>
+
+    <div class="balance-box">
+
+      <div class="balance-label">
+        AVAILABLE BALANCE
+      </div>
+
+      <div
+        class="balance-value"
+        id="balance"
+      >
+        $0.00
+      </div>
+
+    </div>
+
+    <form id="transferForm">
+
+      <label for="recipient">
+        Recipient email
+      </label>
+
+      <input
+        class="field"
+        id="recipient"
+        type="email"
+        autocomplete="email"
+        placeholder="recipient@example.com"
+        required
+      >
+
+      <label for="amount">
+        Amount
+      </label>
+
+      <div class="amount-wrap">
+
+        <span class="currency">
+          $
+        </span>
+
+        <input
+          class="amount"
+          id="amount"
+          type="number"
+          inputmode="decimal"
+          min="0.01"
+          step="0.01"
+          placeholder="0.00"
+          required
+        >
+
+      </div>
+
+      <div class="quick">
+
+        <button type="button" data-amount="5">
+          $5
+        </button>
+
+        <button type="button" data-amount="10">
+          $10
+        </button>
+
+        <button type="button" data-amount="25">
+          $25
+        </button>
+
+        <button type="button" data-amount="50">
+          $50
+        </button>
+
+      </div>
+
+      <button
+        class="confirm"
+        id="confirmButton"
+        type="submit"
+      >
+        Transfer money
+      </button>
+
+      <div id="message"></div>
+
+    </form>
+
+    <div class="notice">
+      Transfers are currently available between Veylo accounts.
+      Make sure the recipient email is correct before confirming.
+    </div>
+
+  </section>
+
+</div>
+
+
+<script>
+
+(async () => {
+
+  const message =
+    document.getElementById("message");
+
+  const button =
+    document.getElementById("confirmButton");
+
+  try {
+
+    /*
+      Load existing Supabase configuration.
+    */
+
+    const txt =
+      await fetch(
+        "supabase-config.js",
+        { cache: "no-store" }
+      ).then(
+        response => response.text()
+      );
+
+
+    const url =
+      (
+        txt.match(
+          /SUPABASE_URL\s*=\s*["']([^"']+)["']/
+        ) || []
+      )[1];
+
+
+    const key =
+      (
+        txt.match(
+          /SUPABASE_PUBLISHABLE_KEY\s*=\s*["']([^"']+)["']/
+        ) || []
+      )[1];
+
+
+    if (!url || !key) {
+
+      throw new Error(
+        "Supabase configuration not found."
+      );
+
+    }
+
+
+    const sb =
+      window.supabase.createClient(
+        url,
+        key
+      );
+
+
+    /*
+      Check login.
+    */
+
+    const {
+      data: { user }
+    } =
+      await sb.auth.getUser();
+
+
+    if (!user) {
+
+      location.href =
+        "login.html";
+
+      return;
+
+    }
+
+
+    /*
+      Load current balance.
+    */
+
+    async function loadBalance() {
+
+      const result =
+        await sb
+          .from("profiles")
+          .select("balance")
+          .eq("id", user.id)
+          .maybeSingle();
+
+
+      if (result.error) {
+        throw result.error;
+      }
+
+
+      const balance =
+        Number(
+          result.data?.balance || 0
+        );
+
+
+      document.getElementById(
+        "balance"
+      ).textContent =
+        "$" +
+        balance.toLocaleString(
+          "en-US",
+          {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+          }
+        );
+
+    }
+
+
+    await loadBalance();
+
+
+    /*
+      Quick amount buttons.
+    */
+
+    document
+      .querySelectorAll(
+        "[data-amount]"
+      )
+      .forEach(btn => {
+
+        btn.addEventListener(
+          "click",
+          () => {
+
+            document.getElementById(
+              "amount"
+            ).value =
+              btn.dataset.amount;
+
+          }
+        );
+
+      });
+
+
+    /*
+      Transfer.
+    */
+
+    document
+      .getElementById(
+        "transferForm"
+      )
+      .addEventListener(
+        "submit",
+        async event => {
+
+          event.preventDefault();
+
+
+          const recipient =
+            document.getElementById(
+              "recipient"
+            ).value.trim();
+
+
+          const amount =
+            Number(
+              document.getElementById(
+                "amount"
+              ).value
+            );
+
+
+          if (!recipient) {
+
+            message.textContent =
+              "Enter the recipient's email.";
+
+            return;
+
+          }
+
+
+          if (
+            !Number.isFinite(amount) ||
+            amount <= 0
+          ) {
+
+            message.textContent =
+              "Enter a valid amount.";
+
+            return;
+
+          }
+
+
+          if (
+            recipient.toLowerCase() ===
+            user.email?.toLowerCase()
+          ) {
+
+            message.textContent =
+              "You cannot transfer money to yourself.";
+
+            return;
+
+          }
+
+
+          button.disabled = true;
+
+          button.textContent =
+            "Transferring…";
+
+          message.textContent =
+            "";
+
+
+          try {
+
+            const result =
+              await sb.rpc(
+                "transfer_money",
+                {
+                  recipient_email:
+                    recipient,
+                  transfer_amount:
+                    amount
+                }
+              );
+
+
+            if (result.error) {
+              throw result.error;
+            }
+
+
+            message.textContent =
+              "Transfer successful.";
+
+
+            await loadBalance();
+
+
+            setTimeout(
+              () => {
+
+                location.href =
+                  "dashboard.html";
+
+              },
+              1200
+            );
+
+
+          } catch (error) {
+
+            console.error(
+              "Transfer error:",
+              error
+            );
+
+
+            message.textContent =
+              error.message ||
+              "Transfer failed.";
+
+
+            button.disabled = false;
+
+            button.textContent =
+              "Transfer money";
+
+          }
+
+        }
+      );
+
+
+  } catch (error) {
+
+    console.error(error);
+
+    message.textContent =
+      error.message ||
+      "Veylo could not connect to your account.";
+
+  }
+
+})();
+
+</script>
+
+</body>
+</html>
