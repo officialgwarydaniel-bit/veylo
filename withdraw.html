@@ -56,8 +56,7 @@
     }
 
     button,
-    input,
-    select {
+    input {
       font: inherit;
     }
 
@@ -75,8 +74,6 @@
         16px
         60px;
     }
-
-    /* HEADER */
 
     .top {
       display: flex;
@@ -108,11 +105,8 @@
     .brand {
       font-size: 27px;
       font-weight: 850;
-
       letter-spacing: -1px;
     }
-
-    /* TITLE */
 
     .title {
       margin-bottom: 20px;
@@ -129,11 +123,8 @@
       margin: 0;
 
       color: var(--muted);
-
       line-height: 1.5;
     }
-
-    /* BALANCE */
 
     .balance-card {
       background:
@@ -170,8 +161,6 @@
 
       letter-spacing: -1px;
     }
-
-    /* FORM */
 
     .panel {
       background:
@@ -216,8 +205,7 @@
       font-weight: 700;
     }
 
-    input,
-    select {
+    input {
       width: 100%;
 
       height: 54px;
@@ -240,8 +228,7 @@
         0 15px;
     }
 
-    input:focus,
-    select:focus {
+    input:focus {
       border-color:
         var(--accent);
     }
@@ -250,8 +237,6 @@
       color:
         #666b70;
     }
-
-    /* METHODS */
 
     .methods {
       display: grid;
@@ -310,8 +295,6 @@
         var(--accent);
     }
 
-    /* DESTINATION */
-
     #destinationFields {
       display: none;
     }
@@ -337,8 +320,6 @@
 
       line-height: 1.5;
     }
-
-    /* BUTTON */
 
     .continue {
       width: 100%;
@@ -369,8 +350,6 @@
       cursor: not-allowed;
     }
 
-    /* STATUS */
-
     .status {
       display: none;
 
@@ -383,6 +362,8 @@
       line-height: 1.5;
 
       font-size: 13px;
+
+      white-space: pre-wrap;
     }
 
     .status.success {
@@ -449,8 +430,6 @@
 <div class="wrap">
 
 
-  <!-- HEADER -->
-
   <header class="top">
 
     <button
@@ -468,8 +447,6 @@
   </header>
 
 
-  <!-- TITLE -->
-
   <section class="title">
 
     <h1>
@@ -482,8 +459,6 @@
 
   </section>
 
-
-  <!-- BALANCE -->
 
   <section class="balance-card">
 
@@ -501,15 +476,11 @@
   </section>
 
 
-  <!-- STATUS -->
-
   <div
     class="status"
     id="status"
   ></div>
 
-
-  <!-- AMOUNT -->
 
   <section class="panel">
 
@@ -537,8 +508,6 @@
   </section>
 
 
-  <!-- METHOD -->
-
   <section class="panel">
 
     <div class="panel-title">
@@ -548,21 +517,13 @@
 
     <div class="methods">
 
-
       <button
         class="method"
         data-method="Bank Account"
         type="button"
       >
-
-        <strong>
-          🏦 Bank Account
-        </strong>
-
-        <span>
-          Bank transfer
-        </span>
-
+        <strong>🏦 Bank Account</strong>
+        <span>Bank transfer</span>
       </button>
 
 
@@ -571,15 +532,8 @@
         data-method="PayPal"
         type="button"
       >
-
-        <strong>
-          PayPal
-        </strong>
-
-        <span>
-          PayPal email
-        </span>
-
+        <strong>PayPal</strong>
+        <span>PayPal email</span>
       </button>
 
 
@@ -588,15 +542,8 @@
         data-method="Cash App"
         type="button"
       >
-
-        <strong>
-          Cash App
-        </strong>
-
-        <span>
-          $Cashtag
-        </span>
-
+        <strong>Cash App</strong>
+        <span>$Cashtag</span>
       </button>
 
 
@@ -605,15 +552,8 @@
         data-method="Venmo"
         type="button"
       >
-
-        <strong>
-          Venmo
-        </strong>
-
-        <span>
-          Venmo username
-        </span>
-
+        <strong>Venmo</strong>
+        <span>Venmo username</span>
       </button>
 
 
@@ -622,15 +562,8 @@
         data-method="Zelle"
         type="button"
       >
-
-        <strong>
-          Zelle
-        </strong>
-
-        <span>
-          Email or phone
-        </span>
-
+        <strong>Zelle</strong>
+        <span>Email or phone</span>
       </button>
 
 
@@ -639,15 +572,8 @@
         data-method="Apple Pay"
         type="button"
       >
-
-        <strong>
-          Apple Pay
-        </strong>
-
-        <span>
-          Supported destination
-        </span>
-
+        <strong>Apple Pay</strong>
+        <span>Supported destination</span>
       </button>
 
 
@@ -656,15 +582,8 @@
         data-method="Chime"
         type="button"
       >
-
-        <strong>
-          Chime
-        </strong>
-
-        <span>
-          Chime destination
-        </span>
-
+        <strong>Chime</strong>
+        <span>Chime destination</span>
       </button>
 
 
@@ -673,24 +592,14 @@
         data-method="Wire Transfer"
         type="button"
       >
-
-        <strong>
-          Wire Transfer
-        </strong>
-
-        <span>
-          Bank wire
-        </span>
-
+        <strong>Wire Transfer</strong>
+        <span>Bank wire</span>
       </button>
-
 
     </div>
 
   </section>
 
-
-  <!-- DESTINATION -->
 
   <section
     class="panel"
@@ -704,8 +613,9 @@
 
     <div class="info">
       Enter the destination information carefully.
-      Veylo will use this information to process
-      your withdrawal request.
+      Your withdrawal request will be submitted for
+      review. Your balance is not changed by this
+      request.
     </div>
 
 
@@ -732,7 +642,6 @@
 </div>
 
 
-
 <script>
 
 
@@ -749,43 +658,26 @@
 
 
   const balanceElement =
-    document.getElementById(
-      "balance"
-    );
+    document.getElementById("balance");
 
 
   const amountElement =
-    document.getElementById(
-      "amount"
-    );
+    document.getElementById("amount");
 
 
   const destination =
-    document.getElementById(
-      "destinationFields"
-    );
+    document.getElementById("destinationFields");
 
 
   const dynamicFields =
-    document.getElementById(
-      "dynamicFields"
-    );
+    document.getElementById("dynamicFields");
 
 
   const status =
-    document.getElementById(
-      "status"
-    );
+    document.getElementById("status");
 
 
-  /*
-    STATUS MESSAGE
-  */
-
-  function showStatus(
-    message,
-    type
-  ) {
+  function showStatus(message, type) {
 
     status.textContent =
       message;
@@ -793,11 +685,20 @@
     status.className =
       "status " + type;
 
+    if (type === "error") {
+
+      status.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+      });
+
+    }
+
   }
 
 
   /*
-    LOAD SUPABASE
+    LOAD SUPABASE CONFIG
   */
 
   try {
@@ -809,10 +710,20 @@
         {
           cache: "no-store"
         }
-      )
-      .then(
-        response =>
-          response.text()
+      ).then(
+        response => {
+
+          if (!response.ok) {
+
+            throw new Error(
+              "Could not load supabase-config.js"
+            );
+
+          }
+
+          return response.text();
+
+        }
       );
 
 
@@ -832,13 +743,10 @@
       )[1];
 
 
-    if (
-      !url ||
-      !key
-    ) {
+    if (!url || !key) {
 
       showStatus(
-        "Veylo configuration could not be loaded.",
+        "Veylo Supabase configuration could not be loaded.",
         "error"
       );
 
@@ -855,7 +763,7 @@
 
 
     /*
-      AUTHENTICATED USER
+      CHECK AUTH
     */
 
     const {
@@ -902,9 +810,7 @@
           .maybeSingle();
 
 
-      if (
-        result.error
-      ) {
+      if (result.error) {
 
         console.error(
           "Balance error:",
@@ -951,9 +857,8 @@
     await loadBalance();
 
 
-
     /*
-      BACK BUTTON
+      BACK
     */
 
     document.getElementById(
@@ -967,81 +872,69 @@
       };
 
 
-
     /*
-      SELECT METHOD
+      METHOD SELECTION
     */
 
     document
-      .querySelectorAll(
-        ".method"
-      )
-      .forEach(
-        button => {
+      .querySelectorAll(".method")
+      .forEach(button => {
 
 
-          button.onclick =
-            () => {
+        button.onclick =
+          () => {
 
 
-              document
-                .querySelectorAll(
-                  ".method"
-                )
-                .forEach(
-                  item =>
-                    item.classList.remove(
-                      "selected"
-                    )
+            document
+              .querySelectorAll(".method")
+              .forEach(item => {
+
+                item.classList.remove(
+                  "selected"
                 );
 
-
-              button.classList.add(
-                "selected"
-              );
-
-
-              selectedMethod =
-                button.dataset.method;
-
-
-              renderDestinationFields(
-                selectedMethod
-              );
-
-
-              destination.style.display =
-                "block";
-
-
-              destination.scrollIntoView({
-                behavior: "smooth",
-                block: "start"
               });
 
-            };
 
-        }
-      );
+            button.classList.add(
+              "selected"
+            );
 
+
+            selectedMethod =
+              button.dataset.method;
+
+
+            renderDestinationFields(
+              selectedMethod
+            );
+
+
+            destination.style.display =
+              "block";
+
+
+            destination.scrollIntoView({
+              behavior: "smooth",
+              block: "start"
+            });
+
+          };
+
+      });
 
 
     /*
       DESTINATION FIELDS
     */
 
-    function renderDestinationFields(
-      method
-    ) {
+    function renderDestinationFields(method) {
 
 
       let html = "";
 
 
-      if (
-        method === "Bank Account"
-      ) {
-
+      if (method === "Bank Account") {
 
         html = `
 
@@ -1112,10 +1005,7 @@
       }
 
 
-      else if (
-        method === "PayPal"
-      ) {
-
+      else if (method === "PayPal") {
 
         html = `
 
@@ -1139,10 +1029,7 @@
       }
 
 
-      else if (
-        method === "Cash App"
-      ) {
-
+      else if (method === "Cash App") {
 
         html = `
 
@@ -1165,10 +1052,7 @@
       }
 
 
-      else if (
-        method === "Venmo"
-      ) {
-
+      else if (method === "Venmo") {
 
         html = `
 
@@ -1191,10 +1075,7 @@
       }
 
 
-      else if (
-        method === "Zelle"
-      ) {
-
+      else if (method === "Zelle") {
 
         html = `
 
@@ -1217,10 +1098,7 @@
       }
 
 
-      else if (
-        method === "Apple Pay"
-      ) {
-
+      else if (method === "Apple Pay") {
 
         html = `
 
@@ -1243,10 +1121,7 @@
       }
 
 
-      else if (
-        method === "Chime"
-      ) {
-
+      else if (method === "Chime") {
 
         html = `
 
@@ -1269,10 +1144,7 @@
       }
 
 
-      else if (
-        method === "Wire Transfer"
-      ) {
-
+      else if (method === "Wire Transfer") {
 
         html = `
 
@@ -1346,9 +1218,8 @@
     }
 
 
-
     /*
-      GET DESTINATION DATA
+      COLLECT DESTINATION
     */
 
     function getDestinationData() {
@@ -1363,20 +1234,17 @@
       const data = {};
 
 
-      fields.forEach(
-        field => {
+      fields.forEach(field => {
 
-          data[field.id] =
-            field.value.trim();
+        data[field.id] =
+          field.value.trim();
 
-        }
-      );
+      });
 
 
       return data;
 
     }
-
 
 
     /*
@@ -1421,9 +1289,7 @@
       }
 
 
-      if (
-        !selectedMethod
-      ) {
+      if (!selectedMethod) {
 
         showStatus(
           "Choose a withdrawal method.",
@@ -1446,6 +1312,7 @@
 
 
       if (
+        values.length === 0 ||
         values.some(
           value => !value
         )
@@ -1462,6 +1329,7 @@
 
 
       return {
+
         amount:
           Math.round(
             amount * 100
@@ -1478,9 +1346,8 @@
     }
 
 
-
     /*
-      SUBMIT WITHDRAWAL REQUEST
+      SUBMIT WITHDRAWAL
     */
 
     document.getElementById(
@@ -1520,15 +1387,8 @@
 
 
           /*
-            IMPORTANT:
-            This creates a REQUEST only.
-
-            It does NOT directly change
-            the user's balance.
-
-            A secure server-side function
-            should approve/process the
-            withdrawal and update balances.
+            INSERT REQUEST ONLY.
+            THIS DOES NOT CHANGE BALANCE.
           */
 
           const result =
@@ -1551,20 +1411,86 @@
                 status:
                   "pending"
 
-              });
+              })
+              .select()
+              .single();
 
 
-          if (
-            result.error
-          ) {
+          /*
+            IMPORTANT:
+            SHOW THE REAL SUPABASE ERROR.
+          */
 
-            throw result.error;
+          if (result.error) {
+
+            console.error(
+              "WITHDRAWAL SUPABASE ERROR:",
+              result.error
+            );
+
+
+            const errorCode =
+              result.error.code ||
+              "none";
+
+
+            const errorMessage =
+              result.error.message ||
+              "none";
+
+
+            const errorDetails =
+              result.error.details ||
+              "none";
+
+
+            const errorHint =
+              result.error.hint ||
+              "none";
+
+
+            showStatus(
+              "Withdrawal request failed.\n\n" +
+              "Code: " +
+              errorCode +
+              "\n\n" +
+              "Message: " +
+              errorMessage +
+              "\n\n" +
+              "Details: " +
+              errorDetails +
+              "\n\n" +
+              "Hint: " +
+              errorHint,
+              "error"
+            );
+
+
+            button.disabled =
+              false;
+
+
+            button.textContent =
+              "Request withdrawal";
+
+
+            return;
 
           }
 
 
+          /*
+            SUCCESS
+          */
+
+          console.log(
+            "Withdrawal created:",
+            result.data
+          );
+
+
           showStatus(
-            "Your withdrawal request has been submitted and is pending review.",
+            "Your withdrawal request has been submitted successfully and is pending review.",
             "success"
           );
 
@@ -1585,12 +1511,13 @@
             .querySelectorAll(
               ".method"
             )
-            .forEach(
-              item =>
-                item.classList.remove(
-                  "selected"
-                )
-            );
+            .forEach(item => {
+
+              item.classList.remove(
+                "selected"
+              );
+
+            });
 
 
           selectedMethod =
@@ -1601,13 +1528,15 @@
 
 
           console.error(
-            "Withdrawal error:",
+            "Veylo withdrawal error:",
             error
           );
 
 
           showStatus(
-            "We could not submit your withdrawal request. Please try again.",
+            "Unexpected withdrawal error.\n\n" +
+            "Message: " +
+            (error.message || "Unknown error"),
             "error"
           );
 
@@ -1628,13 +1557,14 @@
 
 
     console.error(
-      "Veylo withdrawal error:",
+      "Veylo withdrawal page error:",
       error
     );
 
 
     showStatus(
-      "Something went wrong loading the withdrawal page.",
+      "Something went wrong loading the withdrawal page.\n\n" +
+      (error.message || "Unknown error"),
       "error"
     );
 
